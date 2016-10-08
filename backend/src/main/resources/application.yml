@@ -1,0 +1,57 @@
+server:
+     port: 8080
+mail:
+    host: smtp.gmail.com
+    password: sarasa
+    username: sarasa@sabercompartir.com.ar
+    protocol: smtp
+    port: 465
+    smtp.auth: true
+    smtp.starttls.enable: true
+    smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+    smtp.socketFactory.port: 465
+---
+spring:
+    profiles: development
+datasource:
+    sabercompartir:
+        #url: 'jdbc:mysql://sabercompartir.cpcudqaf437p.eu-west-1.rds.amazonaws.com:3306/sabercompartir'
+        driver-class-name: 'com.mysql.jdbc.Driver'
+        username: 'sabercompartir'
+        password: 'sabercompartir'
+        test-on-borrow: true
+        validation-query: 'SELECT 1 FROM DUAL'
+        log-validation-errors: true
+        max-active: 20
+        initial-size: 4
+debug: true
+---
+spring:
+    profiles: testing
+datasource:
+    sabercompartir:
+        #url: 'jdbc:mysql://sabercompartir.cpcudqaf437p.eu-west-1.rds.amazonaws.com:3306/sabercompartir'
+        driver-class-name: 'com.mysql.jdbc.Driver'
+        username: 'sabercompartir'
+        password: 'sabercompartir'
+        test-on-borrow: true
+        validation-query: 'SELECT 1 FROM DUAL'
+        log-validation-errors: true
+        max-active: 20
+        initial-size: 4
+debug: true
+---
+spring:
+    profiles: production
+datasource:
+    sabercompartir:
+        #url: 'jdbc:mysql://sabercompartir.cpcudqaf437p.eu-west-1.rds.amazonaws.com:3306/sabercompartir'
+        driver-class-name: 'com.mysql.jdbc.Driver'
+        username: 'sabercompartir'
+        password: 'sabercompartir'
+        test-on-borrow: true
+        validation-query: 'SELECT 1 FROM DUAL'
+        log-validation-errors: true
+        max-active: 20
+        initial-size: 4
+debug: true
