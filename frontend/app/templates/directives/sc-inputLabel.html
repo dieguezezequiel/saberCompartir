@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <label class="col-xs-{{labelCol || 3}} control-label" ng-if="!notShowLabel">
+    {{label}}<b>{{required ? '*' : ''}}</b>
+  </label><br/>
+  <input
+    ng-class="{'form-control materialInput': !showHelpBlock('{{inputName}}'),
+    'form-control materialInputError': showHelpBlock('{{inputName}}')}"
+    name="{{inputName}}"
+    ng-if="!customValidator"
+    type="{{type || 'text'}}"
+    ng-model="model"
+    minlength="{{minlength || undefined}}"
+    maxlength="{{maxlength || undefined}}"
+    placeholder="{{placeholder}}"
+    ng-disabled="disabled"
+    ng-required="required"
+    ng-pattern="{{pattern || undefined}}"/>
+
+
+  <!-- show an error if username is too short -->
+  <p class="textoError" ng-show="showHelpBlock('{{inputName}}')">{{helpMsg}}</p>
+</div>

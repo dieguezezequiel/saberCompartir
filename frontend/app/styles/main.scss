@@ -3,6 +3,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+//VARIABLES
+$color-error: #F04449;
+$color-gris-input: #CCC;
+$color-celeste-input: #66AFE9;
+//FIN DE VARIABLED
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -93,4 +99,31 @@ body {
 .navbar{
   border: none;
   margin-bottom: 0px;
+}
+
+.materialInput{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid $color-gris-input;
+  border-radius: 0px;
+  box-shadow: none;
+    &:focus{
+      border-bottom: 3px solid $color-celeste-input;
+      box-shadow: none;
+    }
+}
+
+.materialInputError{
+  @extend .materialInput;
+  border-color: $color-error;
+  &:focus{
+    box-shadow: none;
+    border-bottom: 3px solid $color-error;
+    border-color: $color-error;
+  }
+}
+
+.textoError{
+  color: $color-error;
 }

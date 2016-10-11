@@ -1,2 +1,83 @@
-<img src="images/algunDia.jpg" alt="I'm Troll Face"><br>
-<p>Algun dia llegare a ser una pagina de registro... claro que si, claro que si... aaoouuu</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Comienza a compartir conocimiento</h3>
+        </div>
+        <div class="panel-body">
+        <div custom-form f-name="FormRegistro" submit-action="save()" submit-attempt="submitAttempt" class="form-horizontal">
+
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  not-show-label="true"
+                  model="usuario.nombre"
+                  placeholder="Nombre"
+                  help-msg="Ingrese su nombre"
+                  input-name="nombreUsuario"
+                  maxlength="30"
+                  minlength="4"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  not-show-label="true"
+                  model="usuario.apellido"
+                  placeholder="Apellido"
+                  help-msg="Ingrese su apellido"
+                  input-name="apellidoUsuario"
+                  maxlength="30"
+                  minlength="4"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  type="email"
+                  not-show-label="true"
+                  model="usuario.email"
+                  placeholder="Email"
+                  help-msg="Ingrese su email"
+                  input-name="emailUsuario"
+                  maxlength="50"
+                  minlength="4"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  type="text"
+                  not-show-label="true"
+                  model="usuario.email"
+                  placeholder="Edad"
+                  help-msg="Ingrese su edad"
+                  input-name="edadUsuario"
+                  maxlength="3"
+                  minlength="2"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary btn-md">Empezar ahora</button>
+              </div>
+            </div>
+        </form>
+      </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
