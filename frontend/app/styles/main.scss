@@ -16,7 +16,7 @@ $color-nube: #ecf0f1;
   border-bottom: 1px solid #AAA;
   position: fixed;
   width: 100%;
-
+  z-index: 99999;
 }
 
 .navbar-nav-sc {
@@ -119,6 +119,15 @@ body {
   margin-bottom: 0px;
 }
 
+.navbar-brand-sc{
+  padding: 3px;
+}
+
+.navbar-brand-sc > img {
+  width:50px;
+  height:auto;
+}
+
 .materialInput{
   border-top: none;
   border-left: none;
@@ -196,6 +205,8 @@ body {
   height: 100%;
   width: 100%;
 }
+
+
 
 //UTILITY CLASSES
 
