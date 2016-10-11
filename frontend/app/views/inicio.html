@@ -1,23 +1,42 @@
-<div class="jumbotron">
-  <h1>'Puto el que lee!'</h1>
-  <p class="lead">
-    <img src="images/trollface.png" alt="I'm Troll Face"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="hero-unit home text-center">
+
+  <div class="vertical-center">
+    <h1>SABER COMPARTIR</h1>
+    <h2>Compartir es más fácil.</h2>
+  </div>
+  <h1><p class="element-bottom"><a href="#"><i class="glyphicon glyphicon-chevron-down"></i></a></p>
+  </h1>
+
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="hero-unit streamingact-section">
+  <div class="container-fluid">
+    <div class="row">
+        <div class="container-fluid">
+          <h2 class="title-section">EN ESTE MOMENTO</h2>
+          <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in streamingActuales">
+            <img class="flip-1" src="http://lorempixel.com/350/300/business/{{stra}}" alt=""/>
+            <div class="video-box-info flip-2"> PUT INFO IN ME</div>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>
+
+<div class="hero-unit streamingprog-section">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="container-fluid">
+        <h2 class="title-section">PROGRAMADOS</h2>
+        <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in streamingActuales">
+          <img class="flip-1" src="http://lorempixel.com/350/300/people/{{stra}}" alt=""/>
+          <div class="video-box-info flip-2"> PUT INFO IN ME </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

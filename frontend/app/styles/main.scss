@@ -7,7 +7,21 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 $color-error: #F04449;
 $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
+$color-nube: #ecf0f1;
 //FIN DE VARIABLED
+
+.navbar-sc {
+
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid #AAA;
+  position: fixed;
+  width: 100%;
+
+}
+
+.navbar-nav-sc {
+  float:right;
+}
 
 .browsehappy {
   margin: 0.2em 0;
@@ -31,7 +45,9 @@ body {
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
+  /*
   margin-bottom: 10px;
+  */
 
   /* Make the masthead heading the same height as the navigation */
   h3 {
@@ -75,9 +91,9 @@ body {
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
+/*  .container {
     max-width: 730px;
-  }
+  }*/
 
   /* Remove the padding we set earlier */
   .header,
@@ -88,7 +104,9 @@ body {
   }
   /* Space out the masthead */
   .header {
+    /*
     margin-bottom: 30px;
+    */
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
@@ -126,4 +144,95 @@ body {
 
 .textoError{
   color: $color-error;
+}
+
+.hero-unit{
+  background-size:cover;
+}
+
+.hero-unit.streamingact-section {
+  background-color: #EEEEEE;
+}
+
+.hero-unit.streamingprog-section {
+  background-color: rgba(155, 89, 182,0.5);
+}
+
+.hero-unit.home {
+  background-image:url('../../images/hero1.jpg');
+  overflow:hidden;
+  height:100vh;
+}
+
+.hero-unit h1 {
+  color: #ecf0f1;
+  font-size: 60px;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.hero-unit h2 {
+  font-size: 25px;
+  color: #FFFFFF;
+
+}
+.fill{width:100%;height:350px;background-position:center;background-size:cover;
+}
+
+.video-box{
+  float:left;
+  min-width:350px;
+  min-height:300px;
+  max-width:700px;
+  max-height:600px;
+  padding:0 !important;
+}
+
+.video-box > img {
+  width: 100%;
+  height: auto;
+}
+
+.video-box-info{
+  height: 100%;
+  width: 100%;
+}
+
+//UTILITY CLASSES
+
+.vertical-center {
+  margin-top: 20%;
+}
+
+.element-bottom {
+  position: absolute;
+  margin-bottom: 10px;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  text-align: center;
+}
+
+.title-section{
+  text-shadow: 1px 1px 1px black;
+}
+
+.flip{
+  position: relative;
+  transition: all 1s ease;
+  transform: perspective(600px);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+}
+.flip:hover{
+  transform: perspective(600px) rotateY(-180deg) translateX(100%);
+}
+
+.flip .flip-1,
+.flip .flip-2{
+  position: absolute;
+  backface-visibility: hidden;
+}
+.flip .flip-2{
+  transform: rotateY(-180deg);
 }
