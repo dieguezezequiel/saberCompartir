@@ -8,13 +8,21 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope', function ($scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+  .controller('InicioCtrl', ['$scope','$scService', '$q', function ($scope, $scService, $q) {
+
+    var promises = [
+      $scService.getStreamingActuales(),
+      $scService.getStreamingProgramados(),
+      $scService.getRankingUsuarios(),
+      $scService.getRankingSolicitudes()
     ];
 
-    $scope.streamingActuales = [1,2,3,4,5,6,7,8];
+    $q.all(promises).then(function(response) {
+      $scope.streamingActuales = response[0];
+      $scope.streamingProgramados = response[1];
+      $scope.rankingUsuarios = response[2];
+      $scope.rankingSolicitudes = response[3];
+
+    });
 
   }]);

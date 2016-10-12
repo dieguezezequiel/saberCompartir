@@ -8,6 +8,7 @@ $color-error: #F04449;
 $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
 $color-nube: #ecf0f1;
+$color-violeta-logo: rgb(81, 65, 142);
 //FIN DE VARIABLED
 
 .navbar-sc {
@@ -157,14 +158,15 @@ body {
 
 .hero-unit{
   background-size:cover;
+  padding:15px 0px;
 }
 
-.hero-unit.streamingact-section {
+.hero-unit.streamingact-section, .hero-unit.ranksol-section {
   background-color: #EEEEEE;
 }
 
-.hero-unit.streamingprog-section {
-  background-color: rgba(155, 89, 182,0.5);
+.hero-unit.streamingprog-section, .hero-unit.rankusu-section {
+  background-color: $color-violeta-logo;
 }
 
 .hero-unit.home {
@@ -225,7 +227,8 @@ body {
 }
 
 .title-section{
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px $color-violeta-logo;
+  color: black;
 }
 
 .flip{
@@ -246,4 +249,8 @@ body {
 }
 .flip .flip-2{
   transform: rotateY(-180deg);
+}
+
+.container-imyourfather{
+  padding-top:50px;
 }

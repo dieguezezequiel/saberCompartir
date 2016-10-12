@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'ui.router',
     //nuestras
-    'directives.module'
+    'directives.module',
+    'scService'
   ])
   .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
     $urlRouterProvider
