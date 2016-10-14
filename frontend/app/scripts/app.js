@@ -35,6 +35,16 @@ angular
         url:'/registro',
         templateUrl: 'views/registro.html',
         controller: 'RegistroCtrl'
+      })
+      .state('dictado',{
+        url:'/dictado',
+        templateUrl: 'views/dictado.html',
+        controller: 'DictadoCtrl'
+      })
+      .state('presenciado',{
+        url:'/presenciado',
+        templateUrl: 'views/presenciado.html',
+        controller: 'PresenciadoCtrl'
       });
 
   }]);

@@ -64,6 +64,10 @@
        ga('send', 'pageview');
     </script>
 
+<!--
+    Esto es una chanchada, está acá afuera porque la dependencia no tiene bower.json y grunt no la ve
+-->
+    <script src="bower_components/simpleWebRTC/simplewebrtc.bundle.js"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -86,6 +90,8 @@
         <script src="scripts/directives/directivas.js"></script>
         <script src="scripts/services/api.service.js"></script>
 
+    <script src="scripts/controllers/dictado.js"></script>
+    <script src="scripts/controllers/presenciado.js"></script>
     <!-- endbuild -->
 </body>
 </html>
