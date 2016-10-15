@@ -8,14 +8,24 @@ $color-error: #F04449;
 $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
 $color-nube: #ecf0f1;
-$color-violeta-logo: rgb(81, 65, 142);
+$bg-color-gris: #e9ebee;
+$verde-global: #59DA5D;
+$color-violeta-logo: #51418e;
+
 $break-md: 767px;
+$break-lg: 1199px;
 $px-height-navbar: 61px;
 //FIN DE VARIABLED
 
+body {
+  padding: 0;
+  background-color: $bg-color-gris;
+  font-family: sans-serif
+}
+
 .navbar-sc {
   width: 100%;
-  background: transparent;
+  background: #fff;
   border-bottom: 1px solid #dce0e0;
   height: $px-height-navbar;
   position: fixed;
@@ -41,15 +51,24 @@ $px-height-navbar: 61px;
   padding-top: $px-height-navbar;
 }
 
-body {
-  padding: 0;
+.panel{
+  border-radius: 0px;
+  .panel-heading{
+    .panel-title{
+      font-size: 20px;
+      color: $color-violeta-logo;
+    }
+    padding: 10px 0 5px 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
 /* Custom page footer */
 .footer {
   padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+  font-weight: bold;
+  background-color: $verde-global;
 }
 
 .container-narrow > hr {
@@ -90,6 +109,23 @@ body {
 
 .textoError{
   color: $color-error;
+}
+
+.formulario{
+  margin: 25px auto 25px auto;
+  padding: 0 25%;
+  @media screen and (max-width: $break-lg) {
+    padding: 0 15%;
+  }
+  @media screen and (max-width: $break-md) {
+    padding: 0 5%;
+  }
+}
+
+.buttonRegistro{
+  text-align: center;
+  padding-top: 35px;
+  margin-bottom: -15px;
 }
 
 .hero-unit{
