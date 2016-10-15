@@ -19,7 +19,8 @@ angular
     'ui.router',
     //nuestras
     'directives.module',
-    'scService'
+    'scService',
+    'ConstantsService'
   ])
   .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
     $urlRouterProvider

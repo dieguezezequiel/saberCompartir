@@ -1,13 +1,62 @@
+<!--
+  Informacion:
+  -Cantidad de usuarios conectados a la clase.
+  -Video local
+  -Chat
+
+  Controles:
+  -Control de volumen de mic.
+  -Agrandar/achicar video local (sólo para el usuario que está streameando)
+
+
+  Administracion:
+  -Administrar chat.
+  -Terminar clase.
+  -Empezar clase. (La clase no empieza automaticamente se accede a la cam y mic)
+
+-->
+
+
 <div class="container dictado-container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-xs-12">
+        <div class="video-container">
+          <video id="localVideo"></video>
+        </div>
+      </div>
 
-  <div class="video-container">
-    <video id="localVideo"></video>
+      <div class="col-lg-12 col-md-12 col-xs-12">
+        <div class="controls-container">
+          <button class="btn btn-success" ng-show="!claseEnCurso" ng-click="empezarClase()">COMENZAR</button>
+          <button class="btn btn-success" ng-show="claseEnCurso" ng-click="terminarClase()">TERMINAR</button>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-xs-12">
+        <div class="info-streaming-container">
+          <div class="tiempo-container">
+            <!--Formatear a hh:mm:ss-->
+            <p>{{tiempoDeClase}}</p>
+          </div>
+          <div class="mensajes-container">
+            <p><b>Estado: </b>{{estadoClase}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--En mobile esto se oculta y se ve se hace-->
+    <div class="col-lg-6 col-md-6">
+      <div class="col-lg-10 col-md-10 ">
+        <div class="chat-container">
+          <ul class="messages"></ul>
+
+          <input type="text" placeholder=":)"/>
+          <button ng-click="enviarMensaje()">Enviar</button>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2"></div>
+    </div>
   </div>
-
-  <div class="chat-container">
-    <ul class="messages"></ul>
-  </div>
-  <input class="inputMessage" placeholder=":)"/>
-  <button onClick="sendMessage()">Enviar</button>
-
 </div>
