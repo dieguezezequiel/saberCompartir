@@ -18,7 +18,7 @@
 
 
 <div class="container dictado-container">
-  <div class="row">
+  <div class="row full-height-percent">
     <div class="col-lg-6 col-md-6 col-xs-12">
       <div class="col-lg-12 col-md-12 col-xs-12">
         <div class="video-container">
@@ -28,7 +28,7 @@
 
       <div class="col-lg-12 col-md-12 col-xs-12">
         <div class="controls-container">
-          <button class="btn btn-success" ng-show="!claseEnCurso" ng-click="empezarClase()">COMENZAR</button>
+          <button class="btn btn-success" ng-show="!claseEnCurso" ng-click="comenzarClase()">COMENZAR</button>
           <button class="btn btn-success" ng-show="claseEnCurso" ng-click="terminarClase()">TERMINAR</button>
         </div>
       </div>
@@ -47,16 +47,23 @@
     </div>
 
     <!--En mobile esto se oculta y se ve se hace-->
-    <div class="col-lg-6 col-md-6">
-      <div class="col-lg-10 col-md-10 ">
-        <div class="chat-container">
-          <ul class="messages"></ul>
-
-          <input type="text" placeholder=":)"/>
-          <button ng-click="enviarMensaje()">Enviar</button>
+    <div class="col-lg-6 col-md-6 full-height-percent">
+      <div class="col-lg-11 col-md-11 full-height-percent">
+        <div class="col-lg-12 chat-container full-height-percent">
+          <div class="col-lg-12 messages-container">
+            <ul class="messages"></ul>
+          </div>
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder=":)">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" ng-click="enviarMensaje()" type="button">Go!</button>
+                </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-2 col-md-2"></div>
+      <div class="col-lg-1 col-md-1"></div>
     </div>
   </div>
 </div>
