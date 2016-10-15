@@ -6,7 +6,6 @@
     ng-class="{'form-control materialInput': !showHelpBlock('{{inputName}}'),
     'form-control materialInputError': showHelpBlock('{{inputName}}')}"
     name="{{inputName}}"
-    ng-if="!customValidator"
     type="{{type || 'text'}}"
     ng-model="model"
     minlength="{{minlength || undefined}}"
