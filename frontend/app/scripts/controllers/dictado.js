@@ -14,7 +14,7 @@ angular.module('frontendApp')
     var webrtc = new SimpleWebRTC({
       localVideoEl: 'localVideo',
       autoRequestMedia: true,
-      url: 'http://localhost:8888'
+      url: 'http://localhost:18888'
     });
     $scope.cantidadUsuariosConectados = 0;
     $scope.readyToCall = false;
