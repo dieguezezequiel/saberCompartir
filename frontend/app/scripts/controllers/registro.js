@@ -12,9 +12,6 @@ angular.module('frontendApp')
 
     $scope.init = function(){
       $scope.usuario = {
-        nombre: null,
-        apellido: null,
-        edad: null
       }
     };
 
