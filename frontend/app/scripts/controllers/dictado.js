@@ -34,12 +34,17 @@ angular.module('frontendApp')
       webrtc.unmute();
     };
 
-    $scope.empezarClase = function(){
+    $scope.comenzarClase = function(){
       //Esto es muy feo e inseguro
-      webrtc.createRoom('matidg', function(callback){
-        console.log(callback);
-        $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
-        $scope.claseEnCurso = true;
+      webrtc.createRoom('matidg', function(err, name){
+        if(err){
+          console.log(err);
+        }else{
+          console.log(name);
+          $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
+          $scope.claseEnCurso = true;
+        }
+        $scope.$apply();
       });
     };
 
@@ -52,15 +57,16 @@ angular.module('frontendApp')
     };
 
     $scope.estadoClaseChange = function(){
-
     };
 
 
     /*EVENTOS*/
 
-    webrtc.on('readyToCall', function () {
+    webrtc.on('readyToCall', function (data) {
+      console.log(data);
       $scope.estadoClase = Constants.EstadosClase['EN_ESPERA'];
       $scope.readyToCall = true;
+      $scope.$apply();
     });
 
     // emitted three times:
@@ -70,6 +76,7 @@ angular.module('frontendApp')
     webrtc.on('createdPeer', function (peer) {
       console.log("Se unio un flaquito", peer);
       $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados++;
+      $scope.$apply();
     });
 
 /*    webrtc.on('RemovedPeer', function (peer) {
@@ -81,5 +88,16 @@ angular.module('frontendApp')
       console.log("Terminaste la clase ", room);
       $scope.cantidadUsuariosConectados = 0;
     });
+
+    $scope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
 
   }]);

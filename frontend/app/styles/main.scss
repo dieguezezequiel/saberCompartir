@@ -181,8 +181,26 @@ body {
 }
 
 
+.video-container video{
+  width: 100%;
+}
+
+.messages-container{
+  height: 90%;
+  background-color: $color-nube;
+}
+
+.dictado-container{
+  height:90vh;
+}
+
+
 
 //UTILITY CLASSES
+
+.full-height-percent{
+  height: 100%;
+}
 
 .vertical-center {
   margin-top: 20%;
