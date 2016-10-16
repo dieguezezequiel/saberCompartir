@@ -31,5 +31,11 @@ angular.module('scService', [])
       return [1,2,3,4,5,6,7,8];
     };
 
+    scService.setEstadoClase = function(name, estadoClase){
+      var url = "api/sarasa/";
+      //return $http.get(url);
+      return null;
+    };
+
     return scService;
   }]);

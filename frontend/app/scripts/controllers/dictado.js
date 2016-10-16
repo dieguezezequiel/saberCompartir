@@ -14,7 +14,7 @@ angular.module('frontendApp')
     var webrtc = new SimpleWebRTC({
       localVideoEl: 'localVideo',
       autoRequestMedia: true,
-      url: 'http://localhost:18888'
+      url: Constants.URL_SIGNALING_SERVER
     });
     $scope.cantidadUsuariosConectados = 0;
     $scope.readyToCall = false;
@@ -23,6 +23,10 @@ angular.module('frontendApp')
     $scope.estadoClase = Constants.EstadosClase['CONECTANDO'];
 
     $scope.enviarMensaje = function(){
+      //PUT SOME SOCKET.IO MAGIC HERE
+    };
+
+    $scope.enviarMensajeAUsuario = function(){
       //PUT SOME SOCKET.IO MAGIC HERE
     };
 
@@ -37,12 +41,13 @@ angular.module('frontendApp')
     $scope.comenzarClase = function(){
       //Esto es muy feo e inseguro
       webrtc.createRoom('matidg', function(err, name){
-        if(err){
-          console.log(err);
-        }else{
+        if(!err){
           console.log(name);
           $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
           $scope.claseEnCurso = true;
+          $scService.setEstadoClase(name, $scope.estadoClase);
+        }else{
+          console.log(err);
         }
         $scope.$apply();
       });
@@ -54,6 +59,7 @@ angular.module('frontendApp')
       webrtc.leaveRoom();
       webrtc.disconnect();
       $scope.estadoClase = Constants.EstadosClase['FINALIZADA'];
+      $scService.setEstadoClase(name, $scope.estadoClase);
     };
 
     $scope.estadoClaseChange = function(){
@@ -65,6 +71,7 @@ angular.module('frontendApp')
     webrtc.on('readyToCall', function (data) {
       console.log(data);
       $scope.estadoClase = Constants.EstadosClase['EN_ESPERA'];
+      $scService.setEstadoClase(name, $scope.estadoClase);
       $scope.readyToCall = true;
       $scope.$apply();
     });
@@ -88,6 +95,12 @@ angular.module('frontendApp')
       console.log("Terminaste la clase ", room);
       $scope.cantidadUsuariosConectados = 0;
     });
+
+    $scope.$on('$destroy', function () {
+      //TODO: Alertar al usuario que se va a cerrar la clase
+      $scope.terminarClase();
+    });
+
 
     $scope.safeApply = function(fn) {
       var phase = this.$root.$$phase;
