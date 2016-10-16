@@ -1,18 +1,17 @@
 package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
-/**
- * Created by matias on 07/10/16.
- */
 @RestController
-@RequestMapping("/users")
+@CrossOrigin
+@RequestMapping(UrlMappings.BASE + UrlMappings.USER)
 public class UserController {
 
     @Autowired
@@ -25,8 +24,12 @@ public class UserController {
         return users;
     }
 
+
     @RequestMapping(value = "", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
     public Object save(@RequestBody User user){
+
+        System.out.println("Se le pego joya al back");
 
         try{
             Object result = this.userService.save(user);

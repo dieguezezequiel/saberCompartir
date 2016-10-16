@@ -8,10 +8,23 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('RegistroCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('RegistroCtrl', ['$scope', 'UsuarioResource', function ($scope, UsuarioResource) {
+
+    $scope.init = function(){
+      $scope.usuario = {
+        nombre: null,
+        apellido: null,
+        edad: null
+      }
+    };
+
+    $scope.init();
+
+
+    $scope.guardar = function(){
+      UsuarioResource.create($scope.usuario);
+    }
+
+
+
+  }]);
