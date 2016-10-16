@@ -17,7 +17,7 @@
                     help-msg="Ingrese su nombre"
                     input-name="nombreUsuario"
                     maxlength="30"
-                    minlength="4"
+                    validators="['solo-letras']"
                     required="true">
                   </sc-input-label>
                 </div>
@@ -31,7 +31,7 @@
                     help-msg="Ingrese su apellido"
                     input-name="apellidoUsuario"
                     maxlength="30"
-                    minlength="4"
+                    validators="['solo-letras']"
                     required="true">
                   </sc-input-label>
                 </div>
@@ -48,6 +48,7 @@
                     input-name="emailUsuario"
                     maxlength="50"
                     minlength="4"
+                    regex="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$"
                     required="true">
                   </sc-input-label>
                 </div>
@@ -58,12 +59,13 @@
                   <sc-input-label
                     type="text"
                     not-show-label="true"
-                    model="usuario.email"
+                    model="usuario.edad"
                     placeholder="Edad"
-                    help-msg="Ingrese su edad"
+                    help-msg="Ingrese su edad, debe ser mayor de 18 años"
                     input-name="edadUsuario"
-                    maxlength="3"
+                    maxlength="2"
                     minlength="2"
+                    validators="['solo-numeros','sin-espacios']"
                     required="true">
                   </sc-input-label>
                 </div>

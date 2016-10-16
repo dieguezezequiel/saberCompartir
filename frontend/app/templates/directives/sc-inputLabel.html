@@ -8,14 +8,16 @@
     name="{{inputName}}"
     type="{{type || 'text'}}"
     ng-model="model"
-    minlength="{{minlength || undefined}}"
     maxlength="{{maxlength || undefined}}"
+    minlength="{{minlength || undefined}}"
     placeholder="{{placeholder}}"
     ng-disabled="disabled"
-    ng-required="required"
-    ng-pattern="{{pattern || undefined}}"/>
+    ng-pattern="{{regex || undefined}}"
+    ng-required="required"/>
 
 
   <!-- show an error if username is too short -->
-  <p class="textoError" ng-show="showHelpBlock('{{inputName}}')">{{helpMsg}}</p>
+  <div class="textoError" ng-show="showHelpBlock('{{inputName}}')">
+    <span>{{helpMsg}}</span><br/>
+  </div>
 </div>

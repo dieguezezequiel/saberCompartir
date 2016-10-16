@@ -32,15 +32,15 @@ angular.module('directives.module',[])
           var invalid = false;
           if (typeof $scope[fName][campo] !== 'undefined') {
             //TODO: Ver la mejor forma de validar para contemplar todos los casos, no solo en required
-            //invalid = $scope[fName].$submitted && $scope[fName][campo].$invalid;
-            invalid = $scope[fName].$submitted && $scope[fName][campo].$error.required;
+            invalid = $scope[fName].$submitted && $scope[fName][campo].$invalid;
+            //invalid = $scope[fName].$submitted && $scope[fName][campo].$error.required;
           }
           return  invalid;
         };
       }]
     };
   }])
-  .directive('scInputLabel',function(){
+  .directive('scInputLabel',['$compile','$timeout', function ($compile,$timeout) {
     //require interacuto con mi padre que seria customForm, comunicandome con su controller
     return {
       templateUrl: 'templates/directives/sc-inputLabel.html',
@@ -58,15 +58,30 @@ angular.module('directives.module',[])
         minlength: '@?',
         disabled: '=?',
         required: '=',
-        pattern: '@?',
-        patternMsg: '@?',
         iconText: '@?',
         labelCol: '=?',
         inputCol: '=?',
-        notShowLabel:'=?'
+        notShowLabel:'=?',
+        validators: '=?',
+        regex: '@?'
       },
       link: function(scope, element, attrs, controllerPadre) {
         scope.showHelpBlock = controllerPadre.showHelpBlock;
+
+        var injectValidator = function(nombreDirectiva,valueDirectiva){
+
+          var input = element.find('input');
+          input.attr(nombreDirectiva, valueDirectiva);
+          $compile(input)(scope);
+        };
+
+        $timeout(function() {
+          if(scope.validators)
+            scope.validators.forEach(function(validator){
+              injectValidator(validator, '');
+            });
+        }, 0);
+
       }
     }
-  });
+  }]);
