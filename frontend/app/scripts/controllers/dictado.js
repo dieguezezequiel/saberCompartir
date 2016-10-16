@@ -21,6 +21,8 @@ angular.module('frontendApp')
     $scope.claseEnCurso = false;
     $scope.tiempoDeClase = 0;
     $scope.estadoClase = Constants.EstadosClase['CONECTANDO'];
+    $scope.cantidadMensajes = 0;
+    $scope.usuariosConectados = {};
 
     $scope.enviarMensaje = function(){
       //PUT SOME SOCKET.IO MAGIC HERE
@@ -82,14 +84,17 @@ angular.module('frontendApp')
     //when sharing screen, once for each peer
     webrtc.on('createdPeer', function (peer) {
       console.log("Se unio un flaquito", peer);
-      $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados++;
+      $scope.usuariosConectados.push(peer);
+      $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados + 1;
+      console.log($scope.cantidadUsuariosConectados);
       $scope.$apply();
     });
 
-/*    webrtc.on('RemovedPeer', function (peer) {
+/*    webrtc.on('removedPeer', function (peer) {
       console.log("Se fue un flaquito", peer);
       $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados--;
-    });*/
+      $scope.usuariosConectados.pop(peer);
+ });*/
 
     webrtc.on('leftRoom', function (room) {
       console.log("Terminaste la clase ", room);
@@ -100,6 +105,24 @@ angular.module('frontendApp')
       //TODO: Alertar al usuario que se va a cerrar la clase
       $scope.terminarClase();
     });
+
+    $scope.abrirChat = function(){
+      $scope.showChat = true;
+      $scope.showChatConfiguracion = false;
+      $scope.showUsuariosConectados = false;
+    };
+
+    $scope.abrirUsuariosConectados = function(){
+      $scope.showChat = false;
+      $scope.showChatConfiguracion = false;
+      $scope.showUsuariosConectados = true;
+    };
+
+    $scope.abrirChatConfiguracion = function(){
+      $scope.showChat = false;
+      $scope.showChatConfiguracion = true;
+      $scope.showUsuariosConectados = false;
+    };
 
 
     $scope.safeApply = function(fn) {
@@ -113,4 +136,5 @@ angular.module('frontendApp')
       }
     };
 
-  }]);
+    $scope.abrirChat();
+}]);

@@ -196,6 +196,20 @@ body {
   margin:0;
 }
 
+.animation-chat{
+  transition: all 1s ease;
+  position:absolute;
+  padding:inherit;
+  width:100%;
+}
+.animation-chat.animation-show{
+  left:0%;
+}
+
+.animation-chat.animation-hide{
+  left:115%;
+}
+
 .dictado-container{
   height:100vh;
 }
@@ -213,7 +227,13 @@ body {
 /* CSS used here will be applied after bootstrap.css */
 
 .icon-badge-container{
+}
 
+.transition {
+  transition: all 1s ease;
+  transform: perspective(600px);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
 }
 
 .badge-notify{
@@ -273,4 +293,8 @@ body {
 
 .no-padding {
   padding:0;
+}
+
+.overflow-hidden{
+  overflow:hidden;
 }
