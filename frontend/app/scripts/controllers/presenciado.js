@@ -8,12 +8,13 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', function ($scope, $scService, $q) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants',
+    function ($scope, $scService, $q, Constants) {
 
     var webrtc = new SimpleWebRTC({
       //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
       media: { video: false, audio: false},
-      url: 'http://localhost:18888'
+      url: Constants.URL_SIGNALING_SERVER
     });
 
     // we have to wait until it's ready

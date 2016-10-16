@@ -6,6 +6,9 @@ module.exports = function (server, config) {
     var io = socketIO.listen(server);
 
     io.sockets.on('connection', function (client) {
+        console.log("Client trying to connect");
+        //Acá tendríamos que discriminar que tipo de usuario viene (dictador(¿?) o presenciador)
+        //Y de alguna forma restringir que el flaquito comparta screen/audio/video, si es solamente presenciador
         client.resources = {
             screen: false,
             video: true,
@@ -48,8 +51,7 @@ module.exports = function (server, config) {
         }
 
         function join(name, cb) {
-            console.log("Intentando unirse a room: ", name);
-            console.log("cb: ", cb);
+            console.log("User trying to join to room: ", name);
             // sanity check
             if (typeof name !== 'string') return;
             // check if maximum number of clients reached
@@ -75,8 +77,7 @@ module.exports = function (server, config) {
         });
 
         client.on('create', function (name, cb) {
-            console.log("Intentando crear room: ", name);
-            console.log("cb: ", cb);
+            console.log("User trying to create a room named: ", name);
             if (arguments.length == 2) {
                 cb = (typeof cb == 'function') ? cb : function () {};
                 name = name || uuid();
