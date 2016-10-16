@@ -27,17 +27,11 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Object save(@RequestBody User user){
+    public User save(@RequestBody User user){
 
         System.out.println("Se le pego joya al back");
+        return userService.save(user);
 
-        try{
-            Object result = this.userService.save(user);
-            return result;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

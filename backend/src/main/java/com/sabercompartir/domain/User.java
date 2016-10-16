@@ -1,5 +1,7 @@
 package com.sabercompartir.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -10,29 +12,24 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "email", nullable = false)
+    private String email;
+    @Column(name = "age", nullable = false)
     private Integer age;
 
     public User(){}
 
-    public User(Long id, String firstName, String lastName, Integer age) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.age = age;
     }
 
-    @Column(name="id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Column(name = "name", length = 100, nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -41,7 +38,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    @Column(name = "name", length = 100, nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -50,7 +46,14 @@ public class User {
         this.lastName = lastName;
     }
 
-    @Column(name = "age", length = 100, nullable = false)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getAge() {
         return age;
     }
