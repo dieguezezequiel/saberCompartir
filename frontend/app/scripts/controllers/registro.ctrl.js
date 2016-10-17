@@ -10,18 +10,10 @@
 angular.module('frontendApp')
   .controller('RegistroCtrl', ['$scope', 'UsuarioResource', function ($scope, UsuarioResource) {
 
-    $scope.init = function(){
-      $scope.usuario = {
-      }
-    };
-
-    $scope.init();
-
+    $scope.usuario = {};
 
     $scope.guardar = function(){
-      UsuarioResource.create($scope.usuario);
+        UsuarioResource.create($scope.usuario);
     }
-
-
 
   }]);

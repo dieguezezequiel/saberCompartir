@@ -7,7 +7,7 @@ angular.module('directives.module',[])
     //replace reemplaza lo escrito.. <div custom-form f-name bla bla bla... por el template de la directiva
     return {
       template:
-      '<form novalidate name="{{fName}}" class="form-horizontal" role="form" ng-submit="submitAction()">' +
+      '<form novalidate name="{{fName}}" class="form-horizontal" role="form" ng-submit="submitActionInterno()">' +
       '<div ng-transclude></div>'+
       '</form>',
       restrict: 'AE',
@@ -26,7 +26,11 @@ angular.module('directives.module',[])
       },
       controller: ['$scope', function ($scope) {
 
-        this.scope = $scope;
+        $scope.submitActionInterno = function(){
+          if($scope[fName].$valid){
+            $scope.submitAction();
+          }
+        };
         var fName = this.$name = $scope.fName  = $scope.fName || 'form';
         this.showHelpBlock = function (campo) {
           var invalid = false;
