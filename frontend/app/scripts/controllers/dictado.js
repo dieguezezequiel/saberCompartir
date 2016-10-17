@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants',
-    function ($scope, $scService, $q, Constants) {
+  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants', '_',
+    function ($scope, $scService, $q, Constants, _) {
 
     var webrtc = new SimpleWebRTC({
       localVideoEl: 'localVideo',
@@ -22,7 +22,7 @@ angular.module('frontendApp')
     $scope.tiempoDeClase = 0;
     $scope.estadoClase = Constants.EstadosClase['CONECTANDO'];
     $scope.cantidadMensajes = 0;
-    $scope.usuariosConectados = {};
+    $scope.usuariosConectados = [];
 
     $scope.enviarMensaje = function(){
       //PUT SOME SOCKET.IO MAGIC HERE
@@ -78,23 +78,24 @@ angular.module('frontendApp')
       $scope.$apply();
     });
 
-    // emitted three times:
-    //when joining a room with existing peers, once for each peer
-    //when a new peer joins a joined room
-    //when sharing screen, once for each peer
+    webrtc.on('localMediaError', function(data){
+      console.log("ERROOOOR", data);
+    });
+
     webrtc.on('createdPeer', function (peer) {
-      console.log("Se unio un flaquito", peer);
-      $scope.usuariosConectados.push(peer);
+      var usuario = {id: peer.id, nombre: peer.nick};
+      $scope.usuariosConectados.push(usuario);
       $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados + 1;
       console.log($scope.cantidadUsuariosConectados);
       $scope.$apply();
     });
 
-/*    webrtc.on('removedPeer', function (peer) {
-      console.log("Se fue un flaquito", peer);
-      $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados--;
-      $scope.usuariosConectados.pop(peer);
- });*/
+
+    webrtc.connection.on('remove', function(peer){
+      $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados - 1;
+      //TODO: Encontrar el usuario por ID y eliminarlo
+      $scope.usuariosConectados.pop();
+    });
 
     webrtc.on('leftRoom', function (room) {
       console.log("Terminaste la clase ", room);

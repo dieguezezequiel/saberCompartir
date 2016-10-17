@@ -18,6 +18,7 @@ angular
     'ngTouch',
     'ui.router',
     'ui-rangeSlider',
+    'underscore',
     //nuestras
     'directives.module',
     'scService',

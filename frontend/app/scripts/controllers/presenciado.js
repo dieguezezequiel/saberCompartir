@@ -14,7 +14,8 @@ angular.module('frontendApp')
     var webrtc = new SimpleWebRTC({
       //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
       media: { video: false, audio: false},
-      url: Constants.URL_SIGNALING_SERVER
+      url: Constants.URL_SIGNALING_SERVER,
+      nick: 'Ricardo Fort'
     });
 
     // we have to wait until it's ready

@@ -60,7 +60,7 @@
                     <!--Formatear a hh:mm:ss-->
                     <p>{{tiempoDeClase}}</p>
                   </div>
-                  <div class="mensajes-container text-left">
+                  <div class="mensajes-container text-center">
                     <p><b>Estado: </b>{{estadoClase}}</p>
                   </div>
                 </div>
@@ -112,24 +112,24 @@
         </div>
         <div class="col-lg-1 col-md-1">
           <div class="row">
-            <div class="col-lg-12 no-padding">
+            <div class="col-lg-12 no-padding margin-top-10">
               <div class="icon-badge-container">
-                <button ng-click="abrirChat()" class="btn btn-default btn-lg btn-link active">
+                <button ng-click="abrirChat()" class="btn btn-default btn-lg btn-link" ng-class="showChat ? 'active': ''">
                   <span class="glyphicon glyphicon-comment"></span>
                 </button>
                 <span class="badge badge-notify">{{cantidadMensajes}}</span>
               </div>
             </div>
-            <div class="col-lg-12 no-padding">
+            <div class="col-lg-12 no-padding margin-top-10">
               <div class="icon-badge-container">
-                <button ng-click="abrirUsuariosConectados()" class="btn btn-default btn-lg btn-link">
+                <button ng-click="abrirUsuariosConectados()" class="btn btn-default btn-lg btn-link" ng-class="showUsuariosConectados ? 'active': ''">
                   <span class="glyphicon glyphicon-user"></span>
                 </button>
                 <span class="badge badge-notify">{{cantidadUsuariosConectados}}</span>
               </div>
             </div>
-            <div class="col-lg-12 no-padding">
-              <button type="button" ng-click="abrirChatConfiguracion()" class="btn btn-default btn-lg btn-link" aria-label="Left Align">
+            <div class="col-lg-12 no-padding margin-top-10">
+              <button type="button" ng-click="abrirChatConfiguracion()" class="btn btn-default btn-lg btn-link" aria-label="Left Align" ng-class="showChatConfiguracion ? 'active': ''">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </button>
             </div>
