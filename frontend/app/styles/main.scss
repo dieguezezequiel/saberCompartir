@@ -186,7 +186,7 @@ body {
 }
 
 .messages-container{
-  height: 90%;
+  height: 80vh;
 }
 
 .messages-container > ul{
@@ -297,4 +297,8 @@ body {
 
 .overflow-hidden{
   overflow:hidden;
+}
+
+.margin-top-10 {
+  margin-top:10px;
 }
