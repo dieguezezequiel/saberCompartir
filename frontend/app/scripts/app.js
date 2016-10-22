@@ -10,6 +10,7 @@
  */
 angular
   .module('frontendApp', [
+    'underscore',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -18,7 +19,6 @@ angular
     'ngTouch',
     'ui.router',
     'ui-rangeSlider',
-    'underscore',
     //nuestras
     'directives.module',
     'scService',

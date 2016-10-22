@@ -42,6 +42,7 @@ angular.module('frontendApp')
 
     $scope.comenzarClase = function(){
       //Esto es muy feo e inseguro
+      //El id de la clase debería generarse en el server y guardarse en la db.
       webrtc.createRoom('matidg', function(err, name){
         if(!err){
           console.log(name);
