@@ -19,6 +19,7 @@ angular
     'ngTouch',
     'ui.router',
     'ui-rangeSlider',
+    'timer',
     //nuestras
     'directives.module',
     'scService',

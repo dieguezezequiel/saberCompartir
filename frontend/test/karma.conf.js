@@ -33,6 +33,9 @@ module.exports = function(config) {
       'bower_components/angular-rangeslider/angular.rangeSlider.js',
       'bower_components/underscore/underscore.js',
       'bower_components/angular-underscore-module/angular-underscore-module.js',
+      'bower_components/moment/moment.js',
+      'bower_components/humanize-duration/humanize-duration.js',
+      'bower_components/angular-timer/dist/angular-timer.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
