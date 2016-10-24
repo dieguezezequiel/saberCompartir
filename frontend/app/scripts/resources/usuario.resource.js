@@ -2,9 +2,14 @@
 
 angular.module('frontendApp')
   .factory('UsuarioResource', ['$resource', function UsuarioResource($resource) {
-    return $resource('http://localhost:8080/api/usuarios/', {}, {
+    var backUsuarioUrl = 'http://localhost:8080/api/usuarios/';
+    return $resource(backUsuarioUrl, {}, {
       create: {
         method: 'POST'
+      },
+      login: {
+        method: 'POST',
+        url: backUsuarioUrl + 'login'
       }
     })
   }]);

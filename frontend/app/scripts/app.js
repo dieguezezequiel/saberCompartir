@@ -39,6 +39,11 @@ angular
         templateUrl: 'views/registro.html',
         controller: 'RegistroCtrl'
       })
+      .state('login',{
+        url:'/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .state('dictado',{
         url:'/dictado',
         templateUrl: 'views/dictado.html',

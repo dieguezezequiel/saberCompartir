@@ -47,4 +47,10 @@ public class UserController {
 
         return user;
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserLogin(@RequestBody User user){
+        return this.userService.getUserLogin(user);
+    }
 }

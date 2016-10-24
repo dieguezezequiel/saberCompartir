@@ -29,4 +29,8 @@ public class UserService implements IUserService {
     public User getUser(Integer id){
         return null;
     }
+
+    public User getUserLogin(User user){
+        return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+    }
 }
