@@ -30,17 +30,20 @@
 
       <div class="row">
         <div class="col-lg-1">
-          <div class="volumen no-margin"
-               orientation="vertical"
-               on-handle-up="volumenChabge()"
-               ng-model="volumen"
-               name="volumenName"
-               range-slider
-               min="0"
-               max="10"
-               model-max="8"
-               pin-handle="0"></div>
-        </div>
+<!--          <div range-slider
+               class="volumen no-margin"
+               orientation="vertical right"
+               on-handle-up="volumenChange()"
+               min="volumenMin"
+               max="volumenMax"
+               model-max="volumen"
+               pin-handle="min"></div>
+        -->
+
+            <button ng-click="mutearMicrofono()" class="btn btn-default btn-lg btn-link" ng-class="microfonoMuteado ? 'color-red': 'color-green'">
+              <span class="glyphicon glyphicon-volume-up"></span>
+            </button>
+          </div>
 
         <div class="col-lg-11">
           <div class="row">
@@ -58,7 +61,7 @@
                 <div class="panel-body">
                   <div class="tiempo-container text-center">
                     <!--Formatear a hh:mm:ss-->
-                    <p>{{tiempoDeClase}}</p>
+                    <p><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></p>
                   </div>
                   <div class="mensajes-container text-center">
                     <p><b>Estado: </b>{{estadoClase}}</p>

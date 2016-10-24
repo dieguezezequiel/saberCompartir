@@ -210,14 +210,19 @@ body {
   left:115%;
 }
 
-.dictado-container{
+.dictado-container, .presenciado-container{
   height:100vh;
 }
+
 
 .volumen{
   max-height: 180px !important;
   overflow: hidden !important;
   margin: 0px !important;
+}
+
+.volumen > .ngrs-runner {
+  height: 150px !important;
 }
 
 
@@ -301,4 +306,12 @@ body {
 
 .margin-top-10 {
   margin-top:10px;
+}
+
+.color-red{
+  color: red;
+}
+
+.color-green{
+  color:springgreen;
 }
