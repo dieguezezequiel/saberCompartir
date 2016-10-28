@@ -33,4 +33,8 @@ public class UserService implements IUserService {
     public User getUserLogin(User user){
         return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
     }
+
+    public User getUserRegistro(User user){
+        return userRepository.findByEmail(user.getEmail());
+    }
 }

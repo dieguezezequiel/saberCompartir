@@ -27,11 +27,12 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public User save(@RequestBody User user){
-
-        System.out.println("Se le pego joya al back");
-        return userService.save(user);
-
+    public void save(@RequestBody User user){
+        if(this.userService.getUserRegistro(user) == null){
+            userService.save(user);
+        }else{
+            System.out.println("Ya existe un usuario con el mismo email registrado");
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
