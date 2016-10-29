@@ -1,0 +1,19 @@
+sabercompartir_frontend:
+        image: matiasdg/sabercompartir_frontend
+        container_name: "sabercompartir_frontend"
+        ports:
+            - "9000:80"
+        links:
+            - sabercompartir_backend:backend
+        restart: "always"
+
+sabercompartir_backend:
+        image: matiasdg/sabercompartir_backend
+        container_name: "sabercompartir_backend"
+        ports:
+            - "8080:8080"
+        environment:
+            - SPRING_PROFILES_ACTIVE=testing
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
