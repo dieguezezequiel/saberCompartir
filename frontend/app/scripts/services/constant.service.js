@@ -12,8 +12,8 @@ angular.module('ConstantsService', [])
       EN_CURSO: 'Clase en curso.' ,
       FINALIZADA: 'Clase finalizada.' ,
       ERRONEA: 'Ha ocurrido un error :( Inténtelo de nuevo :)' ,
-      NO_MEDIA: 'Parece que has olvidado permitir el acceso de tu cámara web y micrófono, ¿no?' ,
+      LOCAL_MEDIA_ERROR: 'Parece que has olvidado permitir el acceso de tu cámara web y micrófono, ¿no?' ,
       CONECTANDO: 'Estamos conectándote al mundo, espere un momento.'
-  },
+    },
     URL_SIGNALING_SERVER: 'http://localhost:8888'
 });

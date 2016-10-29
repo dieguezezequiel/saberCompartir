@@ -30,7 +30,7 @@ spring:
     profiles: testing
 datasource:
     sabercompartir:
-        url: 'jdbc:mysql://sabercompartir.cpcudqaf437p.eu-west-1.rds.amazonaws.com:3306/sabercompartirProd'
+        url: 'jdbc:mysql://sabercompartir.ec2-52-67-43-137.sa-east-1.compute.amazonaws.com:3306/saberCompartir'
         driver-class-name: 'com.mysql.jdbc.Driver'
         username: 'sabercompartir'
         password: 'sabercompartir'

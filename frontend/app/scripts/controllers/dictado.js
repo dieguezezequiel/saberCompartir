@@ -106,14 +106,13 @@ angular.module('frontendApp')
       });
 
       webrtc.on('localMediaError', function(data){
-        console.log("ERROOOOR", data);
+        $scope.estadoClase = Constants.EstadosClase['LOCAL_MEDIA_ERROR'];
       });
 
       webrtc.on('createdPeer', function (peer) {
         var usuario = {id: peer.id, nombre: peer.nick};
         $scope.usuariosConectados.push(usuario);
         $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados + 1;
-        console.log($scope.cantidadUsuariosConectados);
         $scope.$apply();
       });
 
