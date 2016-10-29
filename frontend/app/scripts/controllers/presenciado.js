@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants',
-    function ($scope, $scService, $q, Constants) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams',
+    function ($scope, $scService, $q, Constants, $stateParams) {
 
       var webrtc = new SimpleWebRTC({
         //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
@@ -17,6 +17,8 @@ angular.module('frontendApp')
         url: Constants.URL_SIGNALING_SERVER,
         nick: 'Ricardo Fort'
       });
+      $scope.idClase = $stateParams.id;
+
 
       $scope.enviarMensaje = function(){
         //PUT SOME SOCKET.IO MAGIC HERE
@@ -48,7 +50,7 @@ angular.module('frontendApp')
       // we have to wait until it's ready
       webrtc.on('connectionReady', function (sessionId) {
         // you can name it anything
-        webrtc.joinRoom('matidg', function(err, name){
+        webrtc.joinRoom($scope.idClase, function(err, name){
           console.log(err);
           console.log(name);
         });
@@ -76,6 +78,18 @@ angular.module('frontendApp')
         }
       });
 
-      $scope.abrirChat();
+      $scope.claseIsValid = function(){
+        $scService.getClaseById($scope.idClase);
+      };
+
+      $scope.init = function(){
+        //Verificar si existe clase, si no existe devolver mensaje
+        $scope.claseIsValid();
+
+        $scope.abrirChat();
+      };
+
+
+      $scope.init();
 
     }]);

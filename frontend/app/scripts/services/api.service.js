@@ -37,5 +37,9 @@ angular.module('scService', [])
       return null;
     };
 
+    scService.getClaseById = function(id){
+      return 1;
+    };
+    
     return scService;
   }]);

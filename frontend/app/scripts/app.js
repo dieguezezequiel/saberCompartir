@@ -51,7 +51,7 @@ angular
         controller: 'DictadoCtrl'
       })
       .state('presenciado',{
-        url:'/presenciado',
+        url:'/presenciado/:id',
         templateUrl: 'views/presenciado.html',
         controller: 'PresenciadoCtrl'
       });
