@@ -47,10 +47,10 @@
     </md-toolbar>
 
 
-    <md-content class="container-imyourfather" ui-view="" layout="row" layout-align="center"></md-content>
+    <md-content class="container-imyourfather" md-colors="{background:'light-blue'}" ui-view="" layout="row" layout-align="center"></md-content>
 
-    <md-toolbar class="" md-colors="{background:'light-blue',color: 'primary'}">
-      <div layout="row" layout-align="center center" flex>
+    <md-toolbar md-scroll-shrink="" class="" md-colors="{background:'light-blue',color: 'primary'}">
+      <div layout="row" layout-align="center center" flex=>
         <p><span class="glyphicon glyphicon-heart"></span> from the SaberCompartir team</p>
         </div>
     </md-toolbar>
@@ -93,7 +93,6 @@
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -118,5 +117,8 @@
     <script src="/bower_components/angular-material/angular-material.js"></script>
     <!-- endMaterial -->
 
+    <!-- mdIcons -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+    <!-- mdIcons -->
   </body>
 </html>
