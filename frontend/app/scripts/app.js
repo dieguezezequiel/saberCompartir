@@ -16,44 +16,45 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
     'ui.router',
     'ui-rangeSlider',
     'timer',
     //nuestras
     'directives.module',
     'scService',
-    'ConstantsService'
-  ])
-  .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+    'ConstantsService',
+    'ngMaterial',
+    'ngMdIcons'
+  ]).config(['$stateProvider', '$urlRouterProvider',
+  function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $stateProvider
-      .state('inicio',{
-        url:'/',
+      .state('inicio', {
+        url: '/',
         templateUrl: 'views/inicio.html',
         controller: 'InicioCtrl'
       })
-      .state('registro',{
-        url:'/registro',
+      .state('registro', {
+        url: '/registro',
         templateUrl: 'views/registro.html',
         controller: 'RegistroCtrl'
       })
-      .state('login',{
-        url:'/login',
+      .state('login', {
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .state('dictado',{
-        url:'/dictado',
+      .state('dictado', {
+        url: '/dictado',
         templateUrl: 'views/dictado.html',
         controller: 'DictadoCtrl'
       })
-      .state('presenciado',{
-        url:'/presenciado/:id',
+      .state('presenciado', {
+        url: '/presenciado/:id',
         templateUrl: 'views/presenciado.html',
         controller: 'PresenciadoCtrl'
       });
-
   }]);
+

@@ -49,6 +49,7 @@ body {
 
 .container-imyourfather{
   padding-top: $px-height-navbar;
+  padding-bottom: $px-height-navbar;
 }
 
 .panel{
@@ -314,4 +315,12 @@ body {
 
 .color-green{
   color:springgreen;
+}
+.front-bg {
+  background-image: url('../../images/hero1.jpg');
+}
+
+.small-logo{
+    width: 32px;
+    height: 32px;
 }

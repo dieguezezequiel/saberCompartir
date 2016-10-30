@@ -9,55 +9,52 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.brighttheme.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.buttons.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.history.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.mobile.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- angular material -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <!-- end angular material -->
+
   </head>
   <body ng-app="frontendApp">
     <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="navbar navbar-default navbar-sc" role="navigation">
-        <div class="container">
-          <div class="navbar-header navbar-header-sc">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand navbar-brand-sc" ui-sref="inicio"><img src="images/logo_brain1.png" alt=""/></a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav navbar-nav-sc">
-              <li ui-sref-active="active"><a ui-sref="inicio">Inicio</a></li>
-              <li ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
-              <li ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
-            </ul>
-          </div>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <div class="md-fab md-primary">
+          <md-icon md-svg-src="images/logo_bar.svg"></md-icon>
         </div>
+
+        <span flex=""></span>
+        <md-button class="md-button md-ink-ripple" ui-sref="login" aria-label="Favorite" ng-href="registro">
+          Ingresar
+        </md-button>
+        <md-button class="md-button md-ink-ripple" ui-sref="registro" aria-label="Favorite">
+          Registrarse
+        </md-button>
       </div>
+    </md-toolbar>
 
-    <div class="container-imyourfather" ui-view=""></div>
 
-    <div class="footer">
-      <div class="container">
+    <md-content class="container-imyourfather" ui-view="" layout="row" layout-align="center"></md-content>
+
+    <md-toolbar class="" md-colors="{background:'light-blue',color: 'primary'}">
+      <div layout="row" layout-align="center center" flex>
         <p><span class="glyphicon glyphicon-heart"></span> from the SaberCompartir team</p>
-      </div>
-    </div>
+        </div>
+    </md-toolbar>
+
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -93,15 +90,10 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/humanize-duration/humanize-duration.js"></script>
     <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.animate.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.callbacks.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.confirm.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.desktop.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,5 +112,11 @@
     <!-- RESOURCES -->
         <script src="scripts/resources/usuario.resource.js"></script>
     <!-- endbuild -->
-</body>
+
+    <!-- angularMaterial -->
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <!-- endMaterial -->
+
+  </body>
 </html>
