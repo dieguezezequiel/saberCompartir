@@ -5,43 +5,60 @@
         <span class="md-title">Registro</span>
       </md-card-header-text>
     </md-card-header>
-    <card-content>
-      <form action="#">
+    <form name="formRegistro" novalidate>
+      <card-content>
+
         <div>
           <md-input-container class="md-block">
             <label>Nombre</label>
-            <input ng-model="usuario.firstName">
+            <input ng-model="usuario.firstName" name="firstName" required>
+            <div ng-messages="formRegistro.firstName.$error" role="alert">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
           </md-input-container>
         </div>
         <div>
           <md-input-container class="md-block">
             <label>Apellido</label>
-            <input ng-model="usuario.lastName">
+            <input ng-model="usuario.lastName" name="lastName" required>
+            <div ng-messages="formRegistro.lastName.$error" role="alert">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
           </md-input-container>
         </div>
         <div>
           <md-input-container class="md-block">
             <label>Email</label>
-            <input ng-model="usuario.email">
+            <input ng-model="usuario.email" name="email" required>
+            <div ng-messages="formRegistro.email.$error" role="alert">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
           </md-input-container>
         </div>
         <div>
           <md-input-container class="md-block">
             <label>Contraseña</label>
-            <input ng-model="usuario.password">
+            <input ng-model="usuario.password" name="password" required>
+            <div ng-messages="formRegistro.password.$error" role="alert">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
           </md-input-container>
         </div>
         <div>
           <md-input-container class="md-block">
             <label>Edad</label>
-            <input ng-model="usuario.age">
+            <input ng-model="usuario.age" name="age" type="number" required>
+            <div ng-messages="formRegistro.age.$error" role="alert">
+              <div ng-message="required">Este campo es requerido.</div>
+            </div>
           </md-input-container>
         </div>
-      </form>
-    </card-content>
-    <md-card-actions layout="row" layout-align="end center">
-      <md-button type="submit" class="btn-md">Registrarme</md-button>
-    </md-card-actions>
+
+      </card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button type="submit" ng-click="guardar()" class="btn-md" ng-disabled="formRegistro.$invalid">Registrarme</md-button>
+      </md-card-actions>
+    </form>
   </md-card>
 
 
