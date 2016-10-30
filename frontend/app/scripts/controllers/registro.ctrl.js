@@ -8,12 +8,15 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('RegistroCtrl', ['$scope', 'UsuarioResource', function ($scope, UsuarioResource) {
+  .controller('RegistroCtrl', ['$scope', 'UsuarioResource','notificationService', function ($scope, UsuarioResource,notificationService) {
 
     $scope.usuario = {};
 
     $scope.guardar = function(){
-        UsuarioResource.create($scope.usuario);
+        var resource = UsuarioResource.create($scope.usuario);
+        resource.$promise.then(function (response) {
+          notificationService.showMessage(response);
+        });
     }
 
   }]);

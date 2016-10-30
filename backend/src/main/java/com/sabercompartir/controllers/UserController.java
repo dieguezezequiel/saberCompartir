@@ -1,11 +1,13 @@
 package com.sabercompartir.controllers;
 
+import com.sabercompartir.domain.ResponseFront;
 import com.sabercompartir.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -25,13 +27,14 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST, produces="application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void save(@RequestBody User user){
+    public ResponseFront save(@RequestBody User user){
         if(this.userService.getUserRegistro(user) == null){
             userService.save(user);
+            return ResponseFront.success("Bienvenido a saber compartir");
         }else{
-            System.out.println("Ya existe un usuario con el mismo email registrado");
+            return ResponseFront.error("Ya existe un usuario registrado con el email ingresado");
         }
     }
 
