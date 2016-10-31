@@ -79,14 +79,32 @@ angular.module('frontendApp')
       });
 
       $scope.claseIsValid = function(){
-        $scService.getClaseById($scope.idClase);
+        $scService.getClaseById($scope.idClase).then(
+          function(response){
+            $scope.clase = response;
+
+            //TODO: Si la clase está programada, el usuario puede entrar pero no ve nada, o ve..... SAAARAAAN SAAAARANNNN PUBLICIDAD
+            if($scope.clase.state == 0){
+              return true;
+            }else if($scope.clase.state == 1){
+              return true;
+            }
+          },
+          function(response){
+            return false;
+          }
+        );
+
       };
 
       $scope.init = function(){
         //Verificar si existe clase, si no existe devolver mensaje
-        $scope.claseIsValid();
+        if($scope.claseIsValid()){
+          $scope.abrirChat();
+        }else{
+          //TODO: Redireccionar o mostrar un mensaje
+        }
 
-        $scope.abrirChat();
       };
 
 

@@ -34,11 +34,11 @@ angular.module('scService', [])
     scService.setEstadoClase = function(name, estadoClase){
       var url = "api/sarasa/";
       //return $http.get(url);
-      return null;
     };
 
     scService.getClaseById = function(id){
-      return 1;
+      var url = "api/clases/"+id;
+      return $http.get(url);    
     };
     
     return scService;
