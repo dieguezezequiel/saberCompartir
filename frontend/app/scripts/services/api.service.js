@@ -37,9 +37,19 @@ angular.module('scService', [])
     };
 
     scService.getClaseById = function(id){
-      var url = "api/clases/"+id;
-      return $http.get(url);    
+      var url = "api/classroom/"+id;
+      return $http.get(url);
     };
-    
+
+    scService.getClassroomsByState = function(stateId){
+      var url = "api/classroom?state="+stateId;
+      return $http.get(url);
+    };
+
+    scService.getEstablishedClassroom = function(){
+      var url = "api/classroom/established";
+      return $http.get(url);
+    };
+
     return scService;
   }]);

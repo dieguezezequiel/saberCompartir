@@ -28,7 +28,6 @@ angular.module('frontendApp')
       $scope.volumenMax = 10;
       $scope.microfonoMuteado = false;
       $scope.duracionClase = 0;
-      $scope.idClase = $stateParams.id;
 
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
@@ -54,9 +53,7 @@ angular.module('frontendApp')
       };
 
       $scope.comenzarClase = function(){
-        //Esto es muy feo e inseguro
-        //El id de la clase debería generarse en el server y guardarse en la db.
-        webrtc.createRoom($scope.idClase, function(err, name){
+        webrtc.createRoom($scope.clase.id, function(err, name){
           if(!err){
             console.log(name);
             $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
@@ -168,18 +165,19 @@ angular.module('frontendApp')
         }
       };
 
-      $scope.claseIsValid = function(){
-        //Es valida si la clase existe, está programada, y pertenece a este usuario
-        $scService.getClaseById($scope.idClase);
-      };
-
       $scope.init = function(){
-        //Verificar si existe clase, si no existe devolver mensaje
-        $scope.claseIsValid();
+        //Obtener la clase que tiene estado ESTABLECIDA del usuario en cuestion
+        $scService.getEstablishedClassroom().then(function(response){
+            $scope.clase = response.data;
+            $scope.abrirChat();
+            $scope.claseIsValid = true;
+          },
+          function(response){
+            console.log(response.data);
+            $scope.claseIsValid = false;
+          });
 
-        $scope.abrirChat();
       };
-
-
+      
       $scope.init();
     }]);

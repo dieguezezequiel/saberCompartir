@@ -26,10 +26,24 @@ public class ClassRoomController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ClassRoom getUser(@PathVariable Long id){
+    public ClassRoom getById(@PathVariable Long id){
         ClassRoom classRoom = this.classRoomService.getClassRoomById(id);
 
         return classRoom;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ClassRoom> getByState(@RequestParam("state") Long state){
+        List<ClassRoom> classes = this.classRoomService.getByState(state);
+
+        return classes;
+    }
+
+    @RequestMapping(value = "/established", method = RequestMethod.GET)
+    public ClassRoom getClassroomEstablished(){
+        ClassRoom classroom = this.classRoomService.getClassroomEstablished();
+
+        return classroom;
     }
 
 }
