@@ -4,66 +4,38 @@
     <img src="../../images/logo1.png" alt=""/>
     <h2>Compartir es más fácil.</h2>
   </div>
-  <h1><p class="element-bottom"><a href="#"><i class="glyphicon glyphicon-chevron-down"></i></a></p>
+  <h1>
+    <p class="element-bottom"><a href="#"><i class="glyphicon glyphicon-chevron-down"></i></a></p>
   </h1>
 
 </div>
 
-<div class="hero-unit streamingact-section">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="container-fluid">
-          <h2 class="title-section">TRANSMITIENDO AHORA!</h2>
-          <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in streamingActuales">
-            <img class="flip-1" src="http://lorempixel.com/350/300/business/{{stra}}" alt=""/>
-            <div class="video-box-info flip-2"> PUT INFO IN ME</div>
+<div class="container-home container container-home">
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases mas solicitadas</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div ng-repeat="solicitud in solicitudes" class="col-md-4"> <!--1-->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="mas cursor" ng-click="solicitud.totalUsers = solicitud.totalUsers+1">
+            <span class="glyphicon glyphicon-plus"></span>
+            <spans> Me Sumo</spans>
+          </div>
+            <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
+            <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
+            <p class="col-xs-12">Puntos por dar clase: {{solicitud.points}}<p>
+            <p class="col-xs-12">Estado: {{solicitud.state}}<p>
+          <div class="mas cursor" ng-click="solicitud.state = 'A Realizarse'">
+            <span class="glyphicon glyphicon-user"></span>
+            <spans> Voy a dar esta clase</spans>
           </div>
         </div>
-    </div>
-  </div>
-</div>
-
-<div class="hero-unit streamingprog-section">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="container-fluid">
-        <h2 class="title-section">PROGRAMADOS</h2>
-        <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in streamingProgramados">
-          <img class="flip-1" src="http://lorempixel.com/350/300/people/{{stra}}" alt=""/>
-          <div class="video-box-info flip-2"> PUT INFO IN ME </div>
-        </div>
       </div>
     </div>
+
   </div>
 </div>
-
-<div class="hero-unit ranksol-section">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="container-fluid">
-        <h2 class="title-section">RANKING DE SOLICITUDES</h2>
-        <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in rankingSolicitudes">
-          <img class="flip-1" src="http://lorempixel.com/350/300/city/{{stra}}" alt=""/>
-          <div class="video-box-info flip-2"> PUT INFO IN ME </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="hero-unit rankusu-section">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="container-fluid">
-        <h2 class="title-section">RANKING DE USUARIOS</h2>
-        <div class="col-md-3 col-xs-12 video-box flip" ng-repeat="stra in rankingSolicitudes">
-          <img class="flip-1" src="http://lorempixel.com/350/300/city/{{stra}}" alt=""/>
-          <div class="video-box-info flip-2"> PUT INFO IN ME </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-

@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('scService', [])
-  .factory('$scService', ['$http', function($http) {
+  .factory('$scService', ['$http','HomeResource', function($http,HomeResource) {
 
     var scService = {};
 
@@ -26,9 +26,7 @@ angular.module('scService', [])
     };
 
     scService.getRankingSolicitudes = function() {
-      var url = "api/sarasa/";
-      //return $http.get(url);
-      return [1,2,3,4,5,6,7,8];
+      return HomeResource.getSolicitudesMasSolicitadas();
     };
 
     scService.setEstadoClase = function(name, estadoClase){
@@ -38,8 +36,8 @@ angular.module('scService', [])
 
     scService.getClaseById = function(id){
       var url = "api/clases/"+id;
-      return $http.get(url);    
+      return $http.get(url);
     };
-    
+
     return scService;
   }]);

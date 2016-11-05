@@ -4,12 +4,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 //VARIABLES
+$blanco: #FFFFFF;
 $color-error: #F04449;
 $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
 $color-nube: #ecf0f1;
 $bg-color-gris: #e9ebee;
-$verde-global: #FFFFFF;
+$rojo-amor: #CE4238;
 $color-violeta-logo: #51418e;
 
 $break-md: 767px;
@@ -19,8 +20,20 @@ $px-height-navbar: 61px;
 
 body {
   padding: 0;
-  background-color: $bg-color-gris;
+  background-color: $color-violeta-logo;
   font-family: sans-serif
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+.mas{
+  font-size: 16px;
+  display: inline;
+  &:hover{
+    color: $color-violeta-logo;
+  }
 }
 
 .navbar-sc {
@@ -32,7 +45,9 @@ body {
   z-index: 9999;
   border-radius: 0px;
 }
-
+.navbar-brand{
+  padding: 8px !important;
+}
 .navbar-nav-sc {
   float: right;
   @media screen and (max-width: $break-md) {
@@ -42,6 +57,7 @@ body {
     height: $px-height-navbar;
     line-height: $px-height-navbar;
     a{
+      padding: 20px !important;
       display: block;
     }
   }
@@ -68,7 +84,7 @@ body {
 .footer {
   padding-top: 19px;
   font-weight: bold;
-  background-color: $verde-global;
+  background-color: $blanco;
 }
 
 .container-narrow > hr {
@@ -134,18 +150,11 @@ body {
   padding:15px 0px;
 }
 
-.hero-unit.streamingact-section, .hero-unit.ranksol-section {
-  background-color: #EEEEEE;
-}
-
-.hero-unit.streamingprog-section, .hero-unit.rankusu-section {
-  background-color: $color-violeta-logo;
-}
-
 .hero-unit.home {
   background-image:url('../../images/hero1.jpg');
   overflow:hidden;
   height:100vh;
+  margin-top: -60px;
 }
 
 .hero-unit h1 {
@@ -156,7 +165,7 @@ body {
 }
 .hero-unit h2 {
   font-size: 25px;
-  color: #FFFFFF;
+  color: $blanco;
 
 }
 .fill{width:100%;height:350px;background-position:center;background-size:cover;
@@ -317,3 +326,19 @@ body {
   color:springgreen;
 }
 
+.container-home{
+  margin-top: 35px;
+  margin-bottom: 10px;
+}
+
+.titulo-blanco{
+  font-weight: bold;
+  color: $blanco;
+  font-size: 30px;
+}
+
+.titulo-violeta{
+  font-weight: bold;
+  color: $color-violeta-logo;
+  font-size: 25px;
+}

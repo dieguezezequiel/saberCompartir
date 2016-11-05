@@ -8,21 +8,16 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope','$scService', '$q', function ($scope, $scService, $q) {
+  .controller('InicioCtrl', ['$scope','HomeResource', '$q', function ($scope, HomeResource, $q) {
 
     var promises = [
-      $scService.getStreamingActuales(),
-      $scService.getStreamingProgramados(),
-      $scService.getRankingUsuarios(),
-      $scService.getRankingSolicitudes()
+      HomeResource.getSolicitudesMasSolicitadas()
     ];
 
     $q.all(promises).then(function(response) {
-      $scope.streamingActuales = response[0];
-      $scope.streamingProgramados = response[1];
-      $scope.rankingUsuarios = response[2];
-      $scope.rankingSolicitudes = response[3];
-
+      $scope.solicitudes = response[0];
     });
+
+    //$scope.solicitudes = [{id: 1, nombre: "Ingles", solicitantes: 87, puntos: 500, estado: "Pendiente"},{id: 2, nombre: "Lenguaje de señas", solicitantes: 24, puntos: 100, estado: "Pendiente"}]
 
   }]);
