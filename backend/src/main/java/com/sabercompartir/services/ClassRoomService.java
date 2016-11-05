@@ -23,6 +23,9 @@ public class ClassRoomService {
     @Autowired
     ClassRoomRepository classRoomRepository;
 
+    @Autowired
+    UserService userService;
+
     public ClassRoom getClassRoomById(Long id) {
         return classRoomRepository.findById(id);
     }
@@ -37,7 +40,7 @@ public class ClassRoomService {
 
     public ClassRoom getClassroomEstablished() {
         //TODO: OBTENER EL USUARIO LOGUEADO, Y NO MAPEAR A ENTIDAD!!!
-        User user = new User("Matias", "Garcia", "matiasdanielgarcia@gmail.com", "1234sarasa", 24);
+        User user = userService.getUser(7l);
 
         ClassRoom classroom = classRoomRepository.findByStateAndUser(ESTABLECIDA, user);
 

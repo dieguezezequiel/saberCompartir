@@ -7,6 +7,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -80,9 +82,7 @@ module.exports = function (grunt) {
           context: '/api',
           host: 'localhost',
           port:'8080',
-          https: 'false',
-          hideHeaders: ['x-removed-header']
-
+          https: 'false'
         }
       ],
       livereload: {
@@ -90,10 +90,11 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              proxySnippet,
+              connect.static(require('path').resolve('.tmp')),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                connect.static(require('path').resolve('./bower_components'))
               ),
               connect().use(
                 '/node_modules',
@@ -101,9 +102,9 @@ module.exports = function (grunt) {
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                connect.static(require('path').resolve('./app/styles'))
               ),
-              connect.static(appConfig.app)
+              connect.static(require('path').resolve(appConfig.app))
             ];
           }
         }
@@ -488,6 +489,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'configureProxies:server', // added just before connect
       'connect:livereload',
       'watch'
     ]);
@@ -536,5 +538,8 @@ module.exports = function (grunt) {
 
 
   grunt.loadNpmTasks('grunt-npm-install');
+
+  grunt.loadNpmTasks('grunt-connect-proxy');
+
 
 };

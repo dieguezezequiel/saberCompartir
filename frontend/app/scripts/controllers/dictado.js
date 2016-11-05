@@ -53,7 +53,7 @@ angular.module('frontendApp')
       };
 
       $scope.comenzarClase = function(){
-        webrtc.createRoom($scope.clase.id, function(err, name){
+        webrtc.createRoom("9", function(err, name){
           if(!err){
             console.log(name);
             $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
@@ -178,6 +178,6 @@ angular.module('frontendApp')
           });
 
       };
-      
+
       $scope.init();
     }]);

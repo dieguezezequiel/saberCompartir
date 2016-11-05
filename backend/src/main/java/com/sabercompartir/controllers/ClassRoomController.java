@@ -32,7 +32,7 @@ public class ClassRoomController {
         return classRoom;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
     public List<ClassRoom> getByState(@RequestParam("state") Long state){
         List<ClassRoom> classes = this.classRoomService.getByState(state);
 
