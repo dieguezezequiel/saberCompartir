@@ -8,13 +8,18 @@ import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 
 @RestController
 @CrossOrigin
 @RequestMapping(UrlMappings.BASE + UrlMappings.USER)
-public class UserController {
+public class UserController  extends HttpServlet {
 
     @Autowired
     private UserService userService;
@@ -54,7 +59,12 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public User getUserLogin(@RequestBody User user){
-        return this.userService.getUserLogin(user);
+    public void initSession(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession sesion = request.getSession();
+        if(this.userService.getUserLogin(user) != null && sesion.getAttribute("user") == null){
+            sesion.setAttribute("user", this.userService.getUserLogin(user));
+            //TODO redirijir a página con información de login exitoso
+            response.sendRedirect("../../");
+        }
     }
 }
