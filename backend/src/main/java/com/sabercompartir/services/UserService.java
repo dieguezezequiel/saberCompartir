@@ -26,8 +26,8 @@ public class UserService implements IUserService {
         return null;
     }
 
-    public User getUser(Integer id){
-        return null;
+    public User getUser(Long id){
+        return userRepository.findById(id);
     }
 
     public User getUserLogin(User user){

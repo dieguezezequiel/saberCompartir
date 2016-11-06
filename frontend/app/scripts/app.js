@@ -46,7 +46,7 @@ angular
         controller: 'LoginCtrl'
       })
       .state('dictado',{
-        url:'/dictado/:id',
+        url:'/dictado',
         templateUrl: 'views/dictado.html',
         controller: 'DictadoCtrl'
       })

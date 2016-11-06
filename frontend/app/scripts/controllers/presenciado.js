@@ -10,15 +10,7 @@
 angular.module('frontendApp')
   .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams',
     function ($scope, $scService, $q, Constants, $stateParams) {
-
-      var webrtc = new SimpleWebRTC({
-        //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
-        media: { video: false, audio: false},
-        url: Constants.URL_SIGNALING_SERVER,
-        nick: 'Ricardo Fort'
-      });
       $scope.idClase = $stateParams.id;
-
 
       $scope.enviarMensaje = function(){
         //PUT SOME SOCKET.IO MAGIC HERE
@@ -46,49 +38,62 @@ angular.module('frontendApp')
         $scope.showUsuariosConectados = false;
       };
 
-
-      // we have to wait until it's ready
-      webrtc.on('connectionReady', function (sessionId) {
-        // you can name it anything
-        webrtc.joinRoom($scope.idClase, function(err, name){
-          console.log(err);
-          console.log(name);
+      $scope.joinClassRoom = function(){
+        $scope.webrtc = new SimpleWebRTC({
+          //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
+          media: { video: false, audio: false},
+          url: Constants.URL_SIGNALING_SERVER,
+          nick: 'Ricardo Fort'
         });
-      });
 
-      webrtc.on('createdPeer', function (peer) {
-        console.log(peer);
-      });
+        $scope.abrirChat();
+        // we have to wait until it's ready
+        $scope.webrtc.on('connectionReady', function (sessionId) {
+          $scope.webrtc.joinRoom("9", function(err, name){
+            console.log(err);
+            console.log(name);
+          });
+        });
 
-      // a peer video has been added
-      //PARCHE: El video lo tiene que tomar del objeto webrtc, esto es feo.
-      webrtc.on('videoAdded', function (video, peer) {
-        console.log('video added', peer);
-        var videoContainer = document.getElementById('videoContainer');
-        if (videoContainer) {
-          var container = document.createElement('div');
-          container.className = 'video';
-          container.id = 'container_' + webrtc.getDomId(peer);
-          container.appendChild(video);
 
-          // suppress contextmenu
-          video.oncontextmenu = function () { return false; };
+        $scope.webrtc.on('createdPeer', function (peer) {
+          console.log(peer);
+        });
 
-          videoContainer.appendChild(container);
-        }
-      });
+        // a peer video has been added
+        //PARCHE: El video lo tiene que tomar del objeto webrtc, esto es feo.
+        $scope.webrtc.on('videoAdded', function (video, peer) {
+          console.log('video added', peer);
+          var videoContainer = document.getElementById('videoContainer');
+          if (videoContainer) {
+            var container = document.createElement('div');
+            container.className = 'video';
+            container.id = 'container_' + $scope.webrtc.getDomId(peer);
+            container.appendChild(video);
 
-      $scope.claseIsValid = function(){
+            // suppress contextmenu
+            video.oncontextmenu = function () { return false; };
+
+            videoContainer.appendChild(container);
+          }
+        });
+
+      };
+
+      $scope.init = function(){
         $scService.getClaseById($scope.idClase).then(
           function(response){
-            $scope.clase = response;
+            $scope.clase = response.data;
 
             //TODO: Si la clase está programada, el usuario puede entrar pero no ve nada, o ve..... SAAARAAAN SAAAARANNNN PUBLICIDAD
-            if($scope.clase.state == 0){
-              return true;
-            }else if($scope.clase.state == 1){
-              return true;
-            }
+           if($scope.clase){
+             switch ($scope.clase.state){
+               case 0:
+               case 1: $scope.joinClassRoom();
+               case 2: $scope.joinClassRoom();
+               case 3: $scope.joinClassRoom();
+             }
+           }
           },
           function(response){
             return false;
@@ -96,17 +101,6 @@ angular.module('frontendApp')
         );
 
       };
-
-      $scope.init = function(){
-        //Verificar si existe clase, si no existe devolver mensaje
-        if($scope.claseIsValid()){
-          $scope.abrirChat();
-        }else{
-          //TODO: Redireccionar o mostrar un mensaje
-        }
-
-      };
-
 
       $scope.init();
 

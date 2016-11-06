@@ -51,7 +51,7 @@ public class UserController  extends HttpServlet {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Integer id){
+    public User getUser(@PathVariable Long id){
         User user = this.userService.getUser(id);
 
         return user;

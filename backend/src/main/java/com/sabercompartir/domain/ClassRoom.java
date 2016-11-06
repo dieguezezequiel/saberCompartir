@@ -15,7 +15,7 @@ public class ClassRoom {
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "state", nullable = false)
-    private String state;
+    private Integer state;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -39,11 +39,11 @@ public class ClassRoom {
         this.name = name;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
