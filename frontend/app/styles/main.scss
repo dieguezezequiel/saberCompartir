@@ -9,7 +9,7 @@ $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
 $color-nube: #ecf0f1;
 $bg-color-gris: #e9ebee;
-$verde-global: #59DA5D;
+$verde-global: #FFFFFF;
 $color-violeta-logo: #51418e;
 
 $break-md: 767px;
@@ -112,6 +112,7 @@ body {
 }
 
 .formulario{
+  min-height: 75vh !important;
   margin: 25px auto 25px auto;
   padding: 0 25%;
   @media screen and (max-width: $break-lg) {
@@ -315,3 +316,4 @@ body {
 .color-green{
   color:springgreen;
 }
+
