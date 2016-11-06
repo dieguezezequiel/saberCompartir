@@ -21,7 +21,7 @@
     <div ng-repeat="solicitud in solicitudes" class="col-md-4"> <!--1-->
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="mas cursor" ng-click="solicitud.totalUsers = solicitud.totalUsers+1">
+          <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
             <span class="glyphicon glyphicon-plus"></span>
             <spans> Me Sumo</spans>
           </div>

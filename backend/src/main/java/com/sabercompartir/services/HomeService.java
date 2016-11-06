@@ -1,6 +1,6 @@
 package com.sabercompartir.services;
 
-import com.sabercompartir.domain.Resquest;
+import com.sabercompartir.domain.Request;
 import com.sabercompartir.repository.HomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class HomeService {
     @Autowired
     HomeRepository homeRepository;
 
-    public List<Resquest> getAll() {
+    public List<Request> getAll() {
         return homeRepository.findAll();
     }
 

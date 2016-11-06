@@ -1,6 +1,9 @@
 package com.sabercompartir.domain;
 
+import com.sabercompartir.enums.EstadoSolicitud;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by fede on 05/11/16.
@@ -8,23 +11,28 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "request")
-public class Resquest {
+public class Request {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     @Column(name = "subject", nullable = false)
     private String subject;
     @Column(name = "total_users", nullable = false)
-    private String totalUsers;
+    private Integer totalUsers;
     @Column(name = "points", nullable = false)
-    private String points;
+    private Integer points;
     @Column(name = "state", nullable = false)
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private EstadoSolicitud state;
+//TODO hacer relacion solicitudes y usuarios
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
+//    private List<User> userList;
 
-    public Resquest() {
+    public Request() {
     }
 
-    public Resquest(String subject, String totalUsers, String points, String state) {
+    public Request(String subject, Integer totalUsers, Integer points, EstadoSolicitud state) {
         this.subject = subject;
         this.totalUsers = totalUsers;
         this.points = points;
@@ -35,6 +43,10 @@ public class Resquest {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getSubject() {
         return subject;
     }
@@ -43,27 +55,27 @@ public class Resquest {
         this.subject = subject;
     }
 
-    public String getTotalUsers() {
+    public Integer getTotalUsers() {
         return totalUsers;
     }
 
-    public void setTotalUsers(String totalUsers) {
+    public void setTotalUsers(Integer totalUsers) {
         this.totalUsers = totalUsers;
     }
 
-    public String getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 
-    public String getState() {
+    public EstadoSolicitud getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(EstadoSolicitud state) {
         this.state = state;
     }
 }

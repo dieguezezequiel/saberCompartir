@@ -10,6 +10,8 @@
 angular.module('frontendApp')
   .controller('InicioCtrl', ['$scope','HomeResource', '$q', function ($scope, HomeResource, $q) {
 
+    $scope.hide = false;
+
     var promises = [
       HomeResource.getSolicitudesMasSolicitadas()
     ];
@@ -18,6 +20,14 @@ angular.module('frontendApp')
       $scope.solicitudes = response[0];
     });
 
-    //$scope.solicitudes = [{id: 1, nombre: "Ingles", solicitantes: 87, puntos: 500, estado: "Pendiente"},{id: 2, nombre: "Lenguaje de señas", solicitantes: 24, puntos: 100, estado: "Pendiente"}]
+    $scope.sumarse = function(solicitud){
+      solicitud.totalUsers = solicitud.totalUsers + 1;
+      $scope.hide = true;
+      new PNotify({
+        title: "Genial!",
+        text: "Te acabas de sumar a la solicitud de " + solicitud.subject,
+        type: 'success'
+      })
+    }
 
   }]);
