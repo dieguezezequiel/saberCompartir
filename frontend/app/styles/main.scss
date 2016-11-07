@@ -55,8 +55,8 @@ body {
     float: none;
   }
   li{
-    height: $px-height-navbar;
-    line-height: $px-height-navbar;
+    height: 60px;
+    border-right: 1px solid $color-gris-input;
     a{
       padding: 20px !important;
       display: block;
@@ -94,6 +94,7 @@ body {
 
 .navbar-brand-sc{
   padding: 3px;
+  margin-left: -10px !important;
 }
 
 .navbar-brand-sc > img {
@@ -366,4 +367,8 @@ body {
     background-color: $color-violeta-logo;
     color: $blanco;
   }
+}
+
+.navbar-collapse{
+  padding-right: 0px !important;
 }
