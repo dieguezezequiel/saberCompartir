@@ -3,6 +3,7 @@ package com.sabercompartir.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -22,6 +23,8 @@ public class User {
     private String password;
     @Column(name = "age", nullable = false)
     private Integer age;
+    @ManyToMany(mappedBy = "guestUsers")
+    private Set<ClassRoom> classrooms;
 
     public User(){}
 
@@ -71,5 +74,13 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Set<ClassRoom> getClassrooms() {
+        return classrooms;
+    }
+
+    public void setClassrooms(Set<ClassRoom> classrooms) {
+        this.classrooms = classrooms;
     }
 }

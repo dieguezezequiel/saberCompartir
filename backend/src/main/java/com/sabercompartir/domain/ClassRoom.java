@@ -1,6 +1,7 @@
 package com.sabercompartir.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by matias on 28/10/16.
@@ -14,11 +15,14 @@ public class ClassRoom {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "state", nullable = false)
+    @Column(name = "state_id", nullable = false)
     private Integer state;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "classrooms_users", joinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> guestUsers;
 
     public ClassRoom() {
     }
@@ -53,5 +57,18 @@ public class ClassRoom {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<User> getGuestUsers() {
+        return guestUsers;
+    }
+
+    public void setGuestUsers(Set<User> guestUsers) {
+        this.guestUsers = guestUsers;
+    }
+
+    public void update(ClassRoom updatedClassRoom) {
+        this.state = updatedClassRoom.getState();
+        this.name = updatedClassRoom.getName();
     }
 }

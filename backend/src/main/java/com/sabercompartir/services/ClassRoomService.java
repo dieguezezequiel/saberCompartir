@@ -17,7 +17,7 @@ public class ClassRoomService {
     private final Integer PROGRAMADA = 1;
     private final Integer ESTABLECIDA = 2;
     private final Integer EN_CURSO = 3;
-    private final Integer TERMINADA = 4;
+    private final Integer FINALIZADA = 4;
     private final Integer CANCELADA = 5;
 
     @Autowired
@@ -45,5 +45,10 @@ public class ClassRoomService {
         ClassRoom classroom = classRoomRepository.findByStateAndUser(ESTABLECIDA, user);
 
         return classroom;
+    }
+
+
+    public void saveOrUpdate(ClassRoom classroom) {
+        classRoomRepository.save(classroom);
     }
 }

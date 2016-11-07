@@ -43,13 +43,14 @@ angular.module('frontendApp')
           //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
           media: { video: false, audio: false},
           url: Constants.URL_SIGNALING_SERVER,
-          nick: 'Ricardo Fort'
+          nick: 'Ricardo Fort',
+          remoteVideosEl: "remoteVideo"
         });
 
         $scope.abrirChat();
         // we have to wait until it's ready
         $scope.webrtc.on('connectionReady', function (sessionId) {
-          $scope.webrtc.joinRoom("9", function(err, name){
+          $scope.webrtc.joinRoom($scope.clase.id.toString(), function(err, name){
             console.log(err);
             console.log(name);
           });
@@ -59,25 +60,6 @@ angular.module('frontendApp')
         $scope.webrtc.on('createdPeer', function (peer) {
           console.log(peer);
         });
-
-        // a peer video has been added
-        //PARCHE: El video lo tiene que tomar del objeto webrtc, esto es feo.
-        $scope.webrtc.on('videoAdded', function (video, peer) {
-          console.log('video added', peer);
-          var videoContainer = document.getElementById('videoContainer');
-          if (videoContainer) {
-            var container = document.createElement('div');
-            container.className = 'video';
-            container.id = 'container_' + $scope.webrtc.getDomId(peer);
-            container.appendChild(video);
-
-            // suppress contextmenu
-            video.oncontextmenu = function () { return false; };
-
-            videoContainer.appendChild(container);
-          }
-        });
-
       };
 
       $scope.init = function(){
@@ -89,9 +71,13 @@ angular.module('frontendApp')
            if($scope.clase){
              switch ($scope.clase.state){
                case 0:
+               break;
                case 1: $scope.joinClassRoom();
+               break;
                case 2: $scope.joinClassRoom();
+               break;
                case 3: $scope.joinClassRoom();
+               break;
              }
            }
           },

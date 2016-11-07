@@ -29,13 +29,14 @@ angular.module('scService', [])
       return HomeResource.getSolicitudesMasSolicitadas();
     };
 
-    scService.setEstadoClase = function(name, estadoClase){
-      var url = "api/sarasa/";
-      //return $http.get(url);
+    scService.updateClase = function(clase){
+      var url = "api/classroom/"+clase.id;
+      return $http.put(url, clase);
     };
 
     scService.getClaseById = function(id){
       var url = "api/classroom/"+id;
+
       return $http.get(url);
     };
 
