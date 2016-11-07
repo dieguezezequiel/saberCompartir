@@ -8,12 +8,12 @@ angular.module('ConstantsService', [])
     //Esto igual creo que tiene que venir del back mejor
 
     EstadosClase: {
-      EN_ESPERA : 'Todo listo! Ya puedes empezar tu clase.' ,
-      EN_CURSO: 'Clase en curso.' ,
-      FINALIZADA: 'Clase finalizada.' ,
+      EN_ESPERA : 'Todo listo! Ya puedes empezar tu clase.' , //2 ESTABLECIDA
+      EN_CURSO: 'Clase en curso.' , //3
+      FINALIZADA: 'Clase finalizada.' , //4
       ERRONEA: 'Ha ocurrido un error :( Inténtelo de nuevo :)' ,
       LOCAL_MEDIA_ERROR: 'Parece que has olvidado permitir el acceso de tu cámara web y micrófono, ¿no?' ,
       CONECTANDO: 'Estamos conectándote al mundo, espere un momento.'
     },
-    URL_SIGNALING_SERVER: 'http://signalmaster:8888'
+    URL_SIGNALING_SERVER: 'http://localhost:8888'
 });

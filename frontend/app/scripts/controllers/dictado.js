@@ -53,12 +53,13 @@ angular.module('frontendApp')
       };
 
       $scope.comenzarClase = function(){
-        webrtc.createRoom("9", function(err, name){
+        webrtc.createRoom($scope.clase.id.toString(), function(err, name){
           if(!err){
             console.log(name);
             $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
             $scope.claseEnCurso = true;
-            $scService.setEstadoClase(name, $scope.estadoClase);
+            $scope.clase.state = 3;
+            $scService.updateClase($scope.clase);
             $scope.startTimer();
           }else{
             console.log(err);
@@ -73,7 +74,8 @@ angular.module('frontendApp')
         webrtc.leaveRoom();
         webrtc.disconnect();
         $scope.estadoClase = Constants.EstadosClase['FINALIZADA'];
-        $scService.setEstadoClase(name, $scope.estadoClase);
+        $scope.clase.state = 4;
+        $scService.updateClase($scope.clase);
         $scope.stopTimer();
       };
 
@@ -98,7 +100,6 @@ angular.module('frontendApp')
       webrtc.on('readyToCall', function (data) {
         console.log(data);
         $scope.estadoClase = Constants.EstadosClase['EN_ESPERA'];
-        $scService.setEstadoClase(name, $scope.estadoClase);
         $scope.readyToCall = true;
         $scope.$apply();
       });
@@ -119,6 +120,7 @@ angular.module('frontendApp')
         $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados - 1;
         //TODO: Encontrar el usuario por ID y eliminarlo
         $scope.usuariosConectados.pop();
+        $scope.$apply();
       });
 
       webrtc.on('leftRoom', function (room) {

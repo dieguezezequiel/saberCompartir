@@ -1,9 +1,9 @@
 package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.ClassRoom;
+import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.services.ClassRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,4 +46,11 @@ public class ClassRoomController {
         return classroom;
     }
 
+    @RequestMapping(value = "/{classroomId}", method = RequestMethod.PUT)
+    public void update(@PathVariable Long classroomId, @RequestBody ClassRoom updatedClassRoom){
+        ClassRoom classroom = this.classRoomService.getClassRoomById(classroomId);
+        classroom.update(updatedClassRoom);
+
+        this.classRoomService.saveOrUpdate(classroom);
+    }
 }

@@ -64,6 +64,7 @@ public class UserController  extends HttpServlet {
         if(this.userService.getUserLogin(user) != null && sesion.getAttribute("user") == null){
             sesion.setAttribute("user", this.userService.getUserLogin(user));
             //TODO redirijir a página con información de login exitoso
+            //Por qué redirigir desde acá y no desde el front?
             response.sendRedirect("../../");
         }
     }
