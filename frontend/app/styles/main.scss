@@ -12,6 +12,7 @@ $color-nube: #ecf0f1;
 $bg-color-gris: #e9ebee;
 $rojo-amor: #CE4238;
 $color-violeta-logo: #51418e;
+$color-violeta-claro: #8E7ADA;
 
 $break-md: 767px;
 $break-lg: 1199px;
@@ -341,4 +342,28 @@ body {
   font-weight: bold;
   color: $color-violeta-logo;
   font-size: 25px;
+}
+
+.buscador-container{
+  padding: 4px;
+  margin-left: 53px;
+}
+
+.width50{
+  width: 50%;
+  transition: width 1s;
+}
+.width100{
+  width: 100%;
+  transition: width 1s;
+}
+
+.btn-search-sc{
+  border: 1px solid $color-gris-input;
+  background-color: $blanco;
+  color: $color-violeta-logo;
+  &:hover{
+    background-color: $color-violeta-logo;
+    color: $blanco;
+  }
 }
