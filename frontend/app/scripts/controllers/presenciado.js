@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams',
-    function ($scope, $scService, $q, Constants, $stateParams) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location',
+    function ($scope, $scService, $q, Constants, $stateParams, $location) {
       $scope.idClase = $stateParams.id;
 
       $scope.enviarMensaje = function(){
@@ -40,15 +40,14 @@ angular.module('frontendApp')
 
       $scope.joinClassRoom = function(){
         $scope.webrtc = new SimpleWebRTC({
-          //Acá en realidad va el remoteVideo directamente, pero hay que ver por qué no anda
           media: { video: false, audio: false},
           url: Constants.URL_SIGNALING_SERVER,
-          nick: 'Ricardo Fort',
+          nick: 'Ricardo Fort', //TODO: ESTO NO ANDA, VER POR QUÉ
           remoteVideosEl: "remoteVideo"
         });
 
         $scope.abrirChat();
-        // we have to wait until it's ready
+
         $scope.webrtc.on('connectionReady', function (sessionId) {
           $scope.webrtc.joinRoom($scope.clase.id.toString(), function(err, name){
             console.log(err);
@@ -78,7 +77,12 @@ angular.module('frontendApp')
                break;
                case 3: $scope.joinClassRoom();
                break;
+               case 4: //Mostrar mensaje de clase finalizada;
+               break;
+               case 5: //Mostrar mensaje de clase cancelada
              }
+           }else{
+             $location.path('/');
            }
           },
           function(response){
