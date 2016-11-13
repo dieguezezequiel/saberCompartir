@@ -2,7 +2,7 @@
 
 angular.module('frontendApp')
   .factory('HomeResource', ['$resource', function HomeResource($resource) {
-    var backUsuarioUrl = 'http://localhost:8080/api/home/';
+    var backUsuarioUrl = 'api/home/';
     return $resource(backUsuarioUrl, {}, {
       getSolicitudesMasSolicitadas: {
         method: 'GET',
