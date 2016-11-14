@@ -11,10 +11,12 @@ angular.module('frontendApp')
   .controller('LoginCtrl', ['$scope', 'UsuarioResource', function ($scope, UsuarioResource) {
 
     $scope.usuario = {};
-
-    //TODO: Iniciar sesion, hacer redirect y demas
-    $scope.loguear = function(){
-        UsuarioResource.login($scope.usuario);
+    $scope.login = function(){
+        UsuarioResource.login($scope.usuario, function(response){
+          console.log(response)
+        }, function(error){
+          console.log(error)
+        });
     }
 
   }]);

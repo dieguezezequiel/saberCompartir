@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -59,13 +60,7 @@ public class UserController  extends HttpServlet {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void initSession(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession sesion = request.getSession();
-        if(this.userService.getUserLogin(user) != null && sesion.getAttribute("user") == null){
-            sesion.setAttribute("user", this.userService.getUserLogin(user));
-            //TODO redirijir a página con información de login exitoso
-            //Por qué redirigir desde acá y no desde el front?
-            response.sendRedirect("../../");
-        }
+    public Principal login(Principal user) {
+        return user;
     }
 }

@@ -25,7 +25,8 @@ angular
     'scService',
     'ConstantsService'
   ])
-  .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+  .config(['$stateProvider','$urlRouterProvider', '$httpProvider',
+    function($stateProvider,$urlRouterProvider,$httpProvider){
     $urlRouterProvider
       .otherwise('/');
 
@@ -55,5 +56,7 @@ angular
         templateUrl: 'views/presenciado.html',
         controller: 'PresenciadoCtrl'
       });
+
+      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
   }]);
