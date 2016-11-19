@@ -54,6 +54,16 @@ angular
         url:'/presenciado/:id',
         templateUrl: 'views/presenciado.html',
         controller: 'PresenciadoCtrl'
+      })
+      .state('solicitudC',{
+        url:'/solicitud/:id',
+        templateUrl: 'views/solicitud.consulta.html',
+        controller: 'SolicitudConsultaCtrl'
+      })
+      .state('solicitud',{
+        url:'/solicitud',
+        templateUrl: 'views/solicitud.crear.html',
+        controller: 'SolicitudCrearCtrl'
       });
 
   }]);

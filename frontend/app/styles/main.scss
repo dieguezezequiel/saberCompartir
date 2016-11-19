@@ -17,13 +17,14 @@ $color-violeta-claro: #8E7ADA;
 $break-md: 767px;
 $break-lg: 1199px;
 $px-height-navbar: 61px;
-//FIN DE VARIABLED
+//FIN DE VARIABLES
 
 body {
   padding: 0;
   background-color: $color-violeta-logo;
   font-family: sans-serif
 }
+
 
 .cursor{
   cursor: pointer;
@@ -246,6 +247,13 @@ body {
 
 /* CSS used here will be applied after bootstrap.css */
 
+.square-border{
+  border-radius: 0 !important;
+}
+
+.xl-icon{
+  font-size: 50px;
+}
 .icon-badge-container{
 }
 
