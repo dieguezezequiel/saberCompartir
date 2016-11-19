@@ -65,6 +65,11 @@ angular
         url:'/solicitud',
         templateUrl: 'views/solicitud.crear.html',
         controller: 'SolicitudCrearCtrl'
+      })
+      .state('solicitudes',{
+        url:'/solicitudes',
+        templateUrl: 'views/solicitudes.html',
+        controller: 'SolicitudesCtrl'
       });
 
   }]);
