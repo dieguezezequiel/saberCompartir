@@ -26,7 +26,7 @@
         </div>
       <div class="col-md-4">
         <div ng-show="(solicitudes | filter:searcher).length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
-          <div class="panel panel-default">
+          <div ng-show="(solicitudes | filter:searcher).length == 0" class="panel panel-default">
             <div class="panel-head text-center">
                 ¿Desea crear una nueva solicitud?
             </div>
