@@ -15,8 +15,6 @@ angular.module('frontendApp')
     function ($scope, UsuarioResource,notificationService, $scService, $stateParams, $location) {
       $scope.idSolicitud = $stateParams.id;
       $scope.solicitudIsValid = false;
-      $scope.programacion = "";
-
 
       $scope.tomarSolicitud = function(){
         $scService.tomarSolicitudAndCrearClase($scope.idSolicitud, $scope.solicitud).then(function(response){

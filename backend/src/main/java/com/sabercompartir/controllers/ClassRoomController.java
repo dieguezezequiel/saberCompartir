@@ -4,6 +4,8 @@ import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.services.ClassRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +34,16 @@ public class ClassRoomController {
         return classRoom;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
-    public List<ClassRoom> getByState(@RequestParam("state") Long state){
+/*    @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
+    public List<ClassRoom> getByState(@RequestParam("state") Integer state){
         List<ClassRoom> classes = this.classRoomService.getByState(state);
+
+        return classes;
+    }*/
+
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
+    public Page<ClassRoom> getByStateAndOrdered(@RequestParam("state") Integer state, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getByStateAndOrdered(state, pageable);
 
         return classes;
     }
@@ -52,5 +61,12 @@ public class ClassRoomController {
         classroom.update(updatedClassRoom);
 
         this.classRoomService.saveOrUpdate(classroom);
+    }
+
+    @RequestMapping(value = "/states", method = RequestMethod.GET)
+    public List<ClassRoomState> getClasRoomStates(){
+        List<ClassRoomState> classroomStateList = this.classRoomService.getClasRoomStates();
+
+        return classroomStateList;
     }
 }

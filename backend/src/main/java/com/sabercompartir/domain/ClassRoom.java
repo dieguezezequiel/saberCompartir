@@ -1,6 +1,7 @@
 package com.sabercompartir.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -15,6 +16,10 @@ public class ClassRoom {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "score")
+    private Integer score;
+    @Column(name = "date", nullable = false)
+    private Date date;
     @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "state_id", nullable = false)
@@ -27,6 +32,22 @@ public class ClassRoom {
     private Set<User> guestUsers;
 
     public ClassRoom() {
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public String getDescription() {

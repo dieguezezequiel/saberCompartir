@@ -1,11 +1,15 @@
 package com.sabercompartir.services;
 
 import com.sabercompartir.domain.ClassRoom;
+import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.domain.Request;
 import com.sabercompartir.domain.User;
 import com.sabercompartir.repository.ClassRoomRepository;
+import com.sabercompartir.repository.ClassRoomStateRepository;
 import com.sabercompartir.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +29,9 @@ public class ClassRoomService {
     ClassRoomRepository classRoomRepository;
 
     @Autowired
+    ClassRoomStateRepository classRoomStateRepository;
+
+    @Autowired
     UserService userService;
 
     public ClassRoom getClassRoomById(Long id) {
@@ -35,7 +42,7 @@ public class ClassRoomService {
         return classRoomRepository.findAll();
     }
 
-    public List<ClassRoom> getByState(Long state) {
+    public List<ClassRoom> getByState(Integer state) {
         return classRoomRepository.findByState(state);
     }
 
@@ -65,5 +72,13 @@ public class ClassRoomService {
 
 
         classRoomRepository.save(classroom);
+    }
+
+    public Page<ClassRoom> getByStateAndOrdered(Integer state, Pageable pageable) {
+        return classRoomRepository.findByState(state, pageable);
+    }
+
+    public List<ClassRoomState> getClasRoomStates() {
+        return classRoomStateRepository.findAll();
     }
 }
