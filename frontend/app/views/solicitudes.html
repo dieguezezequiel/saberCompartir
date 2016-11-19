@@ -1,0 +1,42 @@
+<div class="containerSolicitudes">
+  <div class="container-home container container-home" id="main">
+    <div class="row">
+      <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span>Solicitudes</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+        <div ng-repeat="solicitud in solicitudes | filter:searcher" class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+                <span class="glyphicon glyphicon-plus"></span>
+                <spans> Me Sumo</spans>
+              </div>
+              <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
+              <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
+              <p class="col-xs-12">Puntos por dar clase: {{solicitud.points}}<p>
+              <a class="mas cursor" href="#/solicitud/{{solicitud.id}}">
+                <span class="glyphicon glyphicon-user"></span>
+                <spans>Quiero dar esta clase</spans>
+              </a>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-4">
+        <div ng-show="(solicitudes | filter:searcher).length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
+          <div class="panel panel-default">
+            <div class="panel-head text-center">
+                ¿Desea crear una nueva solicitud?
+            </div>
+            <div class="panel-body text-center">
+              <a class="mas cursor" href="#/solicitud">
+                <span class="glyphicon glyphicon-plus xl-icon"></span>
+              </a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

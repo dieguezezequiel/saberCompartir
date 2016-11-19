@@ -5,6 +5,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 //VARIABLES
 $blanco: #FFFFFF;
+$amarillo: #F4DA17;
 $color-error: #F04449;
 $color-gris-input: #CCC;
 $color-celeste-input: #66AFE9;
@@ -131,7 +132,7 @@ body {
 }
 
 .formulario{
-  min-height: 75vh !important;
+  min-height: 75.5vh !important;
   margin: 25px auto 25px auto;
   padding: 0 25%;
   @media screen and (max-width: $break-lg) {
@@ -384,11 +385,10 @@ body {
 
 .buscador-container{
   padding: 4px;
-  margin-left: 53px;
 }
 
-.width50{
-  width: 50%;
+.width70{
+  width: 70%;
   transition: width 1s;
 }
 .width100{
@@ -408,4 +408,16 @@ body {
 
 .navbar-collapse{
   padding-right: 0px !important;
+}
+
+.containerSolicitudes{
+  min-height: 77.8vh !important;
+}
+
+.mensajeTextoPlano{
+  color:$blanco;
+  font-size: 18px;
+}
+.resaltadorTextoPlanoAmarillo{
+  color: $amarillo;
 }

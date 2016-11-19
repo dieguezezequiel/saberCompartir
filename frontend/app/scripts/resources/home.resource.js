@@ -7,6 +7,10 @@ angular.module('frontendApp')
       getSolicitudesMasSolicitadas: {
         method: 'GET',
         isArray: true
+      },
+      getSolicitudesAllSolicitadas: {
+        method: 'GET',
+        isArray: true
       }
     })
   }]);
