@@ -51,5 +51,10 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getSolicitudById = function(id){
+      var url = "api/requests/" + id;
+      return $http.get(url);
+    };
+
     return scService;
   }]);
