@@ -18,7 +18,7 @@
 
 <div class="container">
   <div class="row">
-      <div ng-repeat="solicitud in solicitudes" class="col-md-4"> <!--1-->
+      <div ng-repeat="solicitud in solicitudes | filter : {'state' : 'PENDIENTE'}" class="col-md-4"> <!--1-->
         <div class="panel panel-default">
           <div class="panel-body">
             <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">

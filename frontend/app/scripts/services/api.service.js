@@ -55,6 +55,11 @@ angular.module('scService', [])
       var url = "api/requests/" + id;
       return $http.get(url);
     };
+    
+    scService.tomarSolicitudAndCrearClase = function(id, solicitud){
+      var url = "api/requests/" + id + "/take";
+      return $http.post(url, solicitud);    
+    };
 
     return scService;
   }]);

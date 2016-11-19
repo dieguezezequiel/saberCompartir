@@ -1,12 +1,10 @@
 package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.Request;
+import com.sabercompartir.services.ClassRoomService;
 import com.sabercompartir.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,9 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
+    @Autowired
+    private ClassRoomService classRoomService;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Request> getAll(){
         List<Request> requests = this.requestService.getAll();
@@ -32,5 +33,11 @@ public class RequestController {
         Request request = this.requestService.getRequestById(id);
 
         return request;
+    }
+
+    @RequestMapping(value = "/{id}/take", method = RequestMethod.POST)
+    public void takeRequest(@PathVariable Long id, @RequestBody Request request){
+        this.requestService.update(id);
+        this.classRoomService.create(request);
     }
 }

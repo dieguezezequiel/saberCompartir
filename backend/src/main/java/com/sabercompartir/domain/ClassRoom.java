@@ -15,6 +15,8 @@ public class ClassRoom {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "description", nullable = false)
+    private String description;
     @Column(name = "state_id", nullable = false)
     private Integer state;
     @OneToOne(cascade = CascadeType.ALL)
@@ -25,6 +27,14 @@ public class ClassRoom {
     private Set<User> guestUsers;
 
     public ClassRoom() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {

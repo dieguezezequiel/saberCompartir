@@ -13,19 +13,36 @@
 angular.module('frontendApp')
   .controller('SolicitudConsultaCtrl', ['$scope', 'UsuarioResource','notificationService', '$scService', '$stateParams', '$location',
     function ($scope, UsuarioResource,notificationService, $scService, $stateParams, $location) {
-    $scope.idSolicitud = $stateParams.id;
+      $scope.idSolicitud = $stateParams.id;
+      $scope.solicitudIsValid = false;
+      $scope.programacion = "";
 
-    $scService.getSolicitudById($scope.idSolicitud).then(function(response){
-        $scope.solicitud = response.data;
-        if(!$scope.solicitud.isEmpty()){
-          //TODO ALGO
-        }else{
-          //TODO: MOSTRAR MENSAJE LINDO DE QUE NO EXISTE ESA SOLICITUD
-          $location.path("/#");
-        }
-    },function(){
-      //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
-      notificationService.showMessage({title:"Ups!", text:"Error del sistema", type:"error"});
-    });
+
+      $scope.tomarSolicitud = function(){
+        $scService.tomarSolicitudAndCrearClase($scope.idSolicitud, $scope.solicitud).then(function(response){
+
+        }, function(response){
+
+        });
+      };
+
+      $scope.init = function(){
+        $scService.getSolicitudById($scope.idSolicitud).then(function(response){
+          $scope.solicitud = response.data;
+          if($scope.solicitud != ""){
+            $scope.solicitudIsValid = true;
+            //TODO ALGO
+          }else{
+            //TODO: MOSTRAR MENSAJE LINDO DE QUE NO EXISTE ESA SOLICITUD
+            $scope.solicitudIsValid = false;
+            $location.path("/#");
+          }
+        },function(){
+          //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
+          notificationService.showMessage({title:"Ups!", text:"Error del sistema", type:"error"});
+        });
+      };
+
+      $scope.init();
 
   }]);

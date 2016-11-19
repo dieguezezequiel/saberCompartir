@@ -1,6 +1,7 @@
 package com.sabercompartir.services;
 
 import com.sabercompartir.domain.ClassRoom;
+import com.sabercompartir.domain.Request;
 import com.sabercompartir.domain.User;
 import com.sabercompartir.repository.ClassRoomRepository;
 import com.sabercompartir.repository.UserRepository;
@@ -49,6 +50,20 @@ public class ClassRoomService {
 
 
     public void saveOrUpdate(ClassRoom classroom) {
+        classRoomRepository.save(classroom);
+    }
+
+    public void create(Request request) {
+        //TODO: OBTENER EL USUARIO LOGUEADO, Y NO MAPEAR A ENTIDAD!!!
+        User user = userService.getUser(7l);
+
+        ClassRoom classroom = new ClassRoom();
+        classroom.setName(request.getSubject());
+        classroom.setState(PROGRAMADA);
+        classroom.setUser(user);
+        classroom.setDescription("esto viene del front");
+
+
         classRoomRepository.save(classroom);
     }
 }

@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div ng-show="solicitudIsValid">
+        <button class="btn-sc" ng-click="solicitudTomada = true">QUIERO DAR ESTA CLASE!</button>
 
-</body>
-</html>
+        <div ng-show="solicitudTomada">
+          <button class="btn-sc btn-success-sc" ng-click="tomarSolicitud()">CONFIRMAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
