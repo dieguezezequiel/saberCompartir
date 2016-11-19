@@ -20,6 +20,7 @@ angular
     'ui.router',
     'ui-rangeSlider',
     'timer',
+    'duScroll',
     //nuestras
     'directives.module',
     'scService',
