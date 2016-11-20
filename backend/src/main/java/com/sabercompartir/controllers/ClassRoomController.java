@@ -48,6 +48,13 @@ public class ClassRoomController {
         return classes;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
+    public Page<ClassRoom> getByStateAndUser(@RequestParam("state") Integer state, @RequestParam("user") Long user, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getByStateAndUser(state, user, pageable);
+
+        return classes;
+    }
+
     @RequestMapping(value = "/established", method = RequestMethod.GET)
     public ClassRoom getClassroomEstablished(){
         ClassRoom classroom = this.classRoomService.getClassroomEstablished();

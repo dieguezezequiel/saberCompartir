@@ -81,4 +81,9 @@ public class ClassRoomService {
     public List<ClassRoomState> getClasRoomStates() {
         return classRoomStateRepository.findAll();
     }
+
+    public Page<ClassRoom> getByStateAndUser(Integer state, Long userId, Pageable pageable) {
+        User user = userService.getUser(userId);
+        return classRoomRepository.findByStateAndUser(state, user, pageable);
+    }
 }

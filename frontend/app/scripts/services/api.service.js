@@ -51,6 +51,21 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getClasesPorEstadoYUsuario = function(state, user, pagination){
+      var url = "api/classrooms?" + "state=" + state + "&user=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
+    scService.getClasesPresenciadasPorUsuario = function(user, pagination){
+      var url = "api/classrooms?" + "guestUser=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
+    scService.getClasesFavoritasPorUsuario = function(user, pagination){
+      var url = "api/classrooms?" + "user=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
     /*SOLICITUDES*/
     scService.getSolicitudById = function(id){
       var url = "api/requests/" + id;
@@ -64,7 +79,7 @@ angular.module('scService', [])
 
     /*USUARIOS*/
 
-    scService.getUsuariosRanking = function(orderBy, pagination){
+    scService.getUsuariosRankingOrdenados = function(orderBy, pagination){
       var url = "api/usuarios?" + pagination + "&order=" + orderBy;
       return $http.get(url);
     };

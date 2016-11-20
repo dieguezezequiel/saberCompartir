@@ -1,0 +1,81 @@
+<!--
+Template
+http://2.bp.blogspot.com/-SdaTxrvXTZA/VoZuEDWB3MI/AAAAAAAABkY/SfqekINgeSk/s1600/4_UserPanel.png
+Informacion
+-Clases programadas.
+-Clases finalizadas.
+-Clases en curso.
+-Clases presenciadas.
+-Clases faveadas.
+-Mensajes.
+
+Acciones
+-Ir a modificar datos personales.
+-Dictar clase programada.
+
+-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <img src="" alt="">
+          <h5>{{usuario.nick}}</h5>
+          <h6>{{usuario.firstName}} {{usuario.lastName}}</h6>
+        </div>
+        <div class="col-xs-12">
+          <ul>
+            <li>Perfil</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-9 parent-panel-box">
+      <div class="row padding">
+        <div class="col-md-4">
+            <div class="panel-box text-center">
+              <div>
+                <span class="glyphicon glyphicon-inbox xl-icon"></span>
+                <p>{{cantidadClasesProgramadas}} Clases programadas</p>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-md-4">
+          <div class="panel-box text-center">
+            <div>
+              <span class="glyphicon glyphicon-inbox xl-icon"></span>
+              <p>{{cantidadClasesFinalizadas}} Clases finalizadas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel-box text-center">
+            <div>
+              <span class="glyphicon glyphicon-inbox xl-icon"></span>
+              <p>{{cantidadClasesPresenciadas}} Clases presenciadas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel-box text-center xl-icon">
+            <div>
+              <span class="glyphicon glyphicon-inbox"></span>
+              <p>{{cantidadClasesFavoritas}} Clases favoritas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

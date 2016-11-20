@@ -70,6 +70,11 @@ angular
         url:'/solicitudes',
         templateUrl: 'views/solicitudes.html',
         controller: 'SolicitudesCtrl'
+      })
+      .state('panel',{
+        url:'/panel',
+        templateUrl: 'views/usuario.panel.html',
+        controller: 'UsuarioPanelCtrl'
       });
 
   }]);

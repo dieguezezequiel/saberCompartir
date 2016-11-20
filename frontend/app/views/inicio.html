@@ -58,6 +58,24 @@
       </div>
     </div>
     </div>
+  </div>
+
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases programadas</span>
+
+    <div ng-repeat="clase in clasesProgramadas" class="col-md-4"> <!--1-->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+            <span class="glyphicon glyphicon-plus"></span>
+            <spans> Me Sumo</spans>
+          </div>
+          <div class="col-xs-12 titulo-violeta">{{clase.name}}</div>
+          <p class="col-xs-12">{{clase.description}}<p>
+          <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
+        </div>
+      </div>
+    </div>
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body text-center">
