@@ -9,6 +9,8 @@
  * Main module of the application.
  */
 angular
+  .module('Authentication', []);
+angular
   .module('frontendApp', [
     'underscore',
     'ngAnimate',
@@ -24,7 +26,8 @@ angular
     'directives.module',
     'scService',
     'ConstantsService',
-    'http-auth-interceptor'
+    'http-auth-interceptor',
+    'Authentication'
   ])
   .config(['$stateProvider','$urlRouterProvider', '$httpProvider',
     function($stateProvider,$urlRouterProvider,$httpProvider){
@@ -60,4 +63,19 @@ angular
 
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-  }]);
+  }])
+  .run(['$rootScope', '$location', '$cookieStore', '$http',
+    function ($rootScope, $location, $cookieStore, $http) {
+      // keep user logged in after page refresh
+      $rootScope.globals = $cookieStore.get('globals') || {};
+      if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+      }
+
+      $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in
+        if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+          $location.path('/login');
+        }
+      });
+    }]);

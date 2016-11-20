@@ -7,11 +7,26 @@
  * # AboutCtrl
  * Controller of the frontendApp
  */
-angular.module('frontendApp')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'UsuarioResource', '$http', '$cookieStore',
-    function ($rootScope, $scope, $location, UsuarioResource, $http, $cookieStore) {
+angular.module('Authentication')
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'UsuarioResource', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $location, UsuarioResource, $http, AuthenticationService) {
 
-    $scope.usuario = {};
+      AuthenticationService.ClearCredentials();
+      $scope.usuario = {};
+
+      $scope.login = function () {
+        $scope.dataLoading = true;
+        AuthenticationService.Login($scope.usuario, function(response) {
+          if(response) {
+            AuthenticationService.SetCredentials($scope.usuario);
+          } else {
+            $scope.error = response.message;
+            $scope.dataLoading = false;
+          }
+        });
+      };
+
+ /*   $scope.usuario = {};
     $scope.login = function(){
         UsuarioResource.login($scope.usuario, function(response){
           if(response){
@@ -27,5 +42,5 @@ angular.module('frontendApp')
           })
         });
     }
-
+*/
   }]);
