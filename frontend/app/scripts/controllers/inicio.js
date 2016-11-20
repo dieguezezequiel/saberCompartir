@@ -37,8 +37,8 @@ angular.module('frontendApp')
 
       });
     },
-    function(){
-
+    function(error){
+      console.log("hola mati");
     });
 
     $scope.findObject = function(list, name){

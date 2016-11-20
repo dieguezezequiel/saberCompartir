@@ -65,13 +65,13 @@ public class UserController  extends HttpServlet {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity login(@RequestBody User user, HttpServletResponse response) {
+    public User login(@RequestBody User user) {
         User result = userService.findByUsername(user.getUsername());
         if(result != null) {
             if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
-                return new ResponseEntity<String>(HttpStatus.OK);
+                return user;
         }
-        return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        return user;
 
     }
 }
