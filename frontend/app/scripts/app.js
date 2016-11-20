@@ -77,7 +77,7 @@ angular
       })
       .state('clases',{
         url:'/clases',
-        templateUrl: 'views/solicitudes.html',
+        templateUrl: 'views/clases.html',
         controller: 'ClasesCtrl'
       })
       .state('panel',{

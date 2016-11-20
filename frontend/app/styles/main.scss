@@ -436,6 +436,7 @@ background-color: #22313F;
   border: 1px solid $color-gris-input;
   background-color: $blanco;
   color: $color-violeta-logo;
+  padding-bottom: 5px;
   &:hover{
     background-color: $color-violeta-logo;
     color: $blanco;
@@ -446,7 +447,7 @@ background-color: #22313F;
   padding-right: 0px !important;
 }
 
-.containerSolicitudes{
+.containerBusquedas{
   min-height: 77.8vh !important;
 }
 
