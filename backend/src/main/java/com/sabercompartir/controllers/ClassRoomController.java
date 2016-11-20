@@ -21,8 +21,8 @@ public class ClassRoomController {
     private ClassRoomService classRoomService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<ClassRoom> getAll(){
-        List<ClassRoom> classes = this.classRoomService.getAll();
+    public Page<ClassRoom> getAll(Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getAll(pageable);
 
         return classes;
     }

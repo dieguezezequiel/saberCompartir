@@ -19,6 +19,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getclases = function(pagination){
+      var url = "api/classrooms?" + pagination;
+      return $http.get(url);
+    };
+
 
     scService.getRankingSolicitudes = function() {
       return HomeResource.getSolicitudesMasSolicitadas();

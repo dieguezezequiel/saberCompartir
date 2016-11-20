@@ -26,9 +26,9 @@ angular.module('frontendApp')
 
       $q.all(promises).then(function(response) {
         $scope.solicitudes = response[0];
-        $scope.clasesUltimas = response[1];
-        $scope.clasesEnCurso = response[2];
-        $scope.usuariosRanking = response[3];
+        $scope.clasesUltimas = response[1].data.content;
+        $scope.clasesEnCurso = response[2].data.content;
+        $scope.usuariosRanking = response[3].data.content;
 
       });
     },

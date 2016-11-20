@@ -38,8 +38,8 @@ public class ClassRoomService {
         return classRoomRepository.findById(id);
     }
 
-    public List<ClassRoom> getAll() {
-        return classRoomRepository.findAll();
+    public Page<ClassRoom> getAll(Pageable pageable) {
+        return classRoomRepository.findAll(pageable);
     }
 
     public List<ClassRoom> getByState(Integer state) {
