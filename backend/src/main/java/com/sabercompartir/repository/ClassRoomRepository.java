@@ -18,4 +18,5 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
     ClassRoom findByStateAndUser(Integer state, User user);
     Page<ClassRoom> findByState(Integer state, Pageable pageable);
 
+    Page<ClassRoom> findByStateAndUser(Integer state, User user, Pageable pageable);
 }

@@ -75,6 +75,11 @@ angular
         url:'/clases',
         templateUrl: 'views/solicitudes.html',
         controller: 'ClasesCtrl'
+      })
+      .state('panel',{
+        url:'/panel',
+        templateUrl: 'views/usuario.panel.html',
+        controller: 'UsuarioPanelCtrl'
       });
 
   }]);
