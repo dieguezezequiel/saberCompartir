@@ -70,6 +70,11 @@ angular
         url:'/solicitudes',
         templateUrl: 'views/solicitudes.html',
         controller: 'SolicitudesCtrl'
+      })
+      .state('clases',{
+        url:'/clases',
+        templateUrl: 'views/solicitudes.html',
+        controller: 'ClasesCtrl'
       });
 
   }]);
