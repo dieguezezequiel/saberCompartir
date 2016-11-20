@@ -3,6 +3,9 @@ package com.sabercompartir.controllers;
 import com.sabercompartir.domain.ResponseFront;
 import com.sabercompartir.domain.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import java.util.List;
 @RequestMapping(UrlMappings.BASE + UrlMappings.USER)
 public class UserController  extends HttpServlet {
 
+
     @Autowired
     private UserService userService;
 
@@ -37,6 +41,7 @@ public class UserController  extends HttpServlet {
     @ResponseStatus(HttpStatus.OK)
     public ResponseFront save(@RequestBody User user){
         if(this.userService.getUserRegistro(user) == null){
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.save(user);
             return ResponseFront.success("Bienvenido a saber compartir");
         }else{
@@ -60,7 +65,13 @@ public class UserController  extends HttpServlet {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Principal login(Principal user) {
-        return user;
+    public ResponseEntity login(@RequestBody User user, HttpServletResponse response) {
+        User result = userService.findByUsername(user.getUsername());
+        if(result != null) {
+            if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
+                return new ResponseEntity<String>(HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+
     }
 }

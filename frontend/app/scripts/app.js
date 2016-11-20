@@ -23,7 +23,8 @@ angular
     //nuestras
     'directives.module',
     'scService',
-    'ConstantsService'
+    'ConstantsService',
+    'http-auth-interceptor'
   ])
   .config(['$stateProvider','$urlRouterProvider', '$httpProvider',
     function($stateProvider,$urlRouterProvider,$httpProvider){

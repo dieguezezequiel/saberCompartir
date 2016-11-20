@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope','HomeResource', '$q', function ($scope, HomeResource, $q) {
+  .controller('InicioCtrl', ['$rootScope', '$scope','HomeResource', '$q', '$http', function ($rootScope, $scope, HomeResource, $q, $http) {
 
     $scope.hide = false;
 
