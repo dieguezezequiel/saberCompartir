@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="frontendApp">
+  <body ng-app="frontendApp"  ng-controller="IndexCtrl">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -42,14 +42,18 @@
           </div>
 
           <div class="col-xs-8 buscador-container">
-            <form class="navbar-form" role="search">
-              <div ng-class="{'width100': focused, 'width70' : !focused}" class="input-group">
-                <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border" placeholder="Buscar" name="q">
-                <div class="input-group-btn">
-                  <button class="btn btn-search-sc square-border" type="submit" ui-sref="solicitudes"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
+            <div class="navbar-form" role="search">
+              <!--ng-class="{'width100': focused, 'width70' : !focused}"-->
+              <div class="row">
+                  <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border searchInput col-xs-8" placeholder="Buscar" name="q">
+                  <select ng-model="filtro" ng-init="filtro = options[0]"  name="select" class="col-xs-2 form-control square-border searchSelect">
+                    <option value="">Buscar por...</option>
+                    <option value="clases">Clases</option>
+                    <option value="solicitudes">Solicitudes</option>
+                  </select>
+                  <button class="btn btn-search-sc square-border" ng-click="reditectByFiltro(filtro)"><i class="glyphicon glyphicon-search"></i></button>
               </div>
-            </form>
+            </div>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">

@@ -82,4 +82,10 @@ angular
         controller: 'UsuarioPanelCtrl'
       });
 
+  }])
+  .controller('IndexCtrl', ['$scope','$state', function ($scope, $state) {
+    $scope.reditectByFiltro = function (filtro) {
+      $state.go(filtro)
+    };
+
   }]);

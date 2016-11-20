@@ -31,9 +31,6 @@ angular.module('frontendApp')
         $scope.usuariosRanking = response[3].data.content;
 
       });
-    },
-    function(){
-
     });
 
     $scope.findObject = function(list, name){
@@ -41,8 +38,6 @@ angular.module('frontendApp')
         return obj.name == name;
       });
     };
-
-
 
     $scope.sumarse = function(solicitud){
       solicitud.totalUsers = solicitud.totalUsers + 1;
