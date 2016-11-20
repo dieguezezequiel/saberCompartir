@@ -27,7 +27,6 @@ angular
     'directives.module',
     'scService',
     'ConstantsService',
-    'http-auth-interceptor',
     'Authentication'
   ])
   .config(['$stateProvider','$urlRouterProvider', '$httpProvider',
@@ -90,8 +89,8 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
   }])
-  .run(['$rootScope', '$location', '$cookieStore', '$http',
-    function ($rootScope, $location, $cookieStore, $http) {
+  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
+    function ($rootScope, $state, $location, $cookieStore, $http) {
       // keep user logged in after page refresh
       $rootScope.globals = $cookieStore.get('globals') || {};
       if ($rootScope.globals.currentUser) {
@@ -99,9 +98,9 @@ angular
       }
 
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in
+        // Si no esta logeado redireccionar
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
-          $location.path('/login');
+         $state.go('login');
         }
       });
     }]);

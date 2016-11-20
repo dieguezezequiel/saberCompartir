@@ -8,10 +8,15 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope','HomeResource', '$q', '$scService', function ($scope, HomeResource, $q, $scService) {
+  .controller('InicioCtrl', ['$location','$scope','HomeResource', '$q', '$scService', 'AuthenticationService',
+    function ($location, $scope, HomeResource, $q, $scService, AuthenticationService) {
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
+
+   /*   if(!AuthenticationService.isAuthenticated()){
+        $location.path('/login');
+      }*/
 
     $scService.getEstadosDeClase().then(function(response){
 

@@ -16,31 +16,16 @@ angular.module('Authentication')
 
       $scope.login = function () {
         $scope.dataLoading = true;
-        AuthenticationService.Login($scope.usuario, function(response) {
-          if(response) {
+        AuthenticationService.Login($scope.usuario, function (response) {
+          if (response) {
             AuthenticationService.SetCredentials($scope.usuario);
           } else {
-            $scope.error = response.message;
-            $scope.dataLoading = false;
+            new PNotify({
+              title: "Oh no!",
+              text: "Usuario o Contraseña invalidos",
+              type: 'error'
+            })
           }
         });
-      };
-
- /*   $scope.usuario = {};
-    $scope.login = function(){
-        UsuarioResource.login($scope.usuario, function(response){
-          if(response){
-            $http.defaults.headers.common['Authorization'] = 'Basic '
-              + btoa($scope.usuario.username+":"+ $scope.usuario.password);
-            $location.url("/home");
-          }
-        }, function(error){
-          new PNotify({
-            title: "Oh no!",
-            text: "Usuario o Contraseña invalidos",
-            type: 'error'
-          })
-        });
-    }
-*/
-  }]);
+      }
+    }]);
