@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.mobile.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -40,12 +41,12 @@
             <a class="navbar-brand navbar-brand-sc" ui-sref="inicio"><img src="images/logo_brain1.png" alt=""/></a>
           </div>
 
-          <div class="col-xs-6 buscador-container">
+          <div class="col-xs-8 buscador-container">
             <form class="navbar-form" role="search">
-              <div ng-class="{'width100': focused, 'width50' : !focused}" class="input-group">
-                <input type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control" placeholder="Buscar" name="q">
+              <div ng-class="{'width100': focused, 'width70' : !focused}" class="input-group">
+                <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border" placeholder="Buscar" name="q">
                 <div class="input-group-btn">
-                  <button class="btn btn-search-sc" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                  <button class="btn btn-search-sc square-border" type="submit" ui-sref="solicitudes"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
               </div>
             </form>
@@ -110,7 +111,7 @@
     <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
     <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
     <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
-    <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -120,6 +121,8 @@
         <script src="scripts/directives/directivas.js"></script>
         <script src="scripts/controllers/dictado.js"></script>
         <script src="scripts/controllers/presenciado.js"></script>
+        <script src="scripts/controllers/solicitud.consulta.ctrl.js"></script>
+        <script src="scripts/controllers/solicitud.crear.ctrl.js"></script>
         <script src="scripts/directives/directivas-de-validacion.js"></script>
         <script src="scripts/services/api.service.js"></script>
         <script src="scripts/services/constant.service.js"></script>
@@ -127,6 +130,8 @@
         <script src="scripts/services/authentication.service.js"></script>
         <script src="scripts/controllers/registro.ctrl.js"></script>
         <script src="scripts/controllers/login.ctrl.js"></script>
+        <script src="scripts/controllers/solicitudes.ctrl.js"></script>
+        <script src="scripts/controllers/usuario.panel.ctrl.js"></script>
 
 
     <!-- RESOURCES -->

@@ -5,37 +5,101 @@
     <h2>Compartir es más fácil.</h2>
   </div>
   <h1>
-    <p class="element-bottom"><a href="#"><i class="glyphicon glyphicon-chevron-down"></i></a></p>
+    <p class="element-bottom"><a du-smooth-scroll="main" duration="1000"><i class="glyphicon glyphicon-chevron-down"></i></a></p>
   </h1>
 
 </div>
 
-<div class="container-home container container-home">
+<div class="container-home container container-home" id="main">
   <div class="row">
-    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases mas solicitadas</span>
-  </div>
-</div>
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases más solicitadas</span>
 
-<div class="container">
-  <div class="row">
-    <div ng-repeat="solicitud in solicitudes" class="col-md-4"> <!--1-->
+    <div ng-repeat="solicitud in solicitudes | filter : {'state' : 'PENDIENTE'}" class="col-md-4"> <!--1-->
       <div class="panel panel-default">
         <div class="panel-body">
           <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
             <span class="glyphicon glyphicon-plus"></span>
             <spans> Me Sumo</spans>
           </div>
-            <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
-            <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
-            <p class="col-xs-12">Puntos por dar clase: {{solicitud.points}}<p>
-            <p class="col-xs-12">Estado: {{solicitud.state}}<p>
-          <div class="mas cursor" ng-click="solicitud.state = 'A Realizarse'">
+          <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
+          <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
+          <p class="col-xs-12">Puntos por dar clase: {{solicitud.points}}<p>
+          <a class="mas cursor" href="#/solicitud/{{solicitud.id}}">
             <span class="glyphicon glyphicon-user"></span>
-            <spans> Voy a dar esta clase</spans>
-          </div>
+            <spans>Quiero dar esta clase</spans>
+          </a>
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <a class="mas cursor" href="#/solicitud">
+            <span class="glyphicon glyphicon-plus xl-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases en curso</span>
+
+    <div ng-repeat="clase in clasesEnCurso" class="col-md-4"> <!--1-->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+            <span class="glyphicon glyphicon-plus"></span>
+            <spans> Me Sumo</spans>
+          </div>
+          <div class="col-xs-12 titulo-violeta">{{clase.name}}</div>
+          <p class="col-xs-12">{{clase.description}}<p>
+          <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Clases programadas</span>
+
+    <div ng-repeat="clase in clasesProgramadas" class="col-md-4"> <!--1-->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+            <span class="glyphicon glyphicon-plus"></span>
+            <spans> Me Sumo</spans>
+          </div>
+          <div class="col-xs-12 titulo-violeta">{{clase.name}}</div>
+          <p class="col-xs-12">{{clase.description}}<p>
+          <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <a class="mas cursor" href="#/solicitud">
+            <span class="glyphicon glyphicon-plus xl-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Usuarios más relevantes</span>
+
+    <div ng-repeat="usuario in usuarios" class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="col-xs-12 titulo-violeta">{{usuario.nick}}</div>
+          <p class="col-xs-12">{{usuario.firstName}} {{usuario.lastName}}</p>
+          <p class="col-xs-12">{{usuario.score}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+

@@ -8,9 +8,10 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants', '_', '$stateParams',
-    function ($scope, $scService, $q, Constants, _, $stateParams) {
+  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants', '_', '$stateParams', 'notificationService', '$location',
+    function ($scope, $scService, $q, Constants, _, $stateParams, notificationService, $location) {
 
+      //TODO: MEJORAR ESTO, QUE NO SE LLAME AL TOQUE, SINO CUANDO LA CLASE ES VÁLIDA
       var webrtc = new SimpleWebRTC({
         localVideoEl: 'localVideo',
         autoRequestMedia: true,
@@ -171,8 +172,14 @@ angular.module('frontendApp')
         //Obtener la clase que tiene estado ESTABLECIDA del usuario en cuestion
         $scService.getEstablishedClassroom().then(function(response){
             $scope.clase = response.data;
-            $scope.abrirChat();
-            $scope.claseIsValid = true;
+            if($scope.clase != ""){
+              $scope.abrirChat();
+              $scope.claseIsValid = true;
+            }else{
+              //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
+              notificationService.showMessage({title:"Ups!", text:"No tienes ninguna clase establecida o programada", type:"error"});
+              $location.path("/#");
+            }
           },
           function(response){
             console.log(response.data);

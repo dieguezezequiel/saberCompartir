@@ -22,6 +22,7 @@ angular
     'ui.router',
     'ui-rangeSlider',
     'timer',
+    'duScroll',
     //nuestras
     'directives.module',
     'scService',
@@ -59,6 +60,31 @@ angular
         url:'/presenciado/:id',
         templateUrl: 'views/presenciado.html',
         controller: 'PresenciadoCtrl'
+      })
+      .state('solicitudC',{
+        url:'/solicitud/:id',
+        templateUrl: 'views/solicitud.consulta.html',
+        controller: 'SolicitudConsultaCtrl'
+      })
+      .state('solicitud',{
+        url:'/solicitud',
+        templateUrl: 'views/solicitud.crear.html',
+        controller: 'SolicitudCrearCtrl'
+      })
+      .state('solicitudes',{
+        url:'/solicitudes',
+        templateUrl: 'views/solicitudes.html',
+        controller: 'SolicitudesCtrl'
+      })
+      .state('clases',{
+        url:'/clases',
+        templateUrl: 'views/solicitudes.html',
+        controller: 'ClasesCtrl'
+      })
+      .state('panel',{
+        url:'/panel',
+        templateUrl: 'views/usuario.panel.html',
+        controller: 'UsuarioPanelCtrl'
       });
 
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
