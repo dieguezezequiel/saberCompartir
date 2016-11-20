@@ -57,12 +57,28 @@
           <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
       </div>
     </div>
+    </div>
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body text-center">
           <a class="mas cursor" href="#/solicitud">
             <span class="glyphicon glyphicon-plus xl-icon"></span>
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span> Usuarios más relevantes</span>
+
+    <div ng-repeat="usuario in usuarios" class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="col-xs-12 titulo-violeta">{{usuario.nick}}</div>
+          <p class="col-xs-12">{{usuario.firstName}} {{usuario.lastName}}</p>
+          <p class="col-xs-12">{{usuario.score}}</p>
         </div>
       </div>
     </div>

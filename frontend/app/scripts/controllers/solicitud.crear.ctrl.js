@@ -11,7 +11,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('SolicitudCrear', ['$scope', 'UsuarioResource','notificationService', function ($scope, UsuarioResource,notificationService) {
+  .controller('SolicitudCrearCtrl', ['$scope', 'UsuarioResource','notificationService', function ($scope, UsuarioResource,notificationService) {
 
 
   }]);
