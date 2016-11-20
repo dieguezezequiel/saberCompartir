@@ -69,9 +69,8 @@ public class UserController  extends HttpServlet {
         User result = userService.findByUsername(user.getUsername());
         if(result != null) {
             if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
-                return user;
+                return result;
         }
-        return user;
-
+        return null;
     }
 }

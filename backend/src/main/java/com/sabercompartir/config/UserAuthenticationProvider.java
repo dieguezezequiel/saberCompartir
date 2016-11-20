@@ -28,7 +28,7 @@ public class UserAuthenticationProvider extends AbstractUserDetailsAuthenticatio
             throws AuthenticationException {
 
         if(token.getCredentials() == null || userDetails.getPassword() == null){
-            throw new BadCredentialsException("Null credentials forro");
+            throw new BadCredentialsException("No hay credenciales");
         }
 
         if(!passwordEncoder.matches((String) token.getCredentials(), userDetails.getPassword())){
