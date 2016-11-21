@@ -32,7 +32,6 @@ public class UserController  extends HttpServlet {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getAll(){
         List<User> users = this.userService.getAll();
-
         return users;
     }
 

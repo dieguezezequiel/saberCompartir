@@ -106,7 +106,7 @@ angular
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // Si no esta logeado redireccionar
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
-         $state.go('login');
+         /*$state.go('login');*/
         }
       });
     }]);
