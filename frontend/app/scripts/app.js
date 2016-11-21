@@ -89,6 +89,12 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
   }])
+  .controller('IndexCtrl', ['$scope','$state', function ($scope, $state) {
+    $scope.reditectByFiltro = function (filtro) {
+      $state.go(filtro)
+    };
+
+  }])
   .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
     function ($rootScope, $state, $location, $cookieStore, $http) {
       // keep user logged in after page refresh
