@@ -47,6 +47,7 @@ module.exports = function(config) {
       'bower_components/pnotify/dist/pnotify.mobile.js',
       'bower_components/pnotify/dist/pnotify.nonblock.js',
       'bower_components/angular-scroll/angular-scroll.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -21,6 +21,7 @@ angular
     'ui-rangeSlider',
     'timer',
     'duScroll',
+    'ui.bootstrap',
     //nuestras
     'directives.module',
     'scService',
@@ -80,12 +81,25 @@ angular
         url:'/panel',
         templateUrl: 'views/usuario.panel.html',
         controller: 'UsuarioPanelCtrl'
+      })
+      .state('busquedaAll',{
+        url:'/busquedaAll',
+        templateUrl: 'views/busquedaAll.html',
+        controller: 'BusquedaAllCtrl'
       });
 
   }])
   .controller('IndexCtrl', ['$scope','$state', function ($scope, $state) {
+      $scope.options = [
+        {value: 'busquedaAll', descripcion: 'Buscar por...'},
+        {value: 'clases', descripcion: 'Clases'},
+        {value: 'solicitudes', descripcion: 'Solicitudes'}
+      ];
+
     $scope.reditectByFiltro = function (filtro) {
-      $state.go(filtro)
+      if(filtro.value){
+        $state.go(filtro.value)
+      }
     };
 
   }]);

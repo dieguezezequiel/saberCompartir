@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope','HomeResource', '$q', '$scService', function ($scope, HomeResource, $q, $scService) {
+  .controller('InicioCtrl', ['$scope','$q', '$scService', function ($scope, $q, $scService) {
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
@@ -18,14 +18,14 @@ angular.module('frontendApp')
       $scope.estadosDeClase = response.data;
 
       var promises = [
-        HomeResource.getSolicitudesMasSolicitadas(),
+        $scService.getSolicitudes($scope.paginado),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, "date,desc", $scope.paginado),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'EN_CURSO').id, "date,desc",  $scope.paginado),
         $scService.getUsuariosRankingOrdenados("Score", $scope.paginado)
       ];
 
       $q.all(promises).then(function(response) {
-        $scope.solicitudes = response[0];
+        $scope.solicitudes = response[0].data.content;
         $scope.clasesProgramadas = response[1].data.content;
         $scope.clasesEnCurso = response[2].data.content;
         $scope.usuariosRanking = response[3].data.content;

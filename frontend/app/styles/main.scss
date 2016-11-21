@@ -423,23 +423,15 @@ background-color: #22313F;
   padding: 4px;
 }
 
-.width70{
-  width: 70%;
-  transition: width 1s;
-}
-.width100{
-  width: 100%;
-  transition: width 1s;
-}
-
 .btn-search-sc{
-  border: 1px solid $color-gris-input;
-  background-color: $blanco;
-  color: $color-violeta-logo;
+
+  background-color: $color-violeta-logo;
+  color: $blanco;
   padding-bottom: 5px;
   &:hover{
-    background-color: $color-violeta-logo;
-    color: $blanco;
+    border: 1px solid $color-gris-input;
+    background-color: $blanco;
+    color: $color-violeta-logo;
   }
 }
 
@@ -457,4 +449,23 @@ background-color: #22313F;
 }
 .resaltadorTextoPlanoAmarillo{
   color: $amarillo;
+}
+.searchInput{
+  width: 455px !important;
+  margin-left: 90px !important;
+  &:focus{
+    border-color: $color-gris-input;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.sinBordesDerIzq{
+  border-right: none !important;
+  border-left: none !important;
+  &:focus{
+    border-color: $color-gris-input;
+    box-shadow: none;
+    outline: none;
+  }
 }

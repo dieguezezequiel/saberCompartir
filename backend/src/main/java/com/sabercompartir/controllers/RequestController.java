@@ -1,9 +1,12 @@
 package com.sabercompartir.controllers;
 
+import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.Request;
 import com.sabercompartir.services.ClassRoomService;
 import com.sabercompartir.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,8 @@ public class RequestController {
     private ClassRoomService classRoomService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Request> getAll(){
-        List<Request> requests = this.requestService.getAll();
+    public Page<Request> getAll(Pageable pageable){
+        Page<Request> requests = this.requestService.getAll(pageable);
 
         return requests;
     }

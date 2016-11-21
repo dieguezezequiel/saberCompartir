@@ -1,9 +1,12 @@
 package com.sabercompartir.services;
 
+import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.Request;
 import com.sabercompartir.enums.EstadoSolicitud;
 import com.sabercompartir.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,8 @@ public class RequestService {
     @Autowired
     RequestRepository requestRepository;
 
-    public List<Request> getAll() {
-        return requestRepository.findAll();
+    public Page<Request> getAll(Pageable pageable) {
+        return requestRepository.findAll(pageable);
     }
 
     public Request getRequestById(Long id) {

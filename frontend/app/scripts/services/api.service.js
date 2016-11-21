@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('scService', [])
-  .factory('$scService', ['$http','HomeResource', function($http,HomeResource) {
+  .factory('$scService', ['$http', function($http) {
 
     var scService = {};
 
@@ -24,9 +24,9 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
-
     scService.getRankingSolicitudes = function() {
-      return HomeResource.getSolicitudesMasSolicitadas();
+      var url = "api/classrooms/Ranking";
+      return $http.get(url);
     };
 
     scService.updateClase = function(clase){
@@ -67,6 +67,11 @@ angular.module('scService', [])
     };
 
     /*SOLICITUDES*/
+    scService.getSolicitudes = function(pagination){
+      var url = "api/requests?" + pagination;
+      return $http.get(url);
+    };
+
     scService.getSolicitudById = function(id){
       var url = "api/requests/" + id;
       return $http.get(url);

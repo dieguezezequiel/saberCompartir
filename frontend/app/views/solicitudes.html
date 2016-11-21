@@ -1,4 +1,4 @@
-<div class="containerSolicitudes">
+<div class="containerBusquedas">
   <div class="container-home container container-home" id="main">
     <div class="row">
       <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span>Solicitudes</span>
@@ -38,5 +38,36 @@
           </div>
       </div>
     </div>
+    <div class="footer navbar">
+      <div class="pull-left">{{(solicitudes | filter:searcher).length}} Solicitudes encontradas
+      </div>
+    </div>
+
+    <h1>Todos</h1>
+    <h4>{{todos.length}} total {{solicitudesData.totalPages}}</h4>
+    <ul>
+      <li ng-repeat="todo in filteredTodos">{{todo.text}}</li>
+    </ul>
+
+    <ul uib-pagination
+        boundary-links="true"
+        total-items="solicitudesData.totalPages"
+        items-per-page="numPerPage"
+        ng-model="currentPage"
+        max-size="maxSize"
+        class="pagination-lg"
+        previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;">
+    </ul>
+    <!--<uib-pagination-->
+      <!--ng-model="currentPage"-->
+      <!--total-items="todos.length"-->
+      <!--max-size="maxSize"-->
+      <!--boundary-links="true">-->
+    <!--</uib-pagination>-->
+
+
   </div>
 </div>
