@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('Authentication')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'UsuarioResource', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $location, UsuarioResource, $http, AuthenticationService) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$state', 'UsuarioResource', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $location, $state, UsuarioResource, $http, AuthenticationService) {
 
       AuthenticationService.ClearCredentials();
       $scope.usuario = {};
@@ -17,15 +17,23 @@ angular.module('Authentication')
       $scope.login = function () {
         $scope.dataLoading = true;
         AuthenticationService.Login($scope.usuario, function (response) {
-          if (response) {
+          if (response.email != undefined) {
             AuthenticationService.SetCredentials($scope.usuario);
-          } else {
+            new PNotify({
+              title: "Has iniciado sesion!",
+              text: "Bienvenido!",
+              type: 'success'
+            });
+            $state.go("inicio");
+          }
+          else {
             new PNotify({
               title: "Oh no!",
               text: "Usuario o Contraseña invalidos",
               type: 'error'
             })
           }
+
         });
       }
     }]);

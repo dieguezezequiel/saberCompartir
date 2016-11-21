@@ -89,11 +89,18 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
   }])
-  .controller('IndexCtrl', ['$scope','$state', function ($scope, $state) {
+  .controller('IndexCtrl', ['$rootScope', '$scope','$state', 'AuthenticationService',
+    function ($rootScope, $scope, $state, AuthenticationService) {
     $scope.reditectByFiltro = function (filtro) {
-      $state.go(filtro)
+      $state.go(filtro);
     };
-
+      $scope.authenticated= function(){
+        return $rootScope.globals.currentUser != undefined;
+      }
+    $scope.logout = function(){
+      AuthenticationService.ClearCredentials();
+      $state.go('login');
+    };
   }])
   .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
     function ($rootScope, $state, $location, $cookieStore, $http) {

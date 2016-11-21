@@ -38,7 +38,11 @@ angular.module('frontendApp')
       });
     },
     function(error){
-      console.log("hola mati");
+      new PNotify({
+        title: "Oh no!",
+        text: "Usuario y/o contraseña invalidos",
+        type: 'error'
+      })
     });
 
     $scope.findObject = function(list, name){

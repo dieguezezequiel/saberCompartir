@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,8 @@ public class UserController  extends HttpServlet {
             if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
                 return result;
         }
+
+
         return null;
     }
 }

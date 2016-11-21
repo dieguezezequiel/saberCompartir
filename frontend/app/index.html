@@ -60,8 +60,10 @@
 
             <ul class="nav navbar-nav navbar-nav-sc">
               <li style="border-left: 1px solid #ccc" ui-sref-active="active"><a ui-sref="inicio">Inicio</a></li>
-              <li ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
-              <li ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
+              <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
+              <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
+              <li ng-show="authenticated()" ui-sref-active="active"><a ui-sref="panel">Panel</a></li>
+              <li ng-show="authenticated()" ui-sref-active="active"><button class="btn btn-default"ng-click="logout()">Salir</button></li>
             </ul>
           </div>
         </div>
