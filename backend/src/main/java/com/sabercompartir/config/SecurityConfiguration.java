@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/api/usuarios**",
                             "/api/classrooms**",
                             "/api/classrooms/states**",
+                            "/api/requests**",
                             "/api/home"
                             ).permitAll()
                     .anyRequest().authenticated()
