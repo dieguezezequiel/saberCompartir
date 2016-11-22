@@ -1,9 +1,9 @@
 {
   "name": "simpleWebRTC",
-  "main": "simplewebrtc.bundle.js",
   "homepage": "https://github.com/HenrikJoreteg/SimpleWebRTC",
   "version": "2.1.0",
   "_release": "2.1.0",
+  "main": "simplewebrtc.bundle.js",
   "_resolution": {
     "type": "version",
     "tag": "2.1.0",
@@ -12,7 +12,9 @@
   "_source": "https://github.com/HenrikJoreteg/SimpleWebRTC.git",
   "_target": "^2.1.0",
   "_originalSource": "simpleWebRTC",
-  "description": "",
+  "authors": [
+    "matiasdg <matiasdanielgarcia@gmail.com>"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",
