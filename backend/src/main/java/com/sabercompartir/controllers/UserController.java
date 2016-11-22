@@ -3,6 +3,10 @@ package com.sabercompartir.controllers;
 import com.sabercompartir.domain.ResponseFront;
 import com.sabercompartir.domain.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -21,13 +26,13 @@ import java.util.List;
 @RequestMapping(UrlMappings.BASE + UrlMappings.USER)
 public class UserController  extends HttpServlet {
 
+
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getAll(){
         List<User> users = this.userService.getAll();
-
         return users;
     }
 
@@ -36,6 +41,7 @@ public class UserController  extends HttpServlet {
     @ResponseStatus(HttpStatus.OK)
     public ResponseFront save(@RequestBody User user){
         if(this.userService.getUserRegistro(user) == null){
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             userService.save(user);
             return ResponseFront.success("Bienvenido a saber compartir");
         }else{
@@ -59,13 +65,14 @@ public class UserController  extends HttpServlet {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void initSession(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession sesion = request.getSession();
-        if(this.userService.getUserLogin(user) != null && sesion.getAttribute("user") == null){
-            sesion.setAttribute("user", this.userService.getUserLogin(user));
-            //TODO redirijir a página con información de login exitoso
-            //Por qué redirigir desde acá y no desde el front?
-            response.sendRedirect("../../");
+    public User login(@RequestBody User user) {
+        User result = userService.findByUsername(user.getUsername());
+        if(result != null) {
+            if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
+                return result;
         }
+
+
+        return null;
     }
 }

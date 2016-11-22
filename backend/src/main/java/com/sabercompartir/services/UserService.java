@@ -3,6 +3,10 @@ package com.sabercompartir.services;
 import com.sabercompartir.domain.User;
 import com.sabercompartir.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +40,13 @@ public class UserService implements IUserService {
 
     public User getUserRegistro(User user){
         return userRepository.findByEmail(user.getEmail());
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
     }
 }

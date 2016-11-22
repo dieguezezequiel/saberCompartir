@@ -9,6 +9,8 @@
  * Main module of the application.
  */
 angular
+  .module('Authentication', []);
+angular
   .module('frontendApp', [
     'underscore',
     'ngAnimate',
@@ -25,81 +27,106 @@ angular
     //nuestras
     'directives.module',
     'scService',
-    'ConstantsService'
+    'ConstantsService',
+    'Authentication'
   ])
-  .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
-    $urlRouterProvider
-      .otherwise('/');
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider) {
+      $urlRouterProvider
+        .otherwise('/');
 
-    $stateProvider
-      .state('inicio',{
-        url:'/',
-        templateUrl: 'views/inicio.html',
-        controller: 'InicioCtrl'
-      })
-      .state('registro',{
-        url:'/registro',
-        templateUrl: 'views/registro.html',
-        controller: 'RegistroCtrl'
-      })
-      .state('login',{
-        url:'/login',
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .state('dictado',{
-        url:'/dictado',
-        templateUrl: 'views/dictado.html',
-        controller: 'DictadoCtrl'
-      })
-      .state('presenciado',{
-        url:'/presenciado/:id',
-        templateUrl: 'views/presenciado.html',
-        controller: 'PresenciadoCtrl'
-      })
-      .state('solicitudC',{
-        url:'/solicitud/:id',
-        templateUrl: 'views/solicitud.consulta.html',
-        controller: 'SolicitudConsultaCtrl'
-      })
-      .state('solicitud',{
-        url:'/solicitud',
-        templateUrl: 'views/solicitud.crear.html',
-        controller: 'SolicitudCrearCtrl'
-      })
-      .state('solicitudes',{
-        url:'/solicitudes',
-        templateUrl: 'views/solicitudes.html',
-        controller: 'SolicitudesCtrl'
-      })
-      .state('clases',{
-        url:'/clases',
-        templateUrl: 'views/clases.html',
-        controller: 'ClasesCtrl'
-      })
-      .state('panel',{
-        url:'/panel',
-        templateUrl: 'views/usuario.panel.html',
-        controller: 'UsuarioPanelCtrl'
-      })
-      .state('busquedaAll',{
-        url:'/busquedaAll',
-        templateUrl: 'views/busquedaAll.html',
-        controller: 'BusquedaAllCtrl'
-      });
+      $stateProvider
+        .state('inicio', {
+          url: '/',
+          templateUrl: 'views/inicio.html',
+          controller: 'InicioCtrl'
+        })
+        .state('registro', {
+          url: '/registro',
+          templateUrl: 'views/registro.html',
+          controller: 'RegistroCtrl'
+        })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'views/login.html',
+          controller: 'LoginCtrl'
+        })
+        .state('dictado', {
+          url: '/dictado',
+          templateUrl: 'views/dictado.html',
+          controller: 'DictadoCtrl'
+        })
+        .state('presenciado', {
+          url: '/presenciado/:id',
+          templateUrl: 'views/presenciado.html',
+          controller: 'PresenciadoCtrl'
+        })
+        .state('solicitudC', {
+          url: '/solicitud/:id',
+          templateUrl: 'views/solicitud.consulta.html',
+          controller: 'SolicitudConsultaCtrl'
+        })
+        .state('solicitud', {
+          url: '/solicitud',
+          templateUrl: 'views/solicitud.crear.html',
+          controller: 'SolicitudCrearCtrl'
+        })
+        .state('solicitudes', {
+          url: '/solicitudes',
+          templateUrl: 'views/solicitudes.html',
+          controller: 'SolicitudesCtrl'
+        })
+        .state('clases', {
+          url: '/clases',
+          templateUrl: 'views/clases.html',
+          controller: 'ClasesCtrl'
+        })
+        .state('panel', {
+          url: '/panel',
+          templateUrl: 'views/usuario.panel.html',
+          controller: 'UsuarioPanelCtrl'
+        })
+        .state('busquedaAll', {
+          url: '/busquedaAll',
+          templateUrl: 'views/busquedaAll.html',
+          controller: 'BusquedaAllCtrl'
+        });
 
-  }])
-  .controller('IndexCtrl', ['$scope','$state', function ($scope, $state) {
+      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    }])
+  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService',
+    function ($rootScope, $scope, $state, AuthenticationService) {
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
         {value: 'clases', descripcion: 'Clases'},
         {value: 'solicitudes', descripcion: 'Solicitudes'}
       ];
-
-    $scope.reditectByFiltro = function (filtro) {
-      if(filtro.value){
-        $state.go(filtro.value)
+      $scope.reditectByFiltro = function (filtro) {
+        if (filtro.value) {
+          $state.go(filtro.value)
+        }
+      };
+      $scope.authenticated = function () {
+        return $rootScope.globals.currentUser != undefined;
+      };
+      $scope.logout = function () {
+        AuthenticationService.ClearCredentials();
+        $state.go('login');
+      };
+    }])
+  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
+    function ($rootScope, $state, $location, $cookieStore, $http) {
+      // keep user logged in after page refresh
+      $rootScope.globals = $cookieStore.get('globals') || {};
+      if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
       }
-    };
 
-  }]);
+      $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // Si no esta logeado redireccionar
+        if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+          /*$state.go('login');*/
+        }
+      });
+    }]);

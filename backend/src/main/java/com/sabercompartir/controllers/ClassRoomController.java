@@ -14,6 +14,7 @@ import java.util.List;
  * Created by matias on 30/10/16.
  */
 @RestController
+@CrossOrigin
 @RequestMapping(UrlMappings.BASE + UrlMappings.CLASSROOM)
 public class ClassRoomController {
 
