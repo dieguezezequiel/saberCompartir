@@ -16,7 +16,7 @@ Acciones
 -->
 
 <div class="container">
-  <div class="row">
+  <div class="row top-buffer">
     <div class="col-xs-3">
       <div class="row">
         <div class="col-xs-12 text-center">
@@ -33,8 +33,8 @@ Acciones
     </div>
 
     <div class="col-xs-9 parent-panel-box">
-      <div class="row padding">
-        <div ng-show="showMenu" class="col-md-4">
+      <div class="row no-margin top-buffer-pad">
+        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesProgramadas = true" class="col-md-4">
             <div class="panel-box text-center">
               <div>
                 <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -43,7 +43,7 @@ Acciones
             </div>
           </div>
 
-        <div ng-show="showMenu" class="col-md-4">
+        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFinalizadas = true"about=""  class="col-md-4">
           <div class="panel-box text-center">
             <div>
               <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -52,7 +52,7 @@ Acciones
           </div>
         </div>
 
-        <div ng-show="showMenu" class="col-md-4">
+        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesPresenciadas = true" class="col-md-4">
           <div class="panel-box text-center">
             <div>
               <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -61,7 +61,7 @@ Acciones
           </div>
         </div>
 
-        <div ng-show="showMenu" class="col-md-4">
+        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFavoritas = true" class="col-md-4">
           <div class="panel-box text-center xl-icon">
             <div>
               <span class="glyphicon glyphicon-inbox"></span>
@@ -72,6 +72,26 @@ Acciones
 
         <!--PANELES-->
         <div ng-show="showMenuClasesProgramadas" class="col-xs-12">
+          <div class="panel-box-item">
+            <div class="title">Clases programadas</div>
+            <div class="panel-item">
+              <div class="title">Angular Js</div>
+              <div>Framework de javascript</div>
+              <div>10 de Diciembre a las 18:00 hs</div>
+            </div>
+
+            <div class="panel-item">
+              <div class="title">Angular Js</div>
+              <div>Framework de javascript</div>
+              <div>10 de Diciembre a las 18:00 hs</div>
+            </div>
+
+            <div class="panel-item">
+              <div class="title">Angular Js</div>
+              <div>Framework de javascript</div>
+              <div>10 de Diciembre a las 18:00 hs</div>
+            </div>
+          </div>
         </div>
 
         <div ng-show="showMenuClasesFinalizadas" class="col-xs-12">
