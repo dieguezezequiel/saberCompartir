@@ -3,51 +3,89 @@
  */
 'use strict';
 angular.module('scService', [])
-  .factory('$scService', ['$http','HomeResource', function($http,HomeResource) {
+  .factory('$scService', ['$http', function($http) {
 
     var scService = {};
 
-    scService.getStreamingActuales = function() {
-      var url = "api/sarasa/";
-      //return $http.get(url);
-      return [1,2,3,4,5,6,7,8];
+    /*CLASES*/
+
+    scService.getEstadosDeClase = function(){
+      var url = "api/classrooms/states";
+      return $http.get(url);
     };
 
-    scService.getStreamingProgramados = function() {
-      var url = "api/sarasa/";
-      //return $http.get(url);
-      return [1,2,3,4,5,6,7,8];
+    scService.getclasesPorEstadoOrdenadas = function(state, orderBy, pagination){
+      var url = "api/classrooms?" + "state=" + state + "&" + pagination + "&sort=" + orderBy;
+      return $http.get(url);
     };
 
-    scService.getRankingUsuarios = function() {
-      var url = "api/sarasa/";
-      //return $http.get(url);
-      return [1,2,3,4,5,6,7,8];
+    scService.getclases = function(pagination){
+      var url = "api/classrooms?" + pagination;
+      return $http.get(url);
     };
 
     scService.getRankingSolicitudes = function() {
-      return HomeResource.getSolicitudesMasSolicitadas();
+      var url = "api/classrooms/Ranking";
+      return $http.get(url);
     };
 
     scService.updateClase = function(clase){
-      var url = "api/classroom/"+clase.id;
+      var url = "api/classrooms/"+clase.id;
       return $http.put(url, clase);
     };
 
     scService.getClaseById = function(id){
-      var url = "api/classroom/"+id;
+      var url = "api/classrooms/"+id;
 
       return $http.get(url);
     };
 
 
     scService.getClassroomsByState = function(stateId){
-      var url = "api/classroom?state="+stateId;
+      var url = "api/classrooms?state="+stateId;
       return $http.get(url);
     };
 
     scService.getEstablishedClassroom = function(){
-      var url = "api/classroom/established";
+      var url = "api/classrooms/established";
+      return $http.get(url);
+    };
+
+    scService.getClasesPorEstadoYUsuario = function(state, user, pagination){
+      var url = "api/classrooms?" + "state=" + state + "&user=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
+    scService.getClasesPresenciadasPorUsuario = function(user, pagination){
+      var url = "api/classrooms?" + "guestUser=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
+    scService.getClasesFavoritasPorUsuario = function(user, pagination){
+      var url = "api/classrooms?" + "user=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
+    };
+
+    /*SOLICITUDES*/
+    scService.getSolicitudes = function(pagination){
+      var url = "api/requests?" + pagination;
+      return $http.get(url);
+    };
+
+    scService.getSolicitudById = function(id){
+      var url = "api/requests/" + id;
+      return $http.get(url);
+    };
+
+    scService.tomarSolicitudAndCrearClase = function(id, solicitud){
+      var url = "api/requests/" + id + "/take";
+      return $http.post(url, solicitud);
+    };
+
+    /*USUARIOS*/
+
+    scService.getUsuariosRankingOrdenados = function(orderBy, pagination){
+      var url = "api/usuarios?" + pagination + "&order=" + orderBy;
       return $http.get(url);
     };
 

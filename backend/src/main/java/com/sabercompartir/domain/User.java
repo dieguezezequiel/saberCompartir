@@ -1,6 +1,7 @@
 package com.sabercompartir.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -19,6 +20,8 @@ public class User {
     private String lastName;
     @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "username")
+    private  String username;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "age", nullable = false)
@@ -28,9 +31,15 @@ public class User {
 
     public User(){}
 
-    public User(String firstName, String lastName, String email,String password, Integer age) {
+    public User(String email, String username){
+        this.email = email;
+        this.username = username;
+    }
+
+    public User(String firstName, String lastName, String email, String username, String password, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.age = age;
@@ -58,6 +67,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.mobile.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="frontendApp">
+  <body ng-app="frontendApp"  ng-controller="IndexCtrl">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -40,23 +41,27 @@
             <a class="navbar-brand navbar-brand-sc" ui-sref="inicio"><img src="images/logo_brain1.png" alt=""/></a>
           </div>
 
-          <div class="col-xs-6 buscador-container">
-            <form class="navbar-form" role="search">
-              <div ng-class="{'width100': focused, 'width50' : !focused}" class="input-group">
-                <input type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control" placeholder="Buscar" name="q">
-                <div class="input-group-btn">
-                  <button class="btn btn-search-sc" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
+          <div class="col-xs-8 buscador-container">
+            <div class="navbar-form" role="search">
+              <div class="row">
+                  <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border searchInput col-xs-8" placeholder="Buscar" name="q">
+                  <select ng-init="filtro = options[0]"
+                          ng-model="filtro" class="sinBordesDerIzq col-xs-2 form-control square-border"
+                          ng-options="item as item.descripcion for item in options track by item.value">
+                  </select>
+                  <button class="btn btn-search-sc square-border" ng-click="reditectByFiltro(filtro)"><i class="glyphicon glyphicon-search"></i></button>
               </div>
-            </form>
+            </div>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav navbar-nav-sc">
               <li style="border-left: 1px solid #ccc" ui-sref-active="active"><a ui-sref="inicio">Inicio</a></li>
-              <li ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
-              <li ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
+              <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
+              <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
+              <li ng-show="authenticated()" ui-sref-active="active"><a ui-sref="panel">Panel</a></li>
+              <li ng-show="authenticated()" ui-sref-active="active"><button class="btn btn-default"ng-click="logout()">Salir</button></li>
             </ul>
           </div>
         </div>
@@ -94,6 +99,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/simpleWebRTC/simplewebrtc.bundle.js"></script>
     <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
@@ -109,6 +115,8 @@
     <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
     <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
     <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -118,16 +126,23 @@
         <script src="scripts/directives/directivas.js"></script>
         <script src="scripts/controllers/dictado.js"></script>
         <script src="scripts/controllers/presenciado.js"></script>
+        <script src="scripts/controllers/solicitud.consulta.ctrl.js"></script>
+        <script src="scripts/controllers/solicitud.crear.ctrl.js"></script>
         <script src="scripts/directives/directivas-de-validacion.js"></script>
         <script src="scripts/services/api.service.js"></script>
         <script src="scripts/services/constant.service.js"></script>
         <script src="scripts/services/notification.service.js"></script>
+        <script src="scripts/services/authentication.service.js"></script>
         <script src="scripts/controllers/registro.ctrl.js"></script>
         <script src="scripts/controllers/login.ctrl.js"></script>
+        <script src="scripts/controllers/solicitudes.ctrl.js"></script>
+        <script src="scripts/controllers/usuario.panel.ctrl.js"></script>
+        <script src="scripts/controllers/clases.ctrl.js"></script>
+        <script src="scripts/controllers/busqueda.all.ctrl.js"></script>
+
 
     <!-- RESOURCES -->
         <script src="scripts/resources/usuario.resource.js"></script>
-        <script src="scripts/resources/home.resource.js"></script>
     <!-- endbuild -->
 </body>
 </html>

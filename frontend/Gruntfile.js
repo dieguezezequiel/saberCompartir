@@ -81,7 +81,7 @@ module.exports = function (grunt) {
         {
           context: '/api',
           host: 'localhost',
-          port:'8080',
+          port: 8080,
           https: 'false'
         }
       ],
@@ -280,7 +280,7 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.dist %>/scripts/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/images/{,*/}*.{png,jpeg,gif,webp,svg}',
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
@@ -429,11 +429,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,jpg}',
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*',
-            'views/templates/{,*/}*.*'
+            'templates/{,*/}*.*'
           ]
         }, {
           expand: true,

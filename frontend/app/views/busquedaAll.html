@@ -1,0 +1,39 @@
+<div class="containerBusquedas">
+  <div class="container-home container container-home" id="main">
+    <div class="row">
+      <span class="titulo-blanco col-xs-12"><span class="glyphicon glyphicon-book"></span>Clases</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div ng-repeat="clase in clases | filter:searcher" class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+              <span class="glyphicon glyphicon-plus"></span>
+              <spans>Unirme</spans>
+            </div>
+            <div class="col-xs-12 titulo-violeta">{{clase.name}}</div>
+            <p class="col-xs-12">{{clase.description}}<p>
+            <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div ng-show="(clases | filter:searcher).length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
+          <div ng-show="(clases | filter:searcher).length == 0" class="panel panel-default">
+            <div class="panel-head text-center">
+                ¿Desea crear una nueva solicitud?
+            </div>
+            <div class="panel-body text-center">
+              <a class="mas cursor" href="#/solicitud">
+                <span class="glyphicon glyphicon-plus xl-icon"></span>
+              </a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

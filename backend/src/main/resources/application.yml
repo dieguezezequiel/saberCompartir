@@ -15,7 +15,7 @@ spring:
     profiles: development
 datasource:
     sabercompartir:
-        url: 'jdbc:mysql://localhost:13306/saberCompartir'
+        url: 'jdbc:mysql://52.67.139.75:3306/saberCompartir'
         driver-class-name: 'com.mysql.jdbc.Driver'
         username: 'root'
         password: 'ArC4d3'
@@ -24,7 +24,7 @@ datasource:
         log-validation-errors: true
         max-active: 20
         initial-size: 4
-debug: true
+#debug: true
 ---
 spring:
     profiles: testing
