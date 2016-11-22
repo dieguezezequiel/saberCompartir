@@ -9,15 +9,20 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', function ($scope, $scService, $q) {
+  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', '$state', 'AuthenticationService',
+    function ($scope, $scService, $q, $state, AuthenticationService) {
 
     $scope.cantidadClasesFinalizadas = 0;
     $scope.cantidadClasesProgramadas = 0;
     $scope.cantidadClasesPresenciadas = 0;
     $scope.cantidadClasesFavoritas = 0;
     $scope.paginacion = {page:0, size:10};
-    //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE 
+    //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE
     $scope.usuario = {id:1, nick:"Superman", firstName:"Clark", lastName:"Kent"};
+
+    if(!AuthenticationService.isAuthenticated()){
+      $state.go('login');
+    }
 
     $scService.getEstadosDeClase().then(function(response) {
       $scope.estadosDeClase = response.data;

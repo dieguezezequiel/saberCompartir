@@ -7,14 +7,33 @@
  * # AboutCtrl
  * Controller of the frontendApp
  */
-angular.module('frontendApp')
-  .controller('LoginCtrl', ['$scope', 'UsuarioResource', function ($scope, UsuarioResource) {
+angular.module('Authentication')
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$state', 'UsuarioResource', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $location, $state, UsuarioResource, $http, AuthenticationService) {
 
-    $scope.usuario = {};
+     
+      $scope.usuario = {};
 
-    //TODO: Iniciar sesion, hacer redirect y demas
-    $scope.loguear = function(){
-        UsuarioResource.login($scope.usuario);
-    }
+      $scope.login = function () {
+        $scope.dataLoading = true;
+        AuthenticationService.Login($scope.usuario, function (response) {
+          if (response.email != undefined) {
+            AuthenticationService.SetCredentials($scope.usuario);
+            new PNotify({
+              title: "Has iniciado sesion!",
+              text: "Bienvenido!",
+              type: 'success'
+            });
+            $state.go("inicio");
+          }
+          else {
+            new PNotify({
+              title: "Oh no!",
+              text: "Usuario o Contraseña invalidos",
+              type: 'error'
+            })
+          }
 
-  }]);
+        });
+      }
+    }]);

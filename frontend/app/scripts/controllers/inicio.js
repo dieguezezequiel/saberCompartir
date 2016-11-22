@@ -8,10 +8,15 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$scope','$q', '$scService', function ($scope, $q, $scService) {
+  .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', 'AuthenticationService',
+    function ($location, $scope, $q, $scService, AuthenticationService) {
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
+
+   /*   if(!AuthenticationService.isAuthenticated()){
+        $location.path('/login');
+      }*/
 
     $scService.getEstadosDeClase().then(function(response){
 
@@ -31,6 +36,13 @@ angular.module('frontendApp')
         $scope.usuariosRanking = response[3].data.content;
 
       });
+    },
+    function(error){
+      new PNotify({
+        title: "Oh no!",
+        text: "Usuario y/o contraseña invalidos",
+        type: 'error'
+      })
     });
 
     $scope.findObject = function(list, name){
@@ -38,6 +50,8 @@ angular.module('frontendApp')
         return obj.name == name;
       });
     };
+
+
 
     $scope.sumarse = function(solicitud){
       solicitud.totalUsers = solicitud.totalUsers + 1;
