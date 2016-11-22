@@ -16,6 +16,13 @@ angular.module('frontendApp')
     $scope.cantidadClasesPresenciadas = 0;
     $scope.cantidadClasesFavoritas = 0;
     $scope.paginacion = {page:0, size:10};
+    $scope.showMenu = true;
+    $scope.showMenuClasesProgramadas = false;
+    $scope.showMenuClasesFinalizadas = false;
+    $scope.showMenuClasesPresenciadas = false;
+    $scope.showMenuClasesFavoritas = false;
+
+
     //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE 
     $scope.usuario = {id:1, nick:"Superman", firstName:"Clark", lastName:"Kent"};
 

@@ -34,7 +34,7 @@ Acciones
 
     <div class="col-xs-9 parent-panel-box">
       <div class="row padding">
-        <div class="col-md-4">
+        <div ng-show="showMenu" class="col-md-4">
             <div class="panel-box text-center">
               <div>
                 <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -43,7 +43,7 @@ Acciones
             </div>
           </div>
 
-        <div class="col-md-4">
+        <div ng-show="showMenu" class="col-md-4">
           <div class="panel-box text-center">
             <div>
               <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -52,7 +52,7 @@ Acciones
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div ng-show="showMenu" class="col-md-4">
           <div class="panel-box text-center">
             <div>
               <span class="glyphicon glyphicon-inbox xl-icon"></span>
@@ -61,7 +61,7 @@ Acciones
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div ng-show="showMenu" class="col-md-4">
           <div class="panel-box text-center xl-icon">
             <div>
               <span class="glyphicon glyphicon-inbox"></span>
@@ -69,6 +69,21 @@ Acciones
             </div>
           </div>
         </div>
+
+        <!--PANELES-->
+        <div ng-show="showMenuClasesProgramadas" class="col-xs-12">
+        </div>
+
+        <div ng-show="showMenuClasesFinalizadas" class="col-xs-12">
+        </div>
+
+        <div ng-show="showMenuClasesPresenciadas" class="col-xs-12">
+        </div>
+
+        <div ng-show="showMenuClasesFavoritas" class="col-xs-12">
+        </div>
+
+
       </div>
     </div>
   </div>
