@@ -177,7 +177,8 @@ angular.module('frontendApp')
               $scope.claseIsValid = true;
             }else{
               //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
-              notificationService.showMessage({title:"Ups!", text:"No tienes ninguna clase establecida o programada", type:"error"});
+              notificationService.error('No tienes ninguna clase establecida o programada');
+
               $location.path("/#");
             }
           },
