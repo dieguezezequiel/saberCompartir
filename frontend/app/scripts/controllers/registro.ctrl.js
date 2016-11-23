@@ -15,10 +15,10 @@ angular.module('frontendApp')
     $scope.guardar = function(){
         var resource = UsuarioResource.create($scope.usuario);
         resource.$promise.then(function (response) {
-          notificationService.showMessage(response);
+          notificationService.success(response);
           $state.go('login');
         }, function(error){
-          notificationService.showMessage(error);
+          notificationService.error(error);
         });
     }
 
