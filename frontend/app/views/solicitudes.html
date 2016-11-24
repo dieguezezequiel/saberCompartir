@@ -7,7 +7,7 @@
 
   <div class="container">
     <div class="row">
-        <div ng-repeat="solicitud in solicitudes | filter:searcher" class="col-md-4">
+        <div ng-repeat="solicitud in solicitudes.content" class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-body">
               <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
@@ -25,8 +25,8 @@
           </div>
         </div>
       <div class="col-md-4">
-        <div ng-show="(solicitudes | filter:searcher).length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
-          <div ng-show="(solicitudes | filter:searcher).length == 0" class="panel panel-default">
+        <div ng-show="solicitudes.content.length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
+          <div ng-show="solicitudes.content.length == 0" class="panel panel-default">
             <div class="panel-head text-center">
                 ¿Desea crear una nueva solicitud?
             </div>
@@ -38,23 +38,14 @@
           </div>
       </div>
     </div>
-    <div class="footer navbar">
-      <div class="pull-left">{{(solicitudes | filter:searcher).length}} Solicitudes encontradas
-      </div>
-    </div>
 
-    <h1>Todos</h1>
-    <h4>{{todos.length}} total {{solicitudesData.totalPages}}</h4>
-    <ul>
-      <li ng-repeat="todo in filteredTodos">{{todo.text}}</li>
-    </ul>
-
-    <ul uib-pagination
+    <ul ng-show="solicitudes.content.length < solicitudes.totalElements"
+        uib-pagination
         boundary-links="true"
-        total-items="solicitudesData.totalPages"
-        items-per-page="numPerPage"
+        total-items="solicitudes.totalElements"
+        items-per-page="solicitudes.size"
         ng-model="currentPage"
-        max-size="maxSize"
+        max-size="solicitudes.totalPages"
         class="pagination-lg"
         previous-text="&lsaquo;"
         next-text="&rsaquo;"

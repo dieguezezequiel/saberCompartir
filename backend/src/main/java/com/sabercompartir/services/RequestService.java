@@ -33,4 +33,8 @@ public class RequestService {
         request.setState(EstadoSolicitud.A_REALIZARSE);
         requestRepository.save(request);
     }
+
+    public Page<Request> getAllBySearch(String searchValue, Pageable pageable) {
+        return requestRepository.findAllBySearchValue(searchValue,pageable);
+    }
 }

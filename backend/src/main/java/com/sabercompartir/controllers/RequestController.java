@@ -31,6 +31,13 @@ public class RequestController {
         return requests;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"searchValue"})
+    public Page<Request> getAllBySearch(Pageable pageable, @RequestParam("searchValue") String searchValue){
+        Page<Request> requests = this.requestService.getAllBySearch(searchValue, pageable);
+
+        return requests;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Request getById(@PathVariable Long id){
         Request request = this.requestService.getRequestById(id);
