@@ -9,12 +9,14 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', '$state', 'AuthenticationService',
-    function ($scope, $scService, $q, $state, AuthenticationService) {
+  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', '$state', 'AuthenticationService', '$location',
+    function ($scope, $scService, $q, $state, AuthenticationService, $location) {
 
     $scope.cantidadClasesFinalizadas = 0;
     $scope.cantidadClasesProgramadas = 0;
     $scope.cantidadClasesPresenciadas = 0;
+    $scope.cantidadSolicitudesPendientes = 0;
+    $scope.cantidadSolicitudesARealizar = 0;
     $scope.cantidadClasesFavoritas = 0;
     $scope.paginacion = {page:0, size:10};
     $scope.showMenu = true;
@@ -22,22 +24,34 @@ angular.module('frontendApp')
     $scope.showMenuClasesFinalizadas = false;
     $scope.showMenuClasesPresenciadas = false;
     $scope.showMenuClasesFavoritas = false;
+    $scope.showMenuSolicitudesPendientes = false;
+    $scope.showMenuSolicitudesARealizar = false;
 
-    //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE
+
+      //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE
     $scope.usuario = {id:1, nick:"Superman", firstName:"Clark", lastName:"Kent"};
 
     if(!AuthenticationService.isAuthenticated()){
       $state.go('login');
     }
 
-    $scService.getEstadosDeClase().then(function(response) {
-      $scope.estadosDeClase = response.data;
+    var promisesInit = [
+      $scService.getEstadosDeClase(),
+      $scService.getEstadosDeSolicitud()
+    ];
+
+    $q.all(promisesInit).then(function(response) {
+      $scope.estadosDeClase = response[0].data;
+      $scope.estadosDeSolicitud = response[1].data;
 
       var promises = [
         $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'FINALIZADA').id, $scope.usuario.id, $scope.paginacion),
         $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, $scope.usuario.id, $scope.paginacion),
         $scService.getClasesPresenciadasPorUsuario($scope.usuario.id, $scope.paginacion),
-        $scService.getClasesFavoritasPorUsuario($scope.usuario.id, $scope.paginacion)
+        $scService.getClasesFavoritasPorUsuario($scope.usuario.id, $scope.paginacion),
+        $scService.getSolicitudesPorEstadoYUsuario('PENDIENTE', $scope.usuario.id, $scope.paginacion),
+        $scService.getSolicitudesPorEstadoYUsuario('A_REALIZARSE', $scope.usuario.id, $scope.paginacion)
+
       ];
 
       $q.all(promises).then(function(response) {
@@ -45,11 +59,16 @@ angular.module('frontendApp')
         $scope.clasesProgramadas = response[1].data.content;
         $scope.clasesPresenciadas = response[2].data.content;
         $scope.clasesFavoritas = response[3].data.content;
+        $scope.olicitudesPendientes = response[4].data.content;
+        $scope.olicitudesARealizar = response[5].data.content;
 
         $scope.cantidadClasesFinalizadas = response[0].data.totalElements;
         $scope.cantidadClasesProgramadas = response[1].data.totalElements;
         $scope.cantidadClasesPresenciadas = response[2].data.totalElements;
         $scope.cantidadClasesFavoritas = response[3].data.totalElements;
+        $scope.cantidadSolicitudesPendientes = response[4].data.totalElements;
+        $scope.cantidadSolicitudesARealizar = response[5].data.totalElements;
+
 
       }, function(response){
 
@@ -58,6 +77,10 @@ angular.module('frontendApp')
     }, function(){
 
     });
+
+    $scope.goToUrl = function(url){
+      $location.url(url);
+    };
 
     $scope.findObject = function(list, name){
       return _.find(list, function(obj){

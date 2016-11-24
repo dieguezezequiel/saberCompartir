@@ -1,7 +1,9 @@
 package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.ClassRoom;
+import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.domain.Request;
+import com.sabercompartir.enums.EstadoSolicitud;
 import com.sabercompartir.services.ClassRoomService;
 import com.sabercompartir.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,20 @@ public class RequestController {
         Request request = this.requestService.getRequestById(id);
 
         return request;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
+    public Page<Request> getByStateAndUser(@RequestParam("state") String state, @RequestParam("user") Long user, Pageable pageable){
+        Page<Request> requests = this.requestService.getByStateAndUser(EstadoSolicitud.createFromString(state), user, pageable);
+
+        return requests;
+    }
+
+    @RequestMapping(value = "/states", method = RequestMethod.GET)
+    public List<EstadoSolicitud> getRequestStates(){
+        List<EstadoSolicitud> classroomStateList = this.requestService.getRequestStates();
+
+        return classroomStateList;
     }
 
     @RequestMapping(value = "/{id}/take", method = RequestMethod.POST)

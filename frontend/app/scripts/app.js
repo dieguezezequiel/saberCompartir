@@ -82,6 +82,11 @@ angular
           templateUrl: 'views/clases.html',
           controller: 'ClasesCtrl'
         })
+        .state('clasesKesesto', {
+          url: '/clases/:id',
+          templateUrl: 'views/clase.consulta.html',
+          controller: 'ClaseConsultaCtrl'
+        })
         .state('panel', {
           url: '/panel',
           templateUrl: 'views/usuario.panel.html',

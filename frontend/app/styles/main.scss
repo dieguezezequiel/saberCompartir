@@ -249,9 +249,20 @@ body {
   display:flex;
   align-items:center;
   cursor:pointer;
+  -webkit-transition: box-shadow 0.1s linear;
+  -moz-transition: box-shadow 0.1s linear;
+  -ms-transition: box-shadow 0.1s linear;
+  -o-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
 
   p{
     font-size:20px;
+  }
+
+  &:hover{
+    box-shadow:3px 3px 10px black;
+    -webkit-box-shadow: 3px 3px 10px black;
+    -moz-box-shadow: 3px 3px 10px black;
   }
 }
 
@@ -271,9 +282,23 @@ background-color: #22313F;
   background-color: #22A7F0;
 }
 
+.col-md-4:nth-of-type(5) > .panel-box{
+  background-color: #D91E18;
+}
+
+.col-md-4:nth-of-type(6) > .panel-box{
+  background-color: #8E44AD;
+}
+
+
 .parent-panel-box{
   background-color: white;
   background-clip: content-box;
+
+  > .row{
+    border:1px solid grey;
+    box-shadow: 1px 1px 5px #000000;
+  }
 }
 
 .panel-item{
@@ -282,7 +307,19 @@ background-color: #22313F;
   box-shadow: 0px 0px 1px #464646;
   margin: 5px 0px;
   padding: 10px;
+  background-color: white;
   cursor:pointer;
+  -webkit-transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  -moz-transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  -ms-transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  -o-transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
+
+  &:hover{
+    transform: translate(-10px, -10px);
+    box-shadow: 10px 10px 10px #51418e;
+    border: 1px solid hsl(0, 0%, 65%);
+  }
 }
 
 .panel-item > div{
@@ -405,6 +442,11 @@ background-color: #22313F;
 .top-buffer {
   margin-top:20px;
   margin-bottom:20px;
+}
+
+.top-buffer-less {
+  margin-top:10px;
+  margin-bottom:10px;
 }
 
 .top-buffer-pad {

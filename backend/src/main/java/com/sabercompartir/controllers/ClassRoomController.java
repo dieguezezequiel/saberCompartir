@@ -50,8 +50,15 @@ public class ClassRoomController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
-    public Page<ClassRoom> getByStateAndUser(@RequestParam("state") Integer state, @RequestParam("user") Long user, Pageable pageable){
-        Page<ClassRoom> classes = this.classRoomService.getByStateAndUser(state, user, pageable);
+    public Page<ClassRoom> getAllByStateAndUser(@RequestParam("state") Integer state, @RequestParam("user") Long user, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getAllByStateAndUser(state, user, pageable);
+
+        return classes;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"guestUser"})
+    public Page<ClassRoom> getAllByGuestUsers(@RequestParam("guestUser") Long guestUser, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getAllByGuestUsers(guestUser, pageable);
 
         return classes;
     }

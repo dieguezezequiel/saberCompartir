@@ -82,8 +82,13 @@ public class ClassRoomService {
         return classRoomStateRepository.findAll();
     }
 
-    public Page<ClassRoom> getByStateAndUser(Integer state, Long userId, Pageable pageable) {
+    public Page<ClassRoom> getAllByStateAndUser(Integer state, Long userId, Pageable pageable) {
         User user = userService.getUser(userId);
-        return classRoomRepository.findByStateAndUser(state, user, pageable);
+        return classRoomRepository.findAllByStateAndUser(state, user, pageable);
+    }
+
+    public Page<ClassRoom> getAllByGuestUsers(Long guestUserId, Pageable pageable) {
+        User guestUser = userService.getUser(guestUserId);
+        return classRoomRepository.findAllByGuestUsers(guestUser, pageable);
     }
 }

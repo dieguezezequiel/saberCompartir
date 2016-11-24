@@ -67,6 +67,12 @@ angular.module('scService', [])
     };
 
     /*SOLICITUDES*/
+
+    scService.getEstadosDeSolicitud = function(){
+      var url = "api/requests/states";
+      return $http.get(url);
+    };
+
     scService.getSolicitudes = function(pagination){
       var url = "api/requests?" + pagination;
       return $http.get(url);
@@ -80,6 +86,11 @@ angular.module('scService', [])
     scService.tomarSolicitudAndCrearClase = function(id, solicitud){
       var url = "api/requests/" + id + "/take";
       return $http.post(url, solicitud);
+    };
+
+    scService.getSolicitudesPorEstadoYUsuario = function(state, user, pagination){
+      var url = "api/requests?" + "state=" + state + "&user=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      return $http.get(url);
     };
 
     /*USUARIOS*/

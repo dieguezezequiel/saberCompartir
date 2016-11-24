@@ -4,6 +4,7 @@ import com.sabercompartir.enums.EstadoSolicitud;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by fede on 05/11/16.
@@ -24,10 +25,12 @@ public class Request {
     @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
     private EstadoSolicitud state;
-//TODO hacer relacion solicitudes y usuarios
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
-//    private List<User> userList;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "requests_users", joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> joinedUsers;
 
     public Request() {
     }
