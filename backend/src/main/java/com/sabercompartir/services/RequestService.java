@@ -47,4 +47,8 @@ public class RequestService {
     public List<EstadoSolicitud> getRequestStates() {
         return null;
     }
+
+    public Page<Request> getAllBySearch(String searchValue, Pageable pageable) {
+        return requestRepository.findAllBySearchValue(searchValue,pageable);
+    }
 }

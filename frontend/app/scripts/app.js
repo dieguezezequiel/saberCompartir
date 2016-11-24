@@ -101,18 +101,35 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     }])
-  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService',
-    function ($rootScope, $scope, $state, AuthenticationService) {
+  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService',
+    function ($rootScope, $scope, $state, AuthenticationService, $scService) {
+      $scope.searcher = '';
+      $scope.paginado = "page=0&size=3";
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
         {value: 'clases', descripcion: 'Clases'},
         {value: 'solicitudes', descripcion: 'Solicitudes'}
       ];
-      $scope.reditectByFiltro = function (filtro) {
-        if (filtro.value) {
-          $state.go(filtro.value)
+
+      $scope.buscar = function (filtro) {
+        switch(filtro.value) {
+          case "busquedaAll":
+                $state.go('busquedaAll')
+          break;
+          case "clases":
+                $state.go('clases')
+          break;
+          case "solicitudes":
+              $scService.getSearchSolicitudes($scope.paginado,$scope.searcher).then(function (response) {
+                $scope.solicitudes = response.data;
+                $state.go('solicitudes',{},{reload: true});
+              });
+          break;
+          default:
+                $state.go('busquedaAll')
         }
       };
+
       $scope.authenticated = function () {
         return $rootScope.globals.currentUser != undefined;
       };

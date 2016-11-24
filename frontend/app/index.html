@@ -45,12 +45,14 @@
           <div class="col-xs-8 buscador-container">
             <div class="navbar-form" role="search">
               <div class="row">
+                <form ng-submit="buscar(filtro)">
                   <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border searchInput col-xs-8" placeholder="Buscar" name="q">
                   <select ng-init="filtro = options[0]"
                           ng-model="filtro" class="sinBordesDerIzq col-xs-2 form-control square-border"
                           ng-options="item as item.descripcion for item in options track by item.value">
                   </select>
-                  <button class="btn btn-search-sc square-border" ng-click="reditectByFiltro(filtro)"><i class="glyphicon glyphicon-search"></i></button>
+                  <button class="btn btn-search-sc square-border" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </form>
               </div>
             </div>
           </div>
