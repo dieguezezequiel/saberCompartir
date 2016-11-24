@@ -8,12 +8,13 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.brighttheme.css" />
-    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.buttons.css" />
     <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.css" />
+    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.buttons.css" />
+    <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.brighttheme.css" />
     <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.history.css" />
     <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.mobile.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700,700i" rel="stylesheet">
@@ -94,6 +95,17 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.animate.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.callbacks.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.confirm.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.desktop.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
+    <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-pnotify/src/angular-pnotify.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -101,21 +113,13 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/simpleWebRTC/simplewebrtc.bundle.js"></script>
     <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/humanize-duration/humanize-duration.js"></script>
     <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.animate.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.callbacks.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.confirm.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.desktop.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
-    <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
     <script src="bower_components/angular-scroll/angular-scroll.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
@@ -132,7 +136,6 @@
         <script src="scripts/directives/directivas-de-validacion.js"></script>
         <script src="scripts/services/api.service.js"></script>
         <script src="scripts/services/constant.service.js"></script>
-        <script src="scripts/services/notification.service.js"></script>
         <script src="scripts/services/authentication.service.js"></script>
         <script src="scripts/controllers/registro.ctrl.js"></script>
         <script src="scripts/controllers/login.ctrl.js"></script>

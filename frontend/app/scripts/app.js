@@ -24,6 +24,7 @@ angular
     'timer',
     'duScroll',
     'ui.bootstrap',
+    'jlareau.pnotify',
     //nuestras
     'directives.module',
     'scService',

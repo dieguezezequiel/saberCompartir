@@ -37,7 +37,7 @@ angular.module('frontendApp')
           }
         },function(){
           //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
-          notificationService.showMessage({title:"Ups!", text:"Error del sistema", type:"error"});
+          notificationService.error("Error del sistema");
         });
       };
 
