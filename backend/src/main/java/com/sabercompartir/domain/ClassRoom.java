@@ -25,6 +25,9 @@ public class ClassRoom {
     @Column(name = "state_id", nullable = false)
     private Integer state;
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @ManyToMany(cascade = CascadeType.ALL)

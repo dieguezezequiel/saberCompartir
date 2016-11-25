@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -65,5 +66,10 @@ public class RequestController {
     public void takeRequest(@PathVariable Long id, @RequestBody Request request){
         this.requestService.update(id);
         this.classRoomService.create(request);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Long save(@RequestBody Request request, Principal user){
+        return this.requestService.save(request, user);
     }
 }

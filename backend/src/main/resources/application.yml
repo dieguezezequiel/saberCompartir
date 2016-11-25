@@ -24,7 +24,7 @@ datasource:
         log-validation-errors: true
         max-active: 20
         initial-size: 4
-#debug: true
+debug: true
 ---
 spring:
     profiles: testing

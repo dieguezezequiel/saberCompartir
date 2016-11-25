@@ -11,16 +11,49 @@ INSERT INTO classroom_state (name) values
 ("FINALIZADA"),
 ("CANCELADA");
 
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO category (name) values
+("PROGRAMACION");
+
 CREATE TABLE `classroom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` varchar(50) NOT NULL,
   `state_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `score` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  FOREIGN KEY (`state_id`) REFERENCES `classroom_state` (`id`)
-);
+  KEY `user_id` (`user_id`),
+  KEY `state_id` (`state_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `classroom_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `classroom_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `classroom_ibfk_2` FOREIGN KEY (`state_id`) REFERENCES `classroom_state` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
+
+CREATE TABLE `request` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(255) NOT NULL,
+  `total_users` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `state` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_id` (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `request_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

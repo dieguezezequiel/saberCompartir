@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--
+Entrada de datos
+-Nombre
+-Descripcion
+-Categoria
 
-</body>
-</html>
+-->
+
+<div class="container">
+  <div class="row top-buffer">
+    <div class="col-xs-12">
+      <h1>Crea tu solicitud</h1>
+
+      <form ng-submit="save()">
+        <div>
+          <label for="nombreInput">Nombre</label>
+          <input type="text" id="nombreInput" name="nombreInputName" ng-model="solicitud.subject"/>
+        </div>
+
+        <div>
+          <label for="descripcionInput">Descripcion</label>
+          <input type="text" id="descripcionInput" name="descripcionInputName" ng-model="solicitud.description"/>
+        </div>
+
+        <div>
+          <label for="categoriaSelect">Categoría</label>
+          <select name="categoriaSelectName"
+                  id="categoriaSelect"
+                  ng-options="option.name for option in categoriaList track by option.id"
+                  ng-model="solicitud.category"
+            >
+            <option value="">Seleccione una categoria</option>
+          </select>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary btn-colon-primary btn-xs-block">Solicitar <span class="glyphicon spinner-button" ng-show="isMakingRequest"/></button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

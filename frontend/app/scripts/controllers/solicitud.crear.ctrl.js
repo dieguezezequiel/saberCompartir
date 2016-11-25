@@ -11,7 +11,27 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('SolicitudCrearCtrl', ['$scope', 'UsuarioResource','notificationService', function ($scope, UsuarioResource,notificationService) {
+  .controller('SolicitudCrearCtrl', ['$scope', 'UsuarioResource','notificationService','$scService', '$q',
+    function ($scope, UsuarioResource,notificationService, $scService, $q) {
+
+    $scope.categoriaList = [];
+
+    var promises = [
+      $scService.getCategorias()
+    ];
+
+    $q.all(promises).then(function(response){
+      $scope.categoriaList = response[0].data;
+
+    }, function(response){
+
+    });
+
+    $scope.save = function(){
+
+      $scService.saveSolicitud($scope.solicitud);
+    }
+
 
 
   }]);

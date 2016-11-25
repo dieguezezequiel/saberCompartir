@@ -20,6 +20,11 @@ public class Request {
     private String subject;
     @Column(name = "total_users", nullable = false)
     private Integer totalUsers;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+    @Column(name = "description", nullable = false)
+    private String description;
     @Column(name = "points", nullable = false)
     private Integer points;
     @Column(name = "state", nullable = false)
@@ -40,6 +45,38 @@ public class Request {
         this.totalUsers = totalUsers;
         this.points = points;
         this.state = state;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<User> getJoinedUsers() {
+        return joinedUsers;
+    }
+
+    public void setJoinedUsers(Set<User> joinedUsers) {
+        this.joinedUsers = joinedUsers;
     }
 
     public Long getId() {

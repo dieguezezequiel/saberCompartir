@@ -5,7 +5,17 @@
 angular.module('scService', [])
   .factory('$scService', ['$http', function($http) {
 
+    //TODO: VER QUE HACEMOS CON TODO ESTO, PASARLO A SERVICES SEPARADOS O A RESOURCE
+
     var scService = {};
+
+    /*GLOBAL*/
+
+    scService.getCategorias = function(){
+      var url = "api/categories";
+      return $http.get(url);
+    };
+
 
     /*CLASES*/
 
@@ -67,6 +77,11 @@ angular.module('scService', [])
     };
 
     /*SOLICITUDES*/
+
+    scService.saveSolicitud = function(request){
+      var url = "api/requests";
+      return $http.post(url, request);
+    };
 
     scService.getEstadosDeSolicitud = function(){
       var url = "api/requests/states";
