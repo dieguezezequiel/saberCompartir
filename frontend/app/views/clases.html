@@ -7,10 +7,10 @@
 
   <div class="container">
     <div class="row">
-      <div ng-repeat="clase in clases | filter:searcher" class="col-md-4">
+      <div ng-repeat="clase in clases.content" class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-body">
-            <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+            <div ng-hide="hide" class="mas cursor" ng-click="sumarse(clase)">
               <span class="glyphicon glyphicon-plus"></span>
               <spans>Unirme</spans>
             </div>
@@ -22,18 +22,33 @@
       </div>
 
       <div class="col-md-4">
-        <div ng-show="(clases | filter:searcher).length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
-          <div ng-show="(clases | filter:searcher).length == 0" class="panel panel-default">
+        <div ng-show="clases.content.length == 0" class="mensajeTextoPlano">No hubo resultados para <span class="resaltadorTextoPlanoAmarillo">{{searcher}}</span></div>
+          <div ng-show="clases.content.length == 0" class="panel panel-default">
             <div class="panel-head text-center">
-                ¿Desea crear una nueva solicitud?
+                ¿Desea crear una nueva clase?
             </div>
             <div class="panel-body text-center">
-              <a class="mas cursor" href="#/solicitud">
+              <a class="mas cursor" href="#/clases">
                 <span class="glyphicon glyphicon-plus xl-icon"></span>
               </a>
             </div>
           </div>
       </div>
     </div>
+
+    <ul ng-show="clases.content.length < clases.totalElements"
+        uib-pagination
+        boundary-links="true"
+        total-items="clases.totalElements"
+        items-per-page="clases.size"
+        ng-model="currentPage"
+        max-size="clases.totalPages"
+        class="pagination-md"
+        previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;">
+    </ul>
+
   </div>
 </div>
