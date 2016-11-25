@@ -1,7 +1,11 @@
 <div class="container">
-  <div class="row">
+  <div class="row top-buffer">
     <div class="col-xs-12">
       <div ng-show="solicitudIsValid">
+        <div>
+          <label for="fechaInput">Fecha</label>
+          <input type="date" id="fechaInput" name="fechaInputDate" ng-model="solicitud.date"/>
+        </div>
         <button class="btn-sc" ng-click="solicitudTomada = true">QUIERO DAR ESTA CLASE!</button>
 
         <div ng-show="solicitudTomada">
@@ -9,9 +13,14 @@
         </div>
       </div>
     </div>
+
+    <div class="col-xs-12" ng-show="!solicitudIsValid">
+      <div class="resource-not-found">
+        <img src="images/logo_brain1.png" alt=""/>
+        <div>Esta solicitud no est&aacute disponible.</div>
+      </div>
+    </div>
   </div>
-
-
 </div>
 
 
