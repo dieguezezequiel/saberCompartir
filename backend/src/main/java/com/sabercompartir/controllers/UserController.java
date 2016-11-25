@@ -2,6 +2,10 @@ package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.ResponseFront;
 import com.sabercompartir.domain.User;
+import com.sabercompartir.domain.UserCredentials;
+import com.sabercompartir.domain.UserDTO;
+import com.sabercompartir.services.UserCredentialsService;
+import org.springframework.http.HttpMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,7 +30,9 @@ import java.util.List;
 @RequestMapping(UrlMappings.BASE + UrlMappings.USER)
 public class UserController  extends HttpServlet {
 
-
+    @Autowired
+    private UserCredentialsService userCredentialsService;
+    
     @Autowired
     private UserService userService;
 
@@ -38,11 +44,14 @@ public class UserController  extends HttpServlet {
 
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces="application/json")
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ResponseFront save(@RequestBody User user){
-        if(this.userService.getUserRegistro(user) == null){
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-            userService.save(user);
+    public ResponseFront save(@RequestBody UserDTO user){
+        UserCredentials found = userCredentialsService.findByUsername(user.getUsername());
+       if(found == null){
+            userService.save(new User(user.getFirstName(), user.getLastName(),user.getEmail(), user.getAge()));
+            User userFound = userService.findByEmail(user.getEmail());
+            userCredentialsService.save(new UserCredentials(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), userFound.getId()));
             return ResponseFront.success("Bienvenido a saber compartir");
         }else{
             return ResponseFront.error("Ya existe un usuario registrado con el email ingresado");
@@ -65,11 +74,11 @@ public class UserController  extends HttpServlet {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public User login(@RequestBody User user) {
-        User result = userService.findByUsername(user.getUsername());
+    public User login(@RequestBody UserCredentials user) {
+        UserCredentials result = userCredentialsService.findByUsername(user.getUsername());
         if(result != null) {
             if (new BCryptPasswordEncoder().matches(user.getPassword(), result.getPassword() ))
-                return result;
+                return userService.getUser(result.getUserId());
         }
 
 

@@ -33,20 +33,10 @@ public class UserService implements IUserService {
     public User getUser(Long id){
         return userRepository.findById(id);
     }
-
-    public User getUserLogin(User user){
-        return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+    
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
-
-    public User getUserRegistro(User user){
-        return userRepository.findByEmail(user.getEmail());
-    }
-
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
-    }
-
-    public User findByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
-    }
+    
+    
 }

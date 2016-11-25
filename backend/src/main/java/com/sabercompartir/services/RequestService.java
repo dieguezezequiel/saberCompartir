@@ -1,11 +1,9 @@
 package com.sabercompartir.services;
 
-import com.sabercompartir.domain.Category;
-import com.sabercompartir.domain.ClassRoom;
-import com.sabercompartir.domain.Request;
-import com.sabercompartir.domain.User;
+import com.sabercompartir.domain.*;
 import com.sabercompartir.enums.EstadoSolicitud;
 import com.sabercompartir.repository.RequestRepository;
+import com.sabercompartir.repository.UserCredentialsRepository;
 import com.sabercompartir.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +24,9 @@ public class RequestService {
 
     @Autowired
     UserRepository userRepository;
+    
+    @Autowired
+    UserCredentialsRepository userCredentialsRepository;
 
     @Autowired
     CategoryService categoryService;
@@ -58,7 +59,8 @@ public class RequestService {
     }
 
     public Long save(Request request, Principal userAuthenticated) {
-        User user = this.userRepository.findByUsername(userAuthenticated.getName());
+        UserCredentials userCredentials = this.userCredentialsRepository.findByUsername(userAuthenticated.getName());
+        User user = userRepository.findById(userCredentials.getUserId());
         Category category = this.categoryService.getById(request.getCategory().getId());
         request.setUser(user);
         request.setState(EstadoSolicitud.A_REALIZARSE);
