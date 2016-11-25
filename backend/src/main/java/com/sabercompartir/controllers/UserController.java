@@ -49,7 +49,7 @@ public class UserController  extends HttpServlet {
     public ResponseFront save(@RequestBody UserDTO user){
         UserCredentials found = userCredentialsService.findByUsername(user.getUsername());
        if(found == null){
-            userService.save(new User(user.getFirstName(), user.getLastName(),user.getEmail(), user.getAge()));
+            userService.save(new User(user.getUsername(), user.getFirstName(), user.getLastName(),user.getEmail(), user.getAge()));
             User userFound = userService.findByEmail(user.getEmail());
             userCredentialsService.save(new UserCredentials(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), userFound.getId()));
             return ResponseFront.success("Bienvenido a saber compartir");
