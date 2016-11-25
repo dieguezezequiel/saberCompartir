@@ -104,7 +104,6 @@ angular
   .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService',
     function ($rootScope, $scope, $state, AuthenticationService, $scService) {
       $scope.searcher = '';
-      $scope.paginado = "page=0&size=3";
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
         {value: 'clases', descripcion: 'Clases'},
@@ -114,16 +113,28 @@ angular
       $scope.buscar = function (filtro) {
         switch(filtro.value) {
           case "busquedaAll":
-                $state.go('busquedaAll')
+            $scope.paginado = "page=0&size=3";
+            $scService.getSearchClases($scope.paginado,$scope.searcher).then(function (response) {
+              $scope.clases = response.data;
+              $state.go('busquedaAll',{},{reload: true});
+            });
+            $scService.getSearchSolicitudes($scope.paginado,$scope.searcher).then(function (response) {
+              $scope.solicitudes = response.data
+            });
           break;
           case "clases":
-                $state.go('clases')
+            $scope.paginado = "page=0&size=6";
+            $scService.getSearchClases($scope.paginado,$scope.searcher).then(function (response) {
+              $scope.clases = response.data;
+              $state.go('clases',{},{reload: true});
+            });
           break;
           case "solicitudes":
-              $scService.getSearchSolicitudes($scope.paginado,$scope.searcher).then(function (response) {
-                $scope.solicitudes = response.data;
-                $state.go('solicitudes',{},{reload: true});
-              });
+            $scope.paginado = "page=0&size=6";
+            $scService.getSearchSolicitudes($scope.paginado,$scope.searcher).then(function (response) {
+              $scope.solicitudes = response.data;
+              $state.go('solicitudes',{},{reload: true});
+            });
           break;
           default:
                 $state.go('busquedaAll')

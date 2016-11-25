@@ -2,6 +2,7 @@ package com.sabercompartir.controllers;
 
 import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.ClassRoomState;
+import com.sabercompartir.domain.Request;
 import com.sabercompartir.services.ClassRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -83,5 +84,12 @@ public class ClassRoomController {
         List<ClassRoomState> classroomStateList = this.classRoomService.getClasRoomStates();
 
         return classroomStateList;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"searchValue"})
+    public Page<ClassRoom> getAllBySearch(Pageable pageable, @RequestParam("searchValue") String searchValue){
+        Page<ClassRoom> classRooms = this.classRoomService.getAllBySearch(searchValue, pageable);
+
+        return classRooms;
     }
 }

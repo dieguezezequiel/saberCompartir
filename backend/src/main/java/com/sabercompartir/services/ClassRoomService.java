@@ -91,4 +91,8 @@ public class ClassRoomService {
         User guestUser = userService.getUser(guestUserId);
         return classRoomRepository.findAllByGuestUsers(guestUser, pageable);
     }
+
+    public Page<ClassRoom> getAllBySearch(String searchValue, Pageable pageable) {
+        return classRoomRepository.findAllBySearchValue(searchValue,pageable);
+    }
 }

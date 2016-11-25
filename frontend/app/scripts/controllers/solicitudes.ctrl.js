@@ -12,7 +12,7 @@ angular.module('frontendApp')
 
     $scope.$watch("currentPage", function( newValue, oldValue ) {
       if(!angular.equals(newValue, oldValue)) {
-          $scope.paginado = "page=" + ($scope.currentPage - 1).toString() + "&size=3";
+          $scope.paginado = "page=" + ($scope.currentPage - 1).toString() + "&size=6";
           $scService.getSearchSolicitudes($scope.paginado,$scope.searcher).then(function (response) {
             $scope.solicitudes = response.data;
           })

@@ -9,6 +9,11 @@ angular.module('scService', [])
 
     /*CLASES*/
 
+    scService.getSearchClases = function(pagination,input){
+      var url = "api/classrooms?" + pagination + "&searchValue=" + input;
+      return $http.get(url);
+    };
+
     scService.getEstadosDeClase = function(){
       var url = "api/classrooms/states";
       return $http.get(url);
