@@ -11,16 +11,25 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('ClaseConsultaCtrl', ['$scope', '$q', '$scService', function ($scope, $q, $scService) {
+  .controller('ClaseConsultaCtrl', ['$scope', '$q', '$scService', '$stateParams', 'notificationService', function ($scope, $q, $scService, $stateParams, notificationService) {
 
-    $scope.paginado = "page=0&size=3";
+    $scope.idClase = $stateParams.id;
+    $scope.claseIsValid = false;
 
-    var promises = [
-      $scService.getclases($scope.paginado)
-    ];
+    $scope.init = function(){
+      $scService.getClaseById($scope.idClase).then(function(response){
+        $scope.clase = response.data;
+        if($scope.clase != ""){
+          $scope.claseIsValid = true;
+          //TODO ALGO
+        }else{
+          $scope.solicitudIsValid = false;
+        }
+      },function(){
+        //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
+        notificationService.error("Error del sistema");
+      });
+    };
 
-    $q.all(promises).then(function(response) {
-      $scope.clases = response[0].data.content;
-    });
-
+    $scope.init();
   }]);

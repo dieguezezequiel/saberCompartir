@@ -31,9 +31,7 @@ angular.module('frontendApp')
             $scope.solicitudIsValid = true;
             //TODO ALGO
           }else{
-            //TODO: MOSTRAR MENSAJE LINDO DE QUE NO EXISTE ESA SOLICITUD
             $scope.solicitudIsValid = false;
-            $location.path("/#");
           }
         },function(){
           //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA

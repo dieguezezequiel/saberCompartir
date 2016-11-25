@@ -1,10 +1,56 @@
 <!--
-
+Informacion
+-Nombre
+-Descripcion
+-Estado
+-Puntaje
+-Categoria
+-Usuario
+-Usuarios invitados
 
 -->
 
 <div class="container">
   <div class="row top-buffer">
+
+    <div class="col-xs-12">
+      <div ng-show="claseIsValid">
+        <div>
+          {{clase.name}}
+        </div>
+
+        <div>
+          {{clase.description}}
+        </div>
+
+        <div>
+          {{clase.state}}
+        </div>
+
+        <div>
+          {{clase.score}}
+        </div>
+
+        <div>
+          {{clase.category}}
+        </div>
+
+        <div>
+          {{clase.user}}
+        </div>
+
+        <div>
+          {{clase.guestUsers}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12" ng-show="!claseIsValid">
+      <div class="resource-not-found">
+        <img src="images/logo_brain1.png" alt=""/>
+        <div>Esta clase no est&aacute disponible.</div>
+      </div>
+    </div>
   </div>
 </div>
 

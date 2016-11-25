@@ -23,7 +23,7 @@ public class ClassRoom {
     @Column(name = "description", nullable = false)
     private String description;
     @Column(name = "state_id", nullable = false)
-    private Integer state;
+    private ClassRoomState state;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -35,6 +35,14 @@ public class ClassRoom {
     private Set<User> guestUsers;
 
     public ClassRoom() {
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getDate() {
@@ -77,11 +85,11 @@ public class ClassRoom {
         this.name = name;
     }
 
-    public Integer getState() {
+    public ClassRoomState getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(ClassRoomState state) {
         this.state = state;
     }
 

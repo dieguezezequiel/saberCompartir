@@ -9,8 +9,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', '$state', 'AuthenticationService', '$location',
-    function ($scope, $scService, $q, $state, AuthenticationService, $location) {
+  .controller('UsuarioPanelCtrl', ['$scope','$scService', '$q', '$state', 'AuthenticationService', '$location', '$rootScope',
+    function ($scope, $scService, $q, $state, AuthenticationService, $location, $rootScope) {
 
     $scope.cantidadClasesFinalizadas = 0;
     $scope.cantidadClasesProgramadas = 0;
@@ -29,7 +29,9 @@ angular.module('frontendApp')
 
 
       //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE
-    $scope.usuario = {id:1, nick:"Superman", firstName:"Clark", lastName:"Kent"};
+    $rootScope.globals;
+
+    $scope.usuario = {username: $rootScope.globals.currentUser.username, id: $rootScope.globals.currentUser.publicId};
 
     if(!AuthenticationService.isAuthenticated()){
       $state.go('login');
@@ -59,8 +61,8 @@ angular.module('frontendApp')
         $scope.clasesProgramadas = response[1].data.content;
         $scope.clasesPresenciadas = response[2].data.content;
         $scope.clasesFavoritas = response[3].data.content;
-        $scope.olicitudesPendientes = response[4].data.content;
-        $scope.olicitudesARealizar = response[5].data.content;
+        $scope.solicitudesPendientes = response[4].data.content;
+        $scope.solicitudesARealizar = response[5].data.content;
 
         $scope.cantidadClasesFinalizadas = response[0].data.totalElements;
         $scope.cantidadClasesProgramadas = response[1].data.totalElements;

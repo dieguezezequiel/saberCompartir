@@ -7,8 +7,10 @@ import com.sabercompartir.services.ClassRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -37,21 +39,21 @@ public class ClassRoomController {
     }
 
 /*    @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
-    public List<ClassRoom> getByState(@RequestParam("state") Integer state){
+    public List<ClassRoom> getByState(@RequestParam("state") Long state){
         List<ClassRoom> classes = this.classRoomService.getByState(state);
 
         return classes;
     }*/
 
     @RequestMapping(value = "", method = RequestMethod.GET, params={"state"})
-    public Page<ClassRoom> getByStateAndOrdered(@RequestParam("state") Integer state, Pageable pageable){
+    public Page<ClassRoom> getByStateAndOrdered(@RequestParam("state") Long state, Pageable pageable){
         Page<ClassRoom> classes = this.classRoomService.getByStateAndOrdered(state, pageable);
 
         return classes;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
-    public Page<ClassRoom> getAllByStateAndUser(@RequestParam("state") Integer state, @RequestParam("user") Long user, Pageable pageable){
+    public Page<ClassRoom> getAllByStateAndUser(@RequestParam("state") Long state, @RequestParam("user") Long user, Pageable pageable){
         Page<ClassRoom> classes = this.classRoomService.getAllByStateAndUser(state, user, pageable);
 
         return classes;
@@ -65,8 +67,8 @@ public class ClassRoomController {
     }
 
     @RequestMapping(value = "/established", method = RequestMethod.GET)
-    public ClassRoom getClassroomEstablished(){
-        ClassRoom classroom = this.classRoomService.getClassroomEstablished();
+    public ClassRoom getClassroomEstablished(Principal userAuthenticated){
+        ClassRoom classroom = this.classRoomService.getClassroomEstablished(userAuthenticated);
 
         return classroom;
     }
