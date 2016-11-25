@@ -11,6 +11,8 @@ import java.util.List;
 public interface ClassRoomStateRepository extends JpaRepository<ClassRoomState, Long> {
 
     List<ClassRoomState> findAll();
+    ClassRoomState findById(Long id);
+
 
 }
 

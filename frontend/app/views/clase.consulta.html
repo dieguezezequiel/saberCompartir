@@ -1,5 +1,12 @@
 <!--
-
+Informacion
+-Nombre
+-Descripcion
+-Estado
+-Puntaje
+-Categoria
+-Usuario
+-Usuarios invitados
 
 -->
 
@@ -9,13 +16,31 @@
     <div class="col-xs-12">
       <div ng-show="claseIsValid">
         <div>
-          <label for="fechaInput">Fecha</label>
-          <input type="date" id="fechaInput" name="fechaInputDate" ng-model="solicitud.date"/>
+          {{clase.name}}
         </div>
-        <button class="btn-sc" ng-click="solicitudTomada = true">QUIERO DAR ESTA CLASE!</button>
 
-        <div ng-show="solicitudTomada">
-          <button class="btn-sc btn-success-sc" ng-click="tomarSolicitud()">CONFIRMAR</button>
+        <div>
+          {{clase.description}}
+        </div>
+
+        <div>
+          {{clase.state}}
+        </div>
+
+        <div>
+          {{clase.score}}
+        </div>
+
+        <div>
+          {{clase.category}}
+        </div>
+
+        <div>
+          {{clase.user}}
+        </div>
+
+        <div>
+          {{clase.guestUsers}}
         </div>
       </div>
     </div>

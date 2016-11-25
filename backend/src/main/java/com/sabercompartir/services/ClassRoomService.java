@@ -1,9 +1,6 @@
 package com.sabercompartir.services;
 
-import com.sabercompartir.domain.ClassRoom;
-import com.sabercompartir.domain.ClassRoomState;
-import com.sabercompartir.domain.Request;
-import com.sabercompartir.domain.User;
+import com.sabercompartir.domain.*;
 import com.sabercompartir.repository.ClassRoomRepository;
 import com.sabercompartir.repository.ClassRoomStateRepository;
 import com.sabercompartir.repository.UserRepository;
@@ -12,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -19,17 +17,23 @@ import java.util.List;
  */
 @Service
 public class ClassRoomService {
-    private final Integer PROGRAMADA = 1;
-    private final Integer ESTABLECIDA = 2;
-    private final Integer EN_CURSO = 3;
-    private final Integer FINALIZADA = 4;
-    private final Integer CANCELADA = 5;
+    private final Long PROGRAMADA = 1l;
+    private final Long ESTABLECIDA = 2l;
+    private final Long EN_CURSO = 3l;
+    private final Long FINALIZADA = 4l;
+    private final Long CANCELADA = 5l;
 
     @Autowired
     ClassRoomRepository classRoomRepository;
 
     @Autowired
     ClassRoomStateRepository classRoomStateRepository;
+
+    @Autowired
+    ClassRoomStateService classRoomStateService;
+
+    @Autowired
+    UserCredentialsService userCredentialsService;
 
     @Autowired
     UserService userService;
@@ -42,15 +46,17 @@ public class ClassRoomService {
         return classRoomRepository.findAll(pageable);
     }
 
-    public List<ClassRoom> getByState(Integer state) {
+    public List<ClassRoom> getByState(Long stateId) {
+        ClassRoomState state = classRoomStateService.getStateById(stateId);
+
         return classRoomRepository.findByState(state);
     }
 
-    public ClassRoom getClassroomEstablished() {
-        //TODO: OBTENER EL USUARIO LOGUEADO, Y NO MAPEAR A ENTIDAD!!!
-        User user = userService.getUser(7l);
+    public ClassRoom getClassroomEstablished(Principal userAuthenticated) {
+        User user = userService.getUserByUsername(userAuthenticated.getName());
+        ClassRoomState state = classRoomStateService.getStateById(ESTABLECIDA);
 
-        ClassRoom classroom = classRoomRepository.findByStateAndUser(ESTABLECIDA, user);
+        ClassRoom classroom = classRoomRepository.findByStateAndUser(state, user);
 
         return classroom;
     }
@@ -60,13 +66,14 @@ public class ClassRoomService {
         classRoomRepository.save(classroom);
     }
 
-    public void create(Request request) {
-        //TODO: OBTENER EL USUARIO LOGUEADO, Y NO MAPEAR A ENTIDAD!!!
-        User user = userService.getUser(7l);
+    public void create(Request request, Principal userAuthenticated) {
+        UserCredentials userCredentials = this.userCredentialsService.findByUsername(userAuthenticated.getName());
+        User user = userService.getUserByUsername(userAuthenticated.getName());
+        ClassRoomState state = classRoomStateService.getStateById(PROGRAMADA);
 
         ClassRoom classroom = new ClassRoom();
         classroom.setName(request.getSubject());
-        classroom.setState(PROGRAMADA);
+        classroom.setState(state);
         classroom.setUser(user);
         classroom.setDescription("esto viene del front");
 
@@ -74,7 +81,9 @@ public class ClassRoomService {
         classRoomRepository.save(classroom);
     }
 
-    public Page<ClassRoom> getByStateAndOrdered(Integer state, Pageable pageable) {
+    public Page<ClassRoom> getByStateAndOrdered(Long stateId, Pageable pageable) {
+        ClassRoomState state = classRoomStateService.getStateById(stateId);
+
         return classRoomRepository.findByState(state, pageable);
     }
 
@@ -82,8 +91,10 @@ public class ClassRoomService {
         return classRoomStateRepository.findAll();
     }
 
-    public Page<ClassRoom> getAllByStateAndUser(Integer state, Long userId, Pageable pageable) {
+    public Page<ClassRoom> getAllByStateAndUser(Long stateId, Long userId, Pageable pageable) {
         User user = userService.getUser(userId);
+        ClassRoomState state = classRoomStateService.getStateById(stateId);
+
         return classRoomRepository.findAllByStateAndUser(state, user, pageable);
     }
 

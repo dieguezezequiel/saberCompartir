@@ -63,9 +63,9 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/{id}/take", method = RequestMethod.POST)
-    public void takeRequest(@PathVariable Long id, @RequestBody Request request){
+    public void takeRequest(@PathVariable Long id, @RequestBody Request request, Principal userAuthenticated){
         this.requestService.update(id);
-        this.classRoomService.create(request);
+        this.classRoomService.create(request, userAuthenticated);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
