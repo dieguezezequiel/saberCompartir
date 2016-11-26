@@ -16,7 +16,6 @@
               </div>
               <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
               <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
-              <p class="col-xs-12">Puntos por dar clase: {{solicitud.points}}<p>
               <a class="mas cursor" href="#/solicitud/{{solicitud.id}}">
                 <span class="glyphicon glyphicon-user"></span>
                 <spans>Quiero dar esta clase</spans>
@@ -45,7 +44,7 @@
         total-items="solicitudes.totalElements"
         items-per-page="solicitudes.size"
         ng-model="currentPage"
-        max-size="solicitudes.totalPages"
+        max-size="5"
         class="pagination-md"
         previous-text="&lsaquo;"
         next-text="&rsaquo;"
