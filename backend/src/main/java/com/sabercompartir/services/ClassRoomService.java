@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,9 @@ public class ClassRoomService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CategoryService categoryService;
 
     public ClassRoom getClassRoomById(Long id) {
         return classRoomRepository.findById(id);
@@ -67,16 +71,19 @@ public class ClassRoomService {
     }
 
     public void create(Request request, Principal userAuthenticated) {
-        UserCredentials userCredentials = this.userCredentialsService.findByUsername(userAuthenticated.getName());
         User user = userService.getUserByUsername(userAuthenticated.getName());
         ClassRoomState state = classRoomStateService.getStateById(PROGRAMADA);
+        Category category = categoryService.getById(request.getCategory().getId());
 
         ClassRoom classroom = new ClassRoom();
         classroom.setName(request.getSubject());
         classroom.setState(state);
         classroom.setUser(user);
-        classroom.setDescription("esto viene del front");
+        classroom.setCategory(category);
 
+        //TODO: QUITAR HARDCODEO
+        classroom.setDescription("esto viene del front");
+        classroom.setDate(new Date());
 
         classRoomRepository.save(classroom);
     }
@@ -91,19 +98,34 @@ public class ClassRoomService {
         return classRoomStateRepository.findAll();
     }
 
-    public Page<ClassRoom> getAllByStateAndUser(Long stateId, Long userId, Pageable pageable) {
-        User user = userService.getUser(userId);
+    public Page<ClassRoom> getAllByStateAndUser(Long stateId, String username, Pageable pageable) {
+        User user = userService.getUserByUsername(username);
         ClassRoomState state = classRoomStateService.getStateById(stateId);
 
         return classRoomRepository.findAllByStateAndUser(state, user, pageable);
     }
 
-    public Page<ClassRoom> getAllByGuestUsers(Long guestUserId, Pageable pageable) {
-        User guestUser = userService.getUser(guestUserId);
+    public Page<ClassRoom> getAllByGuestUsers(String guestUserUsername, Pageable pageable) {
+        User guestUser = userService.getUserByUsername(guestUserUsername);
         return classRoomRepository.findAllByGuestUsers(guestUser, pageable);
     }
 
     public Page<ClassRoom> getAllBySearch(String searchValue, Pageable pageable) {
-        return classRoomRepository.findAllBySearchValue(searchValue,pageable);
+        return classRoomRepository.findAllBySearchValue(searchValue, pageable);
+    }
+
+    public Long stream(Long id) {
+        ClassRoom classRoom = classRoomRepository.getById(id);
+        ClassRoomState classRoomState = classRoomStateService.getStateById(ESTABLECIDA);
+        classRoom.setState(classRoomState);
+        classRoomRepository.save(classRoom);
+
+        return classRoom.getId();
+    }
+
+    public Page<ClassRoom> getAllByUser(String username, Pageable pageable) {
+        User user = userService.getUserByUsername(username);
+
+        return classRoomRepository.getByUser(user, pageable);
     }
 }

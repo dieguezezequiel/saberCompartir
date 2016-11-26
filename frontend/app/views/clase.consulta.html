@@ -3,10 +3,19 @@ Informacion
 -Nombre
 -Descripcion
 -Estado
+-Fecha y horario programado
 -Puntaje
 -Categoria
 -Usuario
 -Usuarios invitados
+
+Acciones
+-Si es el propietario de la clase
+  -Dictar
+  -Cancelar
+  -Reprogramar
+-Si no es el propietario de la clase
+  -Añadir a favoritos.
 
 -->
 
@@ -24,7 +33,7 @@ Informacion
         </div>
 
         <div>
-          {{clase.state}}
+          {{clase.state.name}}
         </div>
 
         <div>
@@ -32,7 +41,11 @@ Informacion
         </div>
 
         <div>
-          {{clase.category}}
+          {{clase.category.name}}
+        </div>
+
+        <div>
+          {{clase.date | date}}
         </div>
 
         <div>
@@ -42,6 +55,12 @@ Informacion
         <div>
           {{clase.guestUsers}}
         </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <div>
+        <button class="btn-sc btn-success-sc" ng-click="dictarClase()">Dar clase ahora!</button>
       </div>
     </div>
 

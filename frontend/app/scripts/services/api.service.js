@@ -81,6 +81,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.streamClaseById = function(id){
+      var url = "api/classrooms/" + id + "/stream";
+      return $http.get(url);
+    };
+
     /*SOLICITUDES*/
 
     scService.saveSolicitud = function(request){

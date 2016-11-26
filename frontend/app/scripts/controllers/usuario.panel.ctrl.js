@@ -28,9 +28,6 @@ angular.module('frontendApp')
     $scope.showMenuSolicitudesARealizar = false;
 
 
-      //TODO OBTENER EL USUARIO DE NO SE DONDE, TENDRIA QUE ESTAR EN LA COOKIE
-    $rootScope.globals;
-
     $scope.usuario = {username: $rootScope.globals.currentUser.username, id: $rootScope.globals.currentUser.publicId};
 
     if(!AuthenticationService.isAuthenticated()){
@@ -47,12 +44,12 @@ angular.module('frontendApp')
       $scope.estadosDeSolicitud = response[1].data;
 
       var promises = [
-        $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'FINALIZADA').id, $scope.usuario.id, $scope.paginacion),
-        $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, $scope.usuario.id, $scope.paginacion),
-        $scService.getClasesPresenciadasPorUsuario($scope.usuario.id, $scope.paginacion),
-        $scService.getClasesFavoritasPorUsuario($scope.usuario.id, $scope.paginacion),
-        $scService.getSolicitudesPorEstadoYUsuario('PENDIENTE', $scope.usuario.id, $scope.paginacion),
-        $scService.getSolicitudesPorEstadoYUsuario('A_REALIZARSE', $scope.usuario.id, $scope.paginacion)
+        $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'FINALIZADA').id, $scope.usuario.username, $scope.paginacion),
+        $scService.getClasesPorEstadoYUsuario($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, $scope.usuario.username, $scope.paginacion),
+        $scService.getClasesPresenciadasPorUsuario($scope.usuario.username, $scope.paginacion),
+        $scService.getClasesFavoritasPorUsuario($scope.usuario.username, $scope.paginacion),
+        $scService.getSolicitudesPorEstadoYUsuario('PENDIENTE', $scope.usuario.username, $scope.paginacion),
+        $scService.getSolicitudesPorEstadoYUsuario('A_REALIZARSE', $scope.usuario.username, $scope.paginacion)
 
       ];
 

@@ -31,5 +31,13 @@ angular.module('frontendApp')
       });
     };
 
+    $scope.dictarClase = function(){
+      $scService.streamClaseById($scope.idClase).then(function(){
+        $location.path("/dictado");
+      }, function(){
+        notificationService.error("Ha ocurrido un error inesperado. Lo sentimos");
+      })
+    };
+
     $scope.init();
   }]);

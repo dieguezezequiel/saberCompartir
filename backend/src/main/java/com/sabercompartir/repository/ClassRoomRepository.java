@@ -29,4 +29,8 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
 
     @Query("SELECT c FROM ClassRoom c WHERE c.name LIKE CONCAT('%',:searchValue,'%')")
     Page<ClassRoom> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable pageable);
+
+    ClassRoom getById(Long id);
+
+    Page<ClassRoom> getByUser(User user, Pageable pageable);
 }

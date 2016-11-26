@@ -49,7 +49,7 @@ public class RequestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
-    public Page<Request> getByStateAndUser(@RequestParam("state") String state, @RequestParam("user") Long user, Pageable pageable){
+    public Page<Request> getByStateAndUser(@RequestParam("state") String state, @RequestParam("user") String user, Pageable pageable){
         Page<Request> requests = this.requestService.getByStateAndUser(EstadoSolicitud.createFromString(state), user, pageable);
 
         return requests;

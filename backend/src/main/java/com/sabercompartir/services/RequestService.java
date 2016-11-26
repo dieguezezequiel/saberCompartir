@@ -45,8 +45,8 @@ public class RequestService {
         requestRepository.save(request);
     }
 
-    public Page<Request> getByStateAndUser(EstadoSolicitud state, Long userId, Pageable pageable) {
-        User user = userRepository.findById(userId);
+    public Page<Request> getByStateAndUser(EstadoSolicitud state, String username, Pageable pageable) {
+        User user = userRepository.findByUsername(username);
         return requestRepository.findByStateAndUser(state, user, pageable);
     }
 

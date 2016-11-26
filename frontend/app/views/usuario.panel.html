@@ -92,22 +92,10 @@ Acciones
         <div ng-show="showMenuClasesProgramadas" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Clases programadas</div>
-            <div class="panel-item" ng-click="goToUrl('/clases/1')">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
-            </div>
-
-            <div class="panel-item">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
-            </div>
-
-            <div class="panel-item">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
+            <div class="panel-item"  ng-repeat="clase in clasesProgramadas" ng-click="goToUrl('/clases/'+clase.id)">
+              <div class="title">{{clase.name}}</div>
+              <div>{{clase.description}}</div>
+              <div>{{clase.date | date}}</div>
             </div>
           </div>
         </div>
@@ -115,10 +103,10 @@ Acciones
         <div ng-show="showMenuClasesFinalizadas" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Clases finalizadas</div>
-            <div class="panel-item" ng-click="goToUrl('/clases/1')">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
+            <div class="panel-item"  ng-repeat="clase in clasesFinalizadas" ng-click="goToUrl('/clases/'+clase.id)">
+              <div class="title">{{clase.name}}</div>
+              <div>{{clase.description}}</div>
+              <div>{{clase.date}}</div>
             </div>
           </div>
         </div>
@@ -126,7 +114,7 @@ Acciones
         <div ng-show="showMenuClasesPresenciadas" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Clases presenciadas</div>
-            <div class="panel-item" ng-click="goToUrl('/clases/1')">
+            <div class="panel-item" ng-click="goToUrl('/clases/'+clase.id)">
               <div class="title">Angular Js</div>
               <div>Framework de javascript</div>
               <div>10 de Diciembre a las 18:00 hs</div>
@@ -137,10 +125,10 @@ Acciones
         <div ng-show="showMenuClasesFavoritas" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Clases Favoritas</div>
-            <div class="panel-item" ng-click="goToUrl('/clases/1')">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
+            <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
+              <div class="title">{{clase.name}}</div>
+              <div>{{clase.description}}</div>
+              <div>{{clase.date}}</div>
             </div>
           </div>
         </div>
@@ -148,10 +136,10 @@ Acciones
         <div ng-show="showMenuSolicitudesPendientes" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Solicitudes</div>
-            <div class="panel-item" ng-click="goToUrl('/solicitudes/1')">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>57 personas se sumaron</div>
+            <div class="panel-item" ng-repeat="solicitud in solicitudesPendientes"  ng-click="goToUrl('/solicitud/1')">
+              <div class="title">{{solicitud.subject}}</div>
+              <div>{{solicitud.description}}</div>
+              <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
             </div>
           </div>
         </div>
@@ -159,10 +147,10 @@ Acciones
         <div ng-show="showMenuSolicitudesARealizar" class="col-xs-12">
           <div class="panel-box-item">
             <div class="title">Solicitudes</div>
-            <div class="panel-item" ng-click="goToUrl('/solicitudes/1')">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>57 personas se sumaron</div>
+            <div class="panel-item" ng-repeat="solicitud in solicitudesARealizar" ng-click="goToUrl('/solicitud/'+solicitud.id )">
+              <div class="title">{{solicitud.subject}}</div>
+              <div>{{solicitud.description}}</div>
+              <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
             </div>
           </div>
         </div>

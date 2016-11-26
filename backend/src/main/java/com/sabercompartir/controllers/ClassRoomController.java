@@ -52,15 +52,22 @@ public class ClassRoomController {
         return classes;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"user"})
+    public Page<ClassRoom> getByUser(@RequestParam("user") String user, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getAllByUser(user, pageable);
+
+        return classes;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET, params={"state", "user"})
-    public Page<ClassRoom> getAllByStateAndUser(@RequestParam("state") Long state, @RequestParam("user") Long user, Pageable pageable){
+    public Page<ClassRoom> getAllByStateAndUser(@RequestParam("state") Long state, @RequestParam("user") String user, Pageable pageable){
         Page<ClassRoom> classes = this.classRoomService.getAllByStateAndUser(state, user, pageable);
 
         return classes;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, params={"guestUser"})
-    public Page<ClassRoom> getAllByGuestUsers(@RequestParam("guestUser") Long guestUser, Pageable pageable){
+    public Page<ClassRoom> getAllByGuestUsers(@RequestParam("guestUser") String guestUser, Pageable pageable){
         Page<ClassRoom> classes = this.classRoomService.getAllByGuestUsers(guestUser, pageable);
 
         return classes;
@@ -93,5 +100,10 @@ public class ClassRoomController {
         Page<ClassRoom> classRooms = this.classRoomService.getAllBySearch(searchValue, pageable);
 
         return classRooms;
+    }
+
+    @RequestMapping(value = "{id}/stream", method = RequestMethod.GET)
+    public Long stream(@PathVariable Long id){
+        return this.classRoomService.stream(id);
     }
 }
