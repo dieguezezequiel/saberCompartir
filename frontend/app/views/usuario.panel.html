@@ -1,32 +1,18 @@
-<!--
-Template
-http://2.bp.blogspot.com/-SdaTxrvXTZA/VoZuEDWB3MI/AAAAAAAABkY/SfqekINgeSk/s1600/4_UserPanel.png
-Informacion
--Clases programadas.
--Clases finalizadas.
--Clases en curso.
--Clases presenciadas.
--Clases faveadas.
--Mensajes.
 
-Acciones
--Ir a modificar datos personales.
--Dictar clase programada.
-
--->
 
 <div class="container">
   <div class="row top-buffer">
     <div class="col-xs-3">
       <div class="row">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-12 text-center ">
           <img src="" alt="">
-          <h5>{{usuario.nick}}</h5>
-          <h6>{{usuario.firstName}} {{usuario.lastName}}</h6>
+          <h5>{{userPerfil.username}}</h5>
+          <h6>{{userPerfil.email}}</h6>
         </div>
         <div class="col-xs-12">
           <ul>
-            <li>Perfil</li>
+            <li><a ui-sref="perfil">Perfil</a></li>
+            <li><a ui-sref="panel">actividades</a></li>
           </ul>
         </div>
       </div>

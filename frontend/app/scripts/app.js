@@ -92,6 +92,11 @@ angular
           templateUrl: 'views/usuario.panel.html',
           controller: 'UsuarioPanelCtrl'
         })
+          .state('perfil', {
+            url: '/panel/perfil',
+            templateUrl: 'views/usuario.perfil.html',
+            controller: 'UsuarioPerfilCtrl'
+          })
         .state('busquedaAll', {
           url: '/busquedaAll',
           templateUrl: 'views/busquedaAll.html',
@@ -101,8 +106,8 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     }])
-  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService',
-    function ($rootScope, $scope, $state, AuthenticationService, $scService) {
+  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService', 'notificationService',
+    function ($rootScope, $scope, $state, AuthenticationService, $scService, notificationService) {
       $scope.searcher = '';
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
@@ -144,9 +149,23 @@ angular
       $scope.authenticated = function () {
         return $rootScope.globals.currentUser != undefined;
       };
+      
+      if($scope.authenticated()){
+        $scope.usuarioLogeado = $rootScope.globals.currentUser.username;
+      }
+      
       $scope.logout = function () {
         AuthenticationService.ClearCredentials();
-        $state.go('login');
+        notificationService.notify({
+          title: 'Loguot exitoso!',
+          title_escape: false,
+          text: 'Hasta la próxima',
+          text_escape: false,
+          type: "success",
+          icon: true,
+          delay: 2000
+        });
+        $state.go('inicio');
       };
     }])
   .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',

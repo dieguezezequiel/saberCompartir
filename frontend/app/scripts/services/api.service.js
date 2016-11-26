@@ -129,6 +129,11 @@ angular.module('scService', [])
       var url = "api/usuarios?" + pagination + "&order=" + orderBy;
       return $http.get(url);
     };
+    
+    scService.getUsuario = function(user){
+        var url = "api/usuarios/"+user;
+        return $http.get(url);
+    };
 
     return scService;
   }]);
