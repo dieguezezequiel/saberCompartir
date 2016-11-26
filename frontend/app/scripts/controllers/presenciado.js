@@ -68,7 +68,7 @@ angular.module('frontendApp')
 
             //TODO: Si la clase está programada, el usuario puede entrar pero no ve nada, o ve..... SAAARAAAN SAAAARANNNN PUBLICIDAD
            if($scope.clase){
-             switch ($scope.clase.state){
+             switch ($scope.clase.state.id){
                case 0:
                break;
                case 1: $scope.joinClassRoom();
