@@ -22,7 +22,8 @@ public class ClassRoom {
     private Date date;
     @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "state_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "state_id", nullable = false)
     private ClassRoomState state;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = false)
