@@ -71,4 +71,8 @@ public class RequestService {
 
         return persistedRequest.getId();
     }
+
+    public Page<Request> getAllTopAndState(Pageable pageable, String state) {
+        return requestRepository.findAllByState(pageable, EstadoSolicitud.createFromString(state));
+    }
 }

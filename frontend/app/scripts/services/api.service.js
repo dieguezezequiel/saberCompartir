@@ -103,6 +103,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getSolicitudesTopNStatePendiente = function(pagination,orderBy,state){
+      var url = "api/requests?" + pagination + "&sort=" + orderBy + ",desc" + "&state="+ state;
+      return $http.get(url);
+    };
+
     scService.getSearchSolicitudes = function(pagination,input){
       var url = "api/requests?" + pagination + "&searchValue=" + input;
       return $http.get(url);

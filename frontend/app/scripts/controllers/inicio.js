@@ -23,7 +23,7 @@ angular.module('frontendApp')
       $scope.estadosDeClase = response.data;
 
       var promises = [
-        $scService.getSolicitudes($scope.paginado),
+        $scService.getSolicitudesTopNStatePendiente("page=0&size=6",'totalUsers','PENDIENTE'),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, "date,desc", $scope.paginado),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'EN_CURSO').id, "date,desc",  $scope.paginado),
         $scService.getUsuariosRankingOrdenados("Score", $scope.paginado)

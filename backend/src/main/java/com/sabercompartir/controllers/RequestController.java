@@ -34,6 +34,13 @@ public class RequestController {
         return requests;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET,params={"state"})
+    public Page<Request> getAllTopNStatePendiente(Pageable pageable,@RequestParam("state") String state){
+        Page<Request> requests = this.requestService.getAllTopAndState(pageable,state);
+
+        return requests;
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET, params={"searchValue"})
     public Page<Request> getAllBySearch(Pageable pageable, @RequestParam("searchValue") String searchValue){
         Page<Request> requests = this.requestService.getAllBySearch(searchValue, pageable);
