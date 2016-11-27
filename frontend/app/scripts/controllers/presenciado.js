@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location',
-    function ($scope, $scService, $q, Constants, $stateParams, $location) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService',
+    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService) {
       $scope.idClase = $stateParams.id;
       $scope.claseFinalizada = false;
 
@@ -39,6 +39,24 @@ angular.module('frontendApp')
         $scope.showUsuariosConectados = false;
       };
 
+      $scope.$on('$destroy', function () {
+        //TODO: Alertar al usuario que se va a cerrar la clase
+        $scope.unjoinClassRoom();
+      });
+
+      $scope.unjoinClassRoom = function(){
+        $scope.webrtc.leaveRoom();
+        $scope.webrtc.disconnect();
+
+        $scService.unjoinClassRoom($scope.clase.id).then(function(){
+
+          },
+          function(){
+            notificationService.error('Error inesperado. Lo sentimos');
+
+          });
+      };
+
       $scope.joinClassRoom = function(){
         $scope.webrtc = new SimpleWebRTC({
           media: { video: false, audio: false},
@@ -65,6 +83,7 @@ angular.module('frontendApp')
 
           },
         function(){
+          notificationService.error('Error inesperado. Lo sentimos');
 
         });
       };
