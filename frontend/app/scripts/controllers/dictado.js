@@ -17,11 +17,13 @@ angular.module('frontendApp')
         autoRequestMedia: true,
         url: Constants.URL_SIGNALING_SERVER
       });
+      $scope.isMakingRequest = false;
       $scope.cantidadUsuariosConectados = 0;
+      $scope.claseIsValid = false;
       $scope.readyToCall = false;
       $scope.claseEnCurso = false;
       $scope.tiempoDeClase = 0;
-      $scope.estadoClase = Constants.EstadosClase['CONECTANDO'];
+      $scope.estadoClaseMensaje = Constants.EstadosClase['CONECTANDO'];
       $scope.cantidadMensajes = 0;
       $scope.usuariosConectados = [];
       $scope.volumen = 8;
@@ -57,9 +59,9 @@ angular.module('frontendApp')
         webrtc.createRoom($scope.clase.id.toString(), function(err, name){
           if(!err){
             console.log(name);
-            $scope.estadoClase = Constants.EstadosClase['EN_CURSO'];
+            $scope.estadoClaseMensaje = Constants.EstadosClase['EN_CURSO'];
             $scope.claseEnCurso = true;
-            $scope.clase.state = 3;
+            $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'EN_CURSO');
             $scService.updateClase($scope.clase);
             $scope.startTimer();
           }else{
@@ -74,8 +76,8 @@ angular.module('frontendApp')
         webrtc.stopLocalVideo();
         webrtc.leaveRoom();
         webrtc.disconnect();
-        $scope.estadoClase = Constants.EstadosClase['FINALIZADA'];
-        $scope.clase.state = 4;
+        $scope.estadoClaseMensaje = Constants.EstadosClase['FINALIZADA'];
+        $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'FINALIZADA');
         $scService.updateClase($scope.clase);
         $scope.stopTimer();
       };
@@ -100,13 +102,13 @@ angular.module('frontendApp')
 
       webrtc.on('readyToCall', function (data) {
         console.log(data);
-        $scope.estadoClase = Constants.EstadosClase['EN_ESPERA'];
+        $scope.estadoClaseMensaje = Constants.EstadosClase['EN_ESPERA'];
         $scope.readyToCall = true;
         $scope.$apply();
       });
 
       webrtc.on('localMediaError', function(data){
-        $scope.estadoClase = Constants.EstadosClase['LOCAL_MEDIA_ERROR'];
+        $scope.estadoClaseMensaje = Constants.EstadosClase['LOCAL_MEDIA_ERROR'];
       });
 
       webrtc.on('createdPeer', function (peer) {
@@ -168,24 +170,41 @@ angular.module('frontendApp')
         }
       };
 
-      $scope.init = function(){
-        //Obtener la clase que tiene estado ESTABLECIDA del usuario en cuestion
-        $scService.getEstablishedClassroom().then(function(response){
-            $scope.clase = response.data;
-            if($scope.clase != ""){
-              $scope.abrirChat();
-              $scope.claseIsValid = true;
-            }else{
-              //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
-              notificationService.error('No tienes ninguna clase establecida o programada');
+      $scope.findObject = function(list, name){
+        return _.find(list, function(obj){
+          return obj.name == name;
+        });
+      };
 
-              $location.path("/#");
-            }
+      $scope.init = function(){
+        $scope.isMakingRequest = true;
+        $scService.getEstadosDeClase().then(function(response){
+            $scope.estadosDeClase = response.data;
+            $scService.getEstablishedClassroom().then(function(response){
+                $scope.clase = response.data;
+                if($scope.clase != ""){
+                  $scope.abrirChat();
+                  $scope.claseIsValid = true;
+                  $scope.isMakingRequest = false;
+                }else{
+                  //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
+                  notificationService.error('No tienes ninguna clase establecida o programada');
+                  $location.path("/#");
+                }
+              },
+              function(response){
+                console.log(response.data);
+                $scope.claseIsValid = false;
+                notificationService.error("Error inesperado. Lo sentimos.");
+                $location.path("/#");
+              });
           },
-          function(response){
-            console.log(response.data);
-            $scope.claseIsValid = false;
-          });
+        function(response){
+          $scope.claseIsValid = false;
+          notificationService.error("Error inesperado. Lo sentimos.");
+          $location.path("/#");
+        });
+
 
       };
 

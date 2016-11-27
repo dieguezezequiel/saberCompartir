@@ -11,12 +11,15 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('ClaseConsultaCtrl', ['$scope', '$q', '$scService', '$stateParams', 'notificationService', function ($scope, $q, $scService, $stateParams, notificationService) {
+  .controller('ClaseConsultaCtrl', ['$scope', '$q', '$scService', '$stateParams', 'notificationService', '$location', function ($scope, $q, $scService, $stateParams, notificationService, $location) {
 
     $scope.idClase = $stateParams.id;
     $scope.claseIsValid = false;
+    $scope.isMakingRequest = false;
+
 
     $scope.init = function(){
+      $scope.isMakingRequest = true;
       $scService.getClaseById($scope.idClase).then(function(response){
         $scope.clase = response.data;
         if($scope.clase != ""){
@@ -25,8 +28,10 @@ angular.module('frontendApp')
         }else{
           $scope.solicitudIsValid = false;
         }
+        $scope.isMakingRequest = false;
       },function(){
         //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
+        $scope.isMakingRequest = false;
         notificationService.error("Error del sistema");
       });
     };

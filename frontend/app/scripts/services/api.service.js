@@ -86,6 +86,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.joinClassRoom = function(id){
+      var url = "api/classrooms/" + id + "/join";
+      return $http.get(url);
+    };
+
     /*SOLICITUDES*/
 
     scService.saveSolicitud = function(request){

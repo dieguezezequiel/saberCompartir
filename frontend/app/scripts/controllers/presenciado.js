@@ -11,6 +11,7 @@ angular.module('frontendApp')
   .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location',
     function ($scope, $scService, $q, Constants, $stateParams, $location) {
       $scope.idClase = $stateParams.id;
+      $scope.claseFinalizada = false;
 
       $scope.enviarMensaje = function(){
         //PUT SOME SOCKET.IO MAGIC HERE
@@ -59,6 +60,13 @@ angular.module('frontendApp')
         $scope.webrtc.on('createdPeer', function (peer) {
           console.log(peer);
         });
+
+        $scService.joinClassRoom($scope.clase.id).then(function(){
+
+          },
+        function(){
+
+        });
       };
 
       $scope.init = function(){
@@ -77,7 +85,7 @@ angular.module('frontendApp')
                break;
                case 3: $scope.joinClassRoom();
                break;
-               case 4: //Mostrar mensaje de clase finalizada;
+               case 4: $scope.claseFinalizada = true;
                break;
                case 5: //Mostrar mensaje de clase cancelada
              }

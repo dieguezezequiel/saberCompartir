@@ -128,4 +128,14 @@ public class ClassRoomService {
 
         return classRoomRepository.getByUser(user, pageable);
     }
+
+    public Long join(Long id, Principal userAuthenticated) {
+        User user = userService.getUserByUsername(userAuthenticated.getName());
+        ClassRoom classroom = classRoomRepository.findById(id);
+
+        classroom.getGuestUsers().add(user);
+        classRoomRepository.save(classroom);
+
+        return classroom.getId();
+    }
 }

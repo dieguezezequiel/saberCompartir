@@ -19,126 +19,128 @@
 
 <div class="container dictado-container">
   <div class="row full-height-percent top-buffer">
-    <div class="col-lg-6 col-md-6 col-xs-12">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="video-container">
-            <video id="localVideo"></video>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-1">
-<!--          <div range-slider
-               class="volumen no-margin"
-               orientation="vertical right"
-               on-handle-up="volumenChange()"
-               min="volumenMin"
-               max="volumenMax"
-               model-max="volumen"
-               pin-handle="min"></div>
-        -->
-
-            <button ng-click="mutearMicrofono()" class="btn btn-default btn-lg btn-link" ng-class="microfonoMuteado ? 'color-red': 'color-green'">
-              <span class="glyphicon glyphicon-volume-up"></span>
-            </button>
-          </div>
-
-        <div class="col-lg-11">
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-xs-12">
-              <div class="panel panel-default controls-container text-center">
-                <div class="panel-body">
-                  <button class="btn-sc btn-success-sc square-border" ng-show="!claseEnCurso" ng-click="comenzarClase()">COMENZAR</button>
-                  <button class="btn-sc btn-success-sc square-border" ng-show="claseEnCurso" ng-click="terminarClase()">TERMINAR</button>
+    <span ng-show="!isMakingRequest">
+      <div class="col-lg-6 col-md-6 col-xs-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="video-container">
+                  <video id="localVideo"></video>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-12 col-md-12 col-xs-12">
-              <div class="panel panel-default info-streaming-container">
-                <div class="panel-body">
-                  <div class="tiempo-container text-center">
-                    <!--Formatear a hh:mm:ss-->
-                    <p><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></p>
+            <div class="row">
+              <div class="col-lg-1">
+                <!--          <div range-slider
+                               class="volumen no-margin"
+                               orientation="vertical right"
+                               on-handle-up="volumenChange()"
+                               min="volumenMin"
+                               max="volumenMax"
+                               model-max="volumen"
+                               pin-handle="min"></div>
+                        -->
+
+                <button ng-click="mutearMicrofono()" class="btn btn-default btn-lg btn-link" ng-class="microfonoMuteado ? 'color-red': 'color-green'">
+                  <span class="glyphicon glyphicon-volume-up"></span>
+                </button>
+              </div>
+
+              <div class="col-lg-11">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="panel panel-default controls-container text-center">
+                      <div class="panel-body">
+                        <button class="btn-sc btn-success-sc square-border" ng-show="!claseEnCurso" ng-click="comenzarClase()">COMENZAR</button>
+                        <button class="btn-sc btn-success-sc square-border" ng-show="claseEnCurso" ng-click="terminarClase()">TERMINAR</button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="mensajes-container text-center">
-                    <p><b>Estado: </b>{{estadoClase}}</p>
+
+                  <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="panel panel-default info-streaming-container">
+                      <div class="panel-body">
+                        <div class="tiempo-container text-center">
+                          <!--Formatear a hh:mm:ss-->
+                          <p><timer autostart="false" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></p>
+                        </div>
+                        <div class="mensajes-container text-center">
+                          <p><b>Estado: </b>{{estadoClaseMensaje}}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!--En mobile esto se oculta y se ve se hace-->
-    <div class="col-lg-6 col-md-6 full-height-percent">
-      <div class="row full-height-percent">
-        <div class="col-lg-11 col-md-11 full-height-percent overflow-hidden ">
-          <!--CHAT CONTAINER-->
-          <div class="row chat-container full-height-percent animation-chat" ng-class="showChat ? 'animation-show' : 'animation-hide'">
-            <div class="col-lg-12 messages-container">
-              <ul class="messages"></ul>
-            </div>
-            <div class="col-lg-12">
-              <div class="input-group">
-                <input type="text" class="form-control square-border" placeholder=":)">
-              <span class="input-group-btn">
-                <button class="btn btn-default square-border" ng-click="enviarMensaje()" type="button">Go!</button>
-              </span>
+      <!--En mobile esto se oculta y se ve se hace-->
+      <div class="col-lg-6 col-md-6 full-height-percent">
+        <div class="row full-height-percent">
+          <div class="col-lg-11 col-md-11 full-height-percent overflow-hidden ">
+            <!--CHAT CONTAINER-->
+            <div class="row chat-container full-height-percent animation-chat" ng-class="showChat ? 'animation-show' : 'animation-hide'">
+              <div class="col-lg-12 messages-container">
+                <ul class="messages"></ul>
+              </div>
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <input type="text" class="form-control square-border" placeholder=":)">
+                <span class="input-group-btn">
+                  <button class="btn btn-default square-border" ng-click="enviarMensaje()" type="button">Go!</button>
+                </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!--USUARIOS CONECTADOS CONTAINER-->
-          <div class="row full-height-percent animation-chat" ng-class="showUsuariosConectados ? 'animation-show' : 'animation-hide'">
-            <h3>USUARIOS CONECTADOS</h3>
-            <ul ng-repeat="usuario in usuariosConectados">
-              <li>{{usuario.nombre}}</li>
-            </ul>
-          </div>
-
-          <!--CHAT CONFIGURACION CONTAINER-->
-          <div class="row full-height-percent animation-chat" ng-class="showChatConfiguracion ? 'animation-show' : 'animation-hide'">
-            <div class="list-group">
-              <h3>CONFIGURACIÓN</h3>
-              <button type="button" class="list-group-item">Chat</button>
-              <button type="button" class="list-group-item">Usuarios</button>
-              <button type="button" class="list-group-item">Ayuda</button>
-              <button type="button" class="list-group-item">Reportar problema</button>
+            <!--USUARIOS CONECTADOS CONTAINER-->
+            <div class="row full-height-percent animation-chat" ng-class="showUsuariosConectados ? 'animation-show' : 'animation-hide'">
+              <h3>USUARIOS CONECTADOS</h3>
+              <ul ng-repeat="usuario in usuariosConectados">
+                <li>{{usuario.nombre}}</li>
+              </ul>
             </div>
-          </div>
 
-        </div>
-        <div class="col-lg-1 col-md-1">
-          <div class="row">
-            <div class="col-lg-12 no-padding margin-top-10">
-              <div class="icon-badge-container">
-                <button ng-click="abrirChat()" class="btn btn-default btn-lg btn-link square-border" ng-class="showChat ? 'active': ''">
-                  <span class="glyphicon glyphicon-comment"></span>
+            <!--CHAT CONFIGURACION CONTAINER-->
+            <div class="row full-height-percent animation-chat" ng-class="showChatConfiguracion ? 'animation-show' : 'animation-hide'">
+              <div class="list-group">
+                <h3>CONFIGURACIÓN</h3>
+                <button type="button" class="list-group-item">Chat</button>
+                <button type="button" class="list-group-item">Usuarios</button>
+                <button type="button" class="list-group-item">Ayuda</button>
+                <button type="button" class="list-group-item">Reportar problema</button>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-1 col-md-1">
+            <div class="row">
+              <div class="col-lg-12 no-padding margin-top-10">
+                <div class="icon-badge-container">
+                  <button ng-click="abrirChat()" class="btn btn-default btn-lg btn-link square-border" ng-class="showChat ? 'active': ''">
+                    <span class="glyphicon glyphicon-comment"></span>
+                  </button>
+                  <span class="badge badge-notify">{{cantidadMensajes}}</span>
+                </div>
+              </div>
+              <div class="col-lg-12 no-padding margin-top-10">
+                <div class="icon-badge-container">
+                  <button ng-click="abrirUsuariosConectados()" class="btn btn-default btn-lg btn-link square-border" ng-class="showUsuariosConectados ? 'active': ''">
+                    <span class="glyphicon glyphicon-user"></span>
+                  </button>
+                  <span class="badge badge-notify">{{cantidadUsuariosConectados}}</span>
+                </div>
+              </div>
+              <div class="col-lg-12 no-padding margin-top-10">
+                <button type="button" ng-click="abrirChatConfiguracion()" class="btn btn-default btn-lg btn-link square-border" aria-label="Left Align" ng-class="showChatConfiguracion ? 'active': ''">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 </button>
-                <span class="badge badge-notify">{{cantidadMensajes}}</span>
               </div>
-            </div>
-            <div class="col-lg-12 no-padding margin-top-10">
-              <div class="icon-badge-container">
-                <button ng-click="abrirUsuariosConectados()" class="btn btn-default btn-lg btn-link square-border" ng-class="showUsuariosConectados ? 'active': ''">
-                  <span class="glyphicon glyphicon-user"></span>
-                </button>
-                <span class="badge badge-notify">{{cantidadUsuariosConectados}}</span>
-              </div>
-            </div>
-            <div class="col-lg-12 no-padding margin-top-10">
-              <button type="button" ng-click="abrirChatConfiguracion()" class="btn btn-default btn-lg btn-link square-border" aria-label="Left Align" ng-class="showChatConfiguracion ? 'active': ''">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </span>
   </div>
 </div>

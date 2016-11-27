@@ -58,13 +58,13 @@ Acciones
       </div>
     </div>
 
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-show="claseIsValid">
       <div>
         <button class="btn-sc btn-success-sc" ng-click="dictarClase()">Dar clase ahora!</button>
       </div>
     </div>
 
-    <div class="col-xs-12" ng-show="!claseIsValid">
+    <div class="col-xs-12" ng-show="!claseIsValid && !isMakingRequest">
       <div class="resource-not-found">
         <img src="images/logo_brain1.png" alt=""/>
         <div>Esta clase no est&aacute disponible.</div>

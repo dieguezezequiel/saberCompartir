@@ -106,4 +106,9 @@ public class ClassRoomController {
     public Long stream(@PathVariable Long id){
         return this.classRoomService.stream(id);
     }
+
+    @RequestMapping(value = "{id}/join", method = RequestMethod.GET)
+    public Long join(@PathVariable Long id, Principal userAuthenticated){
+        return this.classRoomService.join(id, userAuthenticated);
+    }
 }

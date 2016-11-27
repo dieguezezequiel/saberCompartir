@@ -106,7 +106,7 @@ Acciones
             <div class="panel-item"  ng-repeat="clase in clasesFinalizadas" ng-click="goToUrl('/clases/'+clase.id)">
               <div class="title">{{clase.name}}</div>
               <div>{{clase.description}}</div>
-              <div>{{clase.date}}</div>
+              <div>{{clase.date | date}}</div>
             </div>
           </div>
         </div>
@@ -128,7 +128,7 @@ Acciones
             <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
               <div class="title">{{clase.name}}</div>
               <div>{{clase.description}}</div>
-              <div>{{clase.date}}</div>
+              <div>{{clase.date | date}}</div>
             </div>
           </div>
         </div>
