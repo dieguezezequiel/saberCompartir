@@ -24,8 +24,8 @@ public class User{
     private String email;
     @Column(name = "age", nullable = false)
     private Integer age;
-    @ManyToMany(mappedBy = "guestUsers")
-    private Set<ClassRoom> classrooms;
+/*    @ManyToMany(mappedBy = "guestUsersHistory")
+    private Set<ClassRoom> classrooms;*/
 
     public User(){}
     
@@ -85,11 +85,11 @@ public class User{
         this.age = age;
     }
     
-    public Set<ClassRoom> getClassrooms() {
+/*    public Set<ClassRoom> getClassrooms() {
         return classrooms;
     }
     
     public void setClassrooms(Set<ClassRoom> classrooms) {
         this.classrooms = classrooms;
-    }
+    }*/
 }

@@ -72,7 +72,7 @@ angular.module('scService', [])
     };
 
     scService.getClasesPresenciadasPorUsuario = function(user, pagination){
-      var url = "api/classrooms?" + "guestUser=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      var url = "api/classrooms?" + "guestUserHistory=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
       return $http.get(url);
     };
 
@@ -88,6 +88,11 @@ angular.module('scService', [])
 
     scService.joinClassRoom = function(id){
       var url = "api/classrooms/" + id + "/join";
+      return $http.get(url);
+    };
+
+    scService.unjoinClassRoom = function(id){
+      var url = "api/classrooms/" + id + "/unjoin";
       return $http.get(url);
     };
 

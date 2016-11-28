@@ -133,9 +133,29 @@ public class ClassRoomService {
         User user = userService.getUserByUsername(userAuthenticated.getName());
         ClassRoom classroom = classRoomRepository.findById(id);
 
+        if(!classroom.getGuestUsersHistory().contains(user)){
+            classroom.getGuestUsersHistory().add(user);
+        }
         classroom.getGuestUsers().add(user);
+
         classRoomRepository.save(classroom);
 
         return classroom.getId();
+    }
+
+    public Long unjoin(Long id, Principal userAuthenticated) {
+        User user = userService.getUserByUsername(userAuthenticated.getName());
+        ClassRoom classroom = classRoomRepository.findById(id);
+
+        classroom.getGuestUsers().remove(user);
+        classRoomRepository.save(classroom);
+
+        return classroom.getId();
+
+    }
+
+    public Page<ClassRoom> getAllByGuestUsersHistory(String guestUserHistoryUsername, Pageable pageable) {
+        User guestUserHistory = userService.getUserByUsername(guestUserHistoryUsername);
+        return classRoomRepository.findAllByGuestUsersHistory(guestUserHistory, pageable);
     }
 }
