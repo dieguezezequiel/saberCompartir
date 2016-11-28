@@ -25,5 +25,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     @Query("SELECT r FROM Request r WHERE r.subject LIKE CONCAT('%',:searchValue,'%')")
     Page<Request> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable page);
 
+    Page<Request> findAllByState(Pageable pageable, EstadoSolicitud state);
 }
 

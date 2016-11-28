@@ -17,10 +17,10 @@ angular.module('Authentication')
         $scope.dataLoading = true;
         AuthenticationService.Login($scope.usuario, function (response) {
           if (response.email != undefined) {
-            $scope.usuario.id = response.id;
+            $scope.usuario["id"] = response.id;
             AuthenticationService.SetCredentials($scope.usuario);
             notificationService.notify({
-              title: 'Login exitoso',
+              title: 'Has iniciado sesion!',
               title_escape: false,
               text: 'Bienvenido a SaberCompartir',
               text_escape: false,
@@ -28,8 +28,7 @@ angular.module('Authentication')
               icon: true,
               delay: 2000
             });
-            $state.go("inicio", {}, {reload: true});
-           
+            $state.go("inicio");
           }
           else {
             notificationService.notify({

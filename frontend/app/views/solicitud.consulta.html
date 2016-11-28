@@ -2,19 +2,27 @@
   <div class="row top-buffer">
     <div class="col-xs-12">
       <div ng-show="solicitudIsValid">
-        <div>
-          <label for="fechaInput">Fecha</label>
-          <input type="date" id="fechaInput" name="fechaInputDate" ng-model="solicitud.date"/>
-        </div>
-        <button class="btn-sc" ng-click="solicitudTomada = true">QUIERO DAR ESTA CLASE!</button>
+        <form action="" ng-submit="tomarSolicitud()">
+          <div>
+            <label for="fechaInput">Fecha y hora</label>
+            <input type="date" id="fechaInput" name="fechaInputDate" ng-model="solicitud.date"/>
+          </div>
 
-        <div ng-show="solicitudTomada">
-          <button class="btn-sc btn-success-sc" ng-click="tomarSolicitud()">CONFIRMAR</button>
-        </div>
+          <div>
+            <label for="textarea">Descripción</label>
+            <textarea name="textareaName" id="textarea" cols="30" rows="10"></textarea>
+          </div>
+
+          <button class="btn-sc" ng-click="solicitudTomada = true">QUIERO DAR ESTA CLASE!</button>
+
+          <div ng-show="solicitudTomada">
+            <button type="submit" class="btn-sc btn-success-sc">CONFIRMAR</button>
+          </div>
+        </form>
       </div>
     </div>
 
-    <div class="col-xs-12" ng-show="!solicitudIsValid">
+    <div class="col-xs-12" ng-show="!solicitudIsValid && !isMakingRequest">
       <div class="resource-not-found">
         <img src="images/logo_brain1.png" alt=""/>
         <div>Esta solicitud no est&aacute disponible.</div>

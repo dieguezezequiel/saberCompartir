@@ -72,7 +72,7 @@ angular.module('scService', [])
     };
 
     scService.getClasesPresenciadasPorUsuario = function(user, pagination){
-      var url = "api/classrooms?" + "guestUser=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
+      var url = "api/classrooms?" + "guestUserHistory=" + user + "&page=" + pagination.page + "&size=" + pagination.size;
       return $http.get(url);
     };
 
@@ -84,6 +84,21 @@ angular.module('scService', [])
     scService.streamClaseById = function(id){
       var url = "api/classrooms/" + id + "/stream";
       return $http.get(url);
+    };
+
+    scService.joinClassRoom = function(id){
+      var url = "api/classrooms/" + id + "/join";
+      return $http.get(url);
+    };
+
+    scService.unjoinClassRoom = function(id){
+      var url = "api/classrooms/" + id + "/unjoin";
+      return $http.get(url);
+    };
+
+    scService.calificarClase = function(id, calificacion){
+      var url = "api/classrooms/" + id + "/qualify";
+      return $http.post(url, calificacion);
     };
 
     /*SOLICITUDES*/
@@ -100,6 +115,16 @@ angular.module('scService', [])
 
     scService.getSolicitudes = function(pagination){
       var url = "api/requests?" + pagination;
+      return $http.get(url);
+    };
+
+    scService.sumarseASolicitud = function(solicitud,usuarioLoggeado){
+      var url = "api/requests?userId=" + usuarioLoggeado.id;
+      return $http.post(url, solicitud);
+    };
+
+    scService.getSolicitudesTopNStatePendiente = function(pagination,orderBy,state){
+      var url = "api/requests?" + pagination + "&sort=" + orderBy + ",desc" + "&state="+ state;
       return $http.get(url);
     };
 

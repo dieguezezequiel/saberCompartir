@@ -66,9 +66,9 @@ public class ClassRoomController {
         return classes;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, params={"guestUser"})
-    public Page<ClassRoom> getAllByGuestUsers(@RequestParam("guestUser") String guestUser, Pageable pageable){
-        Page<ClassRoom> classes = this.classRoomService.getAllByGuestUsers(guestUser, pageable);
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"guestUserHistory"})
+    public Page<ClassRoom> getAllByGuestUsers(@RequestParam("guestUserHistory") String guestUserHistory, Pageable pageable){
+        Page<ClassRoom> classes = this.classRoomService.getAllByGuestUsersHistory(guestUserHistory, pageable);
 
         return classes;
     }
@@ -105,5 +105,20 @@ public class ClassRoomController {
     @RequestMapping(value = "{id}/stream", method = RequestMethod.GET)
     public Long stream(@PathVariable Long id){
         return this.classRoomService.stream(id);
+    }
+
+    @RequestMapping(value = "{id}/join", method = RequestMethod.GET)
+    public Long join(@PathVariable Long id, Principal userAuthenticated){
+        return this.classRoomService.join(id, userAuthenticated);
+    }
+
+    @RequestMapping(value = "{id}/unjoin", method = RequestMethod.GET)
+    public Long unjoin(@PathVariable Long id, Principal userAuthenticated){
+        return this.classRoomService.unjoin(id, userAuthenticated);
+    }
+
+    @RequestMapping(value = "{id}/qualify", method = RequestMethod.POST)
+    public Long unjoin(@PathVariable Long id, Principal userAuthenticated, @RequestBody Integer calification){
+        return this.classRoomService.qualify(id, userAuthenticated, calification);
     }
 }

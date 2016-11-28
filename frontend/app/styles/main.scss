@@ -352,6 +352,40 @@ background-color: #22313F;
   }
 }
 
+.clase-finalizada-container{
+  text-align:center;
+  font-size:3em;
+  background-color:white;
+
+  img{
+    border-radius:10px;
+  }
+
+  div{
+    margin:20px 0px;
+  }
+
+  a{
+
+    &:hover{
+
+    }
+
+  }
+
+  .hover{
+    @extend a:hover;
+
+  }
+
+  .no-hover{
+    @extend a;
+
+  }
+
+
+}
+
 //UTILITY CLASSES
 
 /* CSS used here will be applied after bootstrap.css */

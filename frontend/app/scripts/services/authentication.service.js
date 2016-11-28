@@ -24,6 +24,7 @@ angular.module('Authentication')
             currentUser: {
               userId: usuario.id,
               username: usuario.username,
+              id: usuario.id,
               authdata: authdata
             }
           };

@@ -8,9 +8,12 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location',
-    function ($scope, $scService, $q, Constants, $stateParams, $location) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService',
+    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService) {
       $scope.idClase = $stateParams.id;
+      $scope.claseFinalizada = false;
+      $scope.calificacion = 0;
+      $scope.userWasJoined = false;
 
       $scope.enviarMensaje = function(){
         //PUT SOME SOCKET.IO MAGIC HERE
@@ -38,6 +41,25 @@ angular.module('frontendApp')
         $scope.showUsuariosConectados = false;
       };
 
+      $scope.$on('$destroy', function () {
+        //TODO: Alertar al usuario que se va a cerrar la clase
+        $scope.unjoinClassRoom();
+      });
+
+
+      $scope.unjoinClassRoom = function(){
+        $scope.webrtc.leaveRoom();
+        $scope.webrtc.disconnect();
+
+        $scService.unjoinClassRoom($scope.clase.id).then(function(){
+
+          },
+          function(){
+            notificationService.error('Error inesperado. Lo sentimos');
+
+          });
+      };
+
       $scope.joinClassRoom = function(){
         $scope.webrtc = new SimpleWebRTC({
           media: { video: false, audio: false},
@@ -48,6 +70,12 @@ angular.module('frontendApp')
 
         $scope.abrirChat();
 
+        $scope.webrtc.connection.on('remove', function(peer){
+          $scope.claseFinalizada = true;
+          //TODO: Encontrar el usuario por ID y eliminarlo
+          $scope.$apply();
+        });
+
         $scope.webrtc.on('connectionReady', function (sessionId) {
           $scope.webrtc.joinRoom($scope.clase.id.toString(), function(err, name){
             console.log(err);
@@ -55,10 +83,27 @@ angular.module('frontendApp')
           });
         });
 
-
         $scope.webrtc.on('createdPeer', function (peer) {
           console.log(peer);
         });
+
+        $scService.joinClassRoom($scope.clase.id).then(function(){
+            $scope.userWasJoined = true;
+          },
+        function(){
+          notificationService.error('Error inesperado. Lo sentimos');
+
+        });
+      };
+
+      $scope.calificar = function(calificacion){
+          $scService.calificarClase($scope.clase.id, calificacion).then(function(response){
+
+            },
+          function(response){
+
+          });
+
       };
 
       $scope.init = function(){
@@ -77,7 +122,7 @@ angular.module('frontendApp')
                break;
                case 3: $scope.joinClassRoom();
                break;
-               case 4: //Mostrar mensaje de clase finalizada;
+               case 4: $scope.claseFinalizada = true;
                break;
                case 5: //Mostrar mensaje de clase cancelada
              }

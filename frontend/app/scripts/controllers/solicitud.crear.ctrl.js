@@ -11,8 +11,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('SolicitudCrearCtrl', ['$scope', 'UsuarioResource','notificationService','$scService', '$q',
-    function ($scope, UsuarioResource,notificationService, $scService, $q) {
+  .controller('SolicitudCrearCtrl', ['$scope', 'UsuarioResource','notificationService','$scService', '$q', '$location',
+    function ($scope, UsuarioResource,notificationService, $scService, $q, $location) {
 
     $scope.categoriaList = [];
 
@@ -29,7 +29,13 @@ angular.module('frontendApp')
 
     $scope.save = function(){
 
-      $scService.saveSolicitud($scope.solicitud);
+      $scService.saveSolicitud($scope.solicitud).then(function(){
+        notificationService.success("Solicitud creada!");
+        $location.path("panel");
+
+      }, function(){
+          notificationService.error("Error inesperado. Lo sentimos.");
+      });
     }
 
 

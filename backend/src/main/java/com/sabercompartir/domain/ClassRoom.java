@@ -34,8 +34,19 @@ public class ClassRoom {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "classrooms_users", joinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> guestUsers;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "classrooms_users_history", joinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> guestUsersHistory;
 
     public ClassRoom() {
+    }
+
+    public Set<User> getGuestUsersHistory() {
+        return guestUsersHistory;
+    }
+
+    public void setGuestUsersHistory(Set<User> guestUsersHistory) {
+        this.guestUsersHistory = guestUsersHistory;
     }
 
     public Category getCategory() {

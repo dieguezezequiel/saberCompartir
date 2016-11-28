@@ -15,16 +15,21 @@ angular.module('frontendApp')
     function ($scope, UsuarioResource,notificationService, $scService, $stateParams, $location) {
       $scope.idSolicitud = $stateParams.id;
       $scope.solicitudIsValid = false;
+      $scope.isMakingRequest = false;
 
       $scope.tomarSolicitud = function(){
         $scService.tomarSolicitudAndCrearClase($scope.idSolicitud, $scope.solicitud).then(function(response){
-
+          $scope.claseTomadaConExito = true;
+          notificationService.success('Clase programada!');
+          $location.path("/panel");
         }, function(response){
-
+          $scope.claseTomadaConExito = false;
+          notificationService.error('Error inesperado. Lo sentimos.');
         });
       };
 
       $scope.init = function(){
+        $scope.isMakingRequest = true;
         $scService.getSolicitudById($scope.idSolicitud).then(function(response){
           $scope.solicitud = response.data;
           if($scope.solicitud != ""){
@@ -33,8 +38,10 @@ angular.module('frontendApp')
           }else{
             $scope.solicitudIsValid = false;
           }
+          $scope.isMakingRequest = false;
         },function(){
           //TODO MOSTRAR MENSAJE GRANDE EN LA PANTALLA
+          $scope.isMakingRequest = false;
           notificationService.error("Error del sistema");
         });
       };

@@ -33,4 +33,6 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
     ClassRoom getById(Long id);
 
     Page<ClassRoom> getByUser(User user, Pageable pageable);
+
+    Page<ClassRoom> findAllByGuestUsersHistory(User guestUserHistory, Pageable pageable);
 }
