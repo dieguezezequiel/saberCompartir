@@ -8,8 +8,11 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', 'AuthenticationService',
-    function ($location, $scope, $q, $scService, AuthenticationService) {
+  .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', '$rootScope', 'AuthenticationService', 'notificationService',
+    function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService) {
+
+    $scope.usuarioLoggeado = $rootScope.globals.currentUser;
+    $scope.solicitudes = '';
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
@@ -51,16 +54,24 @@ angular.module('frontendApp')
       });
     };
 
-
+    $scope.IfICanJoinSolicitud = function(solicitud){
+      if($scope.usuarioLoggeado){
+        var idUsersInSolicitud = _.pluck(solicitud.joinedUsers, 'id');
+        solicitud.sumarse = !(_.contains(idUsersInSolicitud, $scope.usuarioLoggeado.id));
+      }
+    };
 
     $scope.sumarse = function(solicitud){
-      solicitud.totalUsers = solicitud.totalUsers + 1;
-      $scope.hide = true;
-      new PNotify({
-        title: "Genial!",
-        text: "Te acabas de sumar a la solicitud de " + solicitud.subject,
-        type: 'success'
-      })
+      $scService.sumarseASolicitud(solicitud,$scope.usuarioLoggeado).then(function (response) {
+        if(response.type == "error"){
+          notificationService.error(response.data.text);
+        }else{
+          notificationService.success(response.data.text);
+          solicitud.sumarse = false;
+        }
+      }, function (error) {
+        notificationService.error(error.data.text);
+      });
     }
 
   }]);
