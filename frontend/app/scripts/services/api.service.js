@@ -108,6 +108,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.sumarseASolicitud = function(solicitud,usuarioLoggeado){
+      var url = "api/requests?userId=" + usuarioLoggeado.id;
+      return $http.post(url, solicitud);
+    };
+
     scService.getSolicitudesTopNStatePendiente = function(pagination,orderBy,state){
       var url = "api/requests?" + pagination + "&sort=" + orderBy + ",desc" + "&state="+ state;
       return $http.get(url);
