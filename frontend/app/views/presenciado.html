@@ -37,7 +37,7 @@
                 <div class="input-group">
                   <input type="text" class="form-control square-border" placeholder=":)">
                 <span class="input-group-btn">
-                  <button class="btn btn-default square-border" ng-click="enviarMensaje()" type="button">Go!</button>
+                  <button class="btn btn-default square-border" ng-click="enviarMensaje()" type="button"><span class="glyphicon glyphicon-chevron-right"></span></button>
                 </span>
                 </div>
               </div>
@@ -92,11 +92,39 @@
       </div>
     </span>
 
-    <span ng-show="claseFinalizada">
+    <span ng-show="claseFinalizada && !userWasJoined">
       <div class="col-xs-12">
         <div class="resource-not-found">
           <img src="images/logo_brain1.png" alt=""/>
           <div>Esta clase ya ha finalizado.</div>
+        </div>
+      </div>
+    </span>
+
+    <span ng-show="claseFinalizada && userWasJoined">
+      <div class="col-xs-12">
+        <div class="row clase-finalizada-container">
+          <div>
+            {{clase.name}}
+          </div>
+          <div>
+            <img src="/clase.user.avatar" alt=""/>
+          </div>
+          <div>
+            por {{clase.user.username}}
+          </div>
+          <div>
+            ¿Qué te pareció la clase?
+
+            <div>
+              <a href="javascript:;" ng-click="calificar(1)" ng-mouseover="calificacion = 1" ng-class="calificacion >= 1 ? 'hover' : 'no-hover'"><span class="glyphicon glyphicon-heart"></span></a>
+              <a href="javascript:;" ng-click="calificar(2)" ng-mouseover="calificacion = 2" ng-class="calificacion >= 2 ? 'hover' : 'no-hover'"><span class="glyphicon glyphicon-heart"></span></a>
+              <a href="javascript:;" ng-click="calificar(3)" ng-mouseover="calificacion = 3" ng-class="calificacion >= 3 ? 'hover' : 'no-hover'"><span class="glyphicon glyphicon-heart"></span></a>
+              <a href="javascript:;" ng-click="calificar(4)" ng-mouseover="calificacion = 4" ng-class="calificacion >= 4 ? 'hover' : 'no-hover'"><span class="glyphicon glyphicon-heart"></span></a>
+              <a href="javascript:;" ng-click="calificar(5)" ng-mouseover="calificacion = 5" ng-class="calificacion >= 5 ? 'hover' : 'no-hover'"><span class="glyphicon glyphicon-heart"></span></a>
+
+            </div>
+          </div>
         </div>
       </div>
     </span>

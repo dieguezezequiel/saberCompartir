@@ -116,4 +116,9 @@ public class ClassRoomController {
     public Long unjoin(@PathVariable Long id, Principal userAuthenticated){
         return this.classRoomService.unjoin(id, userAuthenticated);
     }
+
+    @RequestMapping(value = "{id}/qualify", method = RequestMethod.POST)
+    public Long unjoin(@PathVariable Long id, Principal userAuthenticated, @RequestBody Integer calification){
+        return this.classRoomService.qualify(id, userAuthenticated, calification);
+    }
 }

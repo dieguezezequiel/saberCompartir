@@ -96,6 +96,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.calificarClase = function(id, calificacion){
+      var url = "api/classrooms/" + id + "/qualify";
+      return $http.post(url, calificacion);
+    };
+
     /*SOLICITUDES*/
 
     scService.saveSolicitud = function(request){

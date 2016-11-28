@@ -158,4 +158,15 @@ public class ClassRoomService {
         User guestUserHistory = userService.getUserByUsername(guestUserHistoryUsername);
         return classRoomRepository.findAllByGuestUsersHistory(guestUserHistory, pageable);
     }
+
+    public Long qualify(Long id, Principal userAuthenticated, Integer calification) {
+        User user = userService.getUserByUsername(userAuthenticated.getName());
+        ClassRoom classroom = classRoomRepository.findById(id);
+
+        classroom.setScore(classroom.getScore() + calification);
+
+        classRoomRepository.save(classroom);
+
+        return classroom.getId();
+    }
 }

@@ -63,8 +63,7 @@ public class RequestService {
         User user = userRepository.findById(userCredentials.getUserId());
         Category category = this.categoryService.getById(request.getCategory().getId());
         request.setUser(user);
-        request.setState(EstadoSolicitud.A_REALIZARSE);
-        request.setPoints(0);
+        request.setState(EstadoSolicitud.PENDIENTE);
         request.setPoints(0);
         request.setCategory(category);
         Request persistedRequest = requestRepository.save(request);
