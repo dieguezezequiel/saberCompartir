@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <img src="" alt="">
+                    <h5>{{userPerfil.username}}</h5>
+                    <h6>{{userPerfil.email}}</h6>
+                </div>
+                <div class="col-xs-12">
+                    <ul>
+                        <li><a ui-sref="perfil">Perfil</a></li>
+                        <li><a ui-sref="panel">actividades</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="col-xs-9 parent-panel-box">
+            <div class="row no-margin top-buffer-pad">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-title">Perfil</div>
+                    </div>
+                    <div class="panel-body">
+                        <div custom-form f-name="FormRegistro" submit-action="actualizar()" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <sc-input-label
+                                            not-show-label="true"
+                                            model="perfil.firstName"
+                                            placeholder="Nombre"
+                                            help-msg="Ingrese su nombre"
+                                            input-name="nombreUsuario"
+                                            maxlength="30"
+                                            validators="['solo-letras']"
+                                            required="true">
+                                    </sc-input-label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <sc-input-label
+                                            not-show-label="true"
+                                            model="perfil.lastName"
+                                            placeholder="Apellido"
+                                            help-msg="Ingrese su apellido"
+                                            input-name="apellidoUsuario"
+                                            maxlength="30"
+                                            validators="['solo-letras']"
+                                            required="true">
+                                    </sc-input-label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <sc-input-label
+                                            type="email"
+                                            not-show-label="true"
+                                            model="perfil.email"
+                                            placeholder="Email"
+                                            help-msg="Ingrese su email"
+                                            input-name="emailUsuario"
+                                            maxlength="50"
+                                            minlength="4"
+                                            required="true">
+                                    </sc-input-label>
+                                </div>
+                            </div>
+                
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <sc-input-label
+                                            type="text"
+                                            not-show-label="true"
+                                            model="perfil.age"
+                                            placeholder="Edad"
+                                            help-msg="Ingrese su edad, debe ser mayor de 18 años"
+                                            input-name="edadUsuario"
+                                            maxlength="2"
+                                            minlength="2"
+                                            validators="['solo-numeros','sin-espacios']"
+                                            required="true">
+                                    </sc-input-label>
+                                </div>
+                            </div>
+                
+                            <div class="form-group">
+                                <div class="col-md-12 buttonRegistro">
+                                    <button type="submit" class="btn btn-primary btn-md">Actualizar</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
