@@ -12,6 +12,7 @@ angular.module('frontendApp')
     function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService) {
 
     $scope.usuarioLoggeado = $rootScope.globals.currentUser;
+    $scope.solicitudes = '';
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
@@ -54,8 +55,10 @@ angular.module('frontendApp')
     };
 
     $scope.IfICanJoinSolicitud = function(solicitud){
-      var idUsersInSolicitud = _.pluck(solicitud.joinedUsers, 'id');
-      solicitud.sumarse = !(_.contains(idUsersInSolicitud, $scope.usuarioLoggeado.id));
+      if($scope.usuarioLoggeado){
+        var idUsersInSolicitud = _.pluck(solicitud.joinedUsers, 'id');
+        solicitud.sumarse = !(_.contains(idUsersInSolicitud, $scope.usuarioLoggeado.id));
+      }
     };
 
     $scope.sumarse = function(solicitud){
