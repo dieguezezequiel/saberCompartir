@@ -113,14 +113,20 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    //CUIDADO! NO FILTRA POR ESTADO ELIMINADO
     scService.getSolicitudes = function(pagination){
       var url = "api/requests?" + pagination;
       return $http.get(url);
     };
 
-    scService.sumarseASolicitud = function(solicitud,usuarioLoggeado){
-      var url = "api/requests?userId=" + usuarioLoggeado.id;
-      return $http.post(url, solicitud);
+    scService.getSolicitudesValidas = function(pagination){
+      var url = "api/requests/validas?" + pagination;
+      return $http.get(url);
+    };
+
+    scService.sumarseASolicitud = function(solicitudId,usuarioLoggeadoId){
+      var url = "api/requests?solicitudId=" + solicitudId + "&userId=" + usuarioLoggeadoId;
+      return $http.get(url);
     };
 
     scService.getSolicitudesTopNStatePendiente = function(pagination,orderBy,state){

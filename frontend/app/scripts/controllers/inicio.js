@@ -11,8 +11,8 @@ angular.module('frontendApp')
   .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', '$rootScope', 'AuthenticationService', 'notificationService',
     function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService) {
 
-    $scope.usuarioLoggeado = $rootScope.globals.currentUser;
     $scope.solicitudes = '';
+    $scope.usuarioLoggeado = $rootScope.globals.currentUser;
 
     $scope.hide = false;
     $scope.paginado = "page=0&size=3";
@@ -62,16 +62,15 @@ angular.module('frontendApp')
     };
 
     $scope.sumarse = function(solicitud){
-      $scService.sumarseASolicitud(solicitud,$scope.usuarioLoggeado).then(function (response) {
-        if(response.type == "error"){
-          notificationService.error(response.data.text);
-        }else{
-          notificationService.success(response.data.text);
+      $scService.sumarseASolicitud(solicitud.id,$scope.usuarioLoggeado.id).then(function (response) {
+        $scope.messagesBuilder(response.data);
+          if(response.data.type == "success"){
+            solicitud.totalUsers = solicitud.totalUsers + 1;
+          }
           solicitud.sumarse = false;
-        }
       }, function (error) {
-        notificationService.error(error.data.text);
+        notificationService.error("Hubo un error, no puede unirse a " + solicitud.subject + " por el momento");
       });
-    }
+    };
 
   }]);

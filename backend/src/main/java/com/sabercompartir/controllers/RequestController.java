@@ -34,22 +34,33 @@ public class RequestController {
         return this.requestService.getAll(pageable);
     }
 
+    @RequestMapping(value = "/validas", method = RequestMethod.GET)
+    public Page<Request> getAllStateValid(Pageable pageable){
+        return this.requestService.getAllStateValid(pageable);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET,params={"state"})
     public Page<Request> getAllTopNStatePendiente(Pageable pageable,@RequestParam("state") String state){
         return this.requestService.getAllTopAndState(pageable,state);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST,params={"userId"})
-    public ResponseFront joinTheSolicitud(@RequestBody Request solicitud,@RequestParam("userId") Integer userId){
-        if(solicitud.getJoinedUsers().contains(this.userService.getUser(userId.longValue()))){
-            String mess = "Ya estas sumado a la solicitud de " + solicitud.getSubject();
-            return ResponseFront.notice("Un momento!", mess);
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"solicitudId","userId"})
+    @ResponseBody
+    public ResponseFront joinTheSolicitud(@RequestParam("solicitudId") Integer solicitudId,@RequestParam("userId") Integer userId){
+        Request request = this.requestService.getRequestById(solicitudId.longValue());
+        if(request != null){
+            if(this.requestService.requestJoinedUsersContainsUserWithID(request.getId(), userId.longValue())){
+                String mess = "Ya se encuentra sumado a la solicitud de " + request.getSubject();
+                return ResponseFront.notice(mess);
+            }else{
+                request.getJoinedUsers().add(this.userService.getUser(userId.longValue()));
+                request.setTotalUsers(request.getJoinedUsers().size());
+                this.requestService.save(request);
+                String mess = "Te acabas de sumar a la solicitud de " + request.getSubject();
+                return ResponseFront.success(mess);
+            }
         }else{
-            solicitud.getJoinedUsers().add(this.userService.getUser(userId.longValue()));
-            solicitud.setTotalUsers(solicitud.getJoinedUsers().size());
-            this.requestService.save(solicitud);
-            String mess = "Te acabas de sumar a la solicitud de " + solicitud.getSubject();
-            return ResponseFront.success(mess);
+            return ResponseFront.error("No existe la solicitud a la que se desea sumar");
         }
     }
 

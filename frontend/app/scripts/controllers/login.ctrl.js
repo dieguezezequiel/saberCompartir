@@ -25,7 +25,7 @@ angular.module('Authentication')
               text: "Bienvenido!",
               type: 'success'
             });
-            $state.go("inicio");
+            $state.go("inicio", {}, {reload: true});
           }
           else {
             new PNotify({

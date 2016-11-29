@@ -101,8 +101,9 @@ angular
       $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     }])
-  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService',
-    function ($rootScope, $scope, $state, AuthenticationService, $scService) {
+  .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService', 'notificationService',
+    function ($rootScope, $scope, $state, AuthenticationService, $scService, notificationService) {
+
       $scope.searcher = '';
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
@@ -137,8 +138,19 @@ angular
             });
           break;
           default:
-                $state.go('busquedaAll')
+            $state.go('busquedaAll',{},{reload: true});
         }
+      };
+
+      $scope.messagesBuilder= function (obj) {
+        var jsonNotify = {
+          text: obj.text,
+          type: obj.type
+        };
+        if(obj.title){
+          jsonNotify.title = obj.data.title;
+        }
+        notificationService.notify(jsonNotify);
       };
 
       $scope.authenticated = function () {

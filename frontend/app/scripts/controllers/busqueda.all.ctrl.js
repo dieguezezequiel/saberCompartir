@@ -8,20 +8,42 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('BusquedaAllCtrl', ['$scope', '$q', '$scService', function ($scope, $q, $scService) {
+  .controller('BusquedaAllCtrl', ['$scope', '$q', '$scService','$rootScope','notificationService', function ($scope, $q, $scService,$rootScope,notificationService) {
 
     $scope.paginado = "page=0&size=3";
-    var promises = [
-      $scService.getclases($scope.paginado),
-      $scService.getSolicitudes($scope.paginado)
-    ];
+    $scope.usuarioLoggeado = $rootScope.globals.currentUser;
 
-    $q.all(promises).then(function(response) {
-      if(!$scope.searcher) {
-        $scope.clases = response[0].data;
-        $scope.solicitudes = response[1].data;
+    if(!$scope.searcher) {
+      var promises = [
+        $scService.getclases($scope.paginado),
+        $scService.getSolicitudesValidas($scope.paginado)
+      ];
+
+      $q.all(promises).then(function(response) {
+
+          $scope.clases = response[0].data;
+          $scope.solicitudes = response[1].data;
+      });
+    }
+
+    $scope.IfICanJoinSolicitud = function(solicitud){
+      if($scope.usuarioLoggeado){
+        var idUsersInSolicitud = _.pluck(solicitud.joinedUsers, 'id');
+        solicitud.sumarse = !(_.contains(idUsersInSolicitud, $scope.usuarioLoggeado.id));
       }
-    });
+    };
+
+    $scope.sumarse = function(solicitud){
+      $scService.sumarseASolicitud(solicitud.id,$scope.usuarioLoggeado.id).then(function (response) {
+        $scope.messagesBuilder(response.data);
+        if(response.data.type == "success"){
+          solicitud.totalUsers = solicitud.totalUsers + 1;
+        }
+        solicitud.sumarse = false;
+      }, function (error) {
+        notificationService.error("Hubo un error, no puede unirse a " + solicitud.subject + " por el momento");
+      });
+    };
 
     $scope.$watch("currentPageClase", function( newValue, oldValue ) {
       if(!angular.equals(newValue, oldValue)) {
