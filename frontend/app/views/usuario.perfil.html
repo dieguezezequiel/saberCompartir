@@ -9,14 +9,14 @@
                 </div>
                 <div class="col-xs-12">
                     <ul>
-                        <li><a ui-sref="perfil">Perfil</a></li>
-                        <li><a ui-sref="panel">actividades</a></li>
+                        <li><a ui-sref="perfil()">Perfil</a></li>
+                        <li><a ui-sref="panel()">actividades</a></li>
                     </ul>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <div class="col-xs-9 parent-panel-box">
             <div class="row no-margin top-buffer-pad">
                 <div class="panel">
@@ -24,7 +24,7 @@
                         <div class="panel-title">Perfil</div>
                     </div>
                     <div class="panel-body">
-                        <div custom-form f-name="FormRegistro" submit-action="actualizar()" class="form-horizontal">
+                        <div custom-form f-name="FormRegistro" submit-action="actualizar(perfil)" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <sc-input-label
@@ -68,24 +68,22 @@
                                     </sc-input-label>
                                 </div>
                             </div>
-                
+
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <sc-input-label
-                                            type="text"
+                                            type="Date"
                                             not-show-label="true"
-                                            model="perfil.age"
-                                            placeholder="Edad"
-                                            help-msg="Ingrese su edad, debe ser mayor de 18 años"
+                                            model="perfil.birthDate"
+                                            placeholder="fecha de nacimiento"
+                                            help-msg="Ingrese fecha de nacimiento, debe ser mayor de 18 años"
                                             input-name="edadUsuario"
-                                            maxlength="2"
-                                            minlength="2"
-                                            validators="['solo-numeros','sin-espacios']"
-                                            required="true">
+                                            required="true"
+                                    disabled>
                                     </sc-input-label>
                                 </div>
                             </div>
-                
+
                             <div class="form-group">
                                 <div class="col-md-12 buttonRegistro">
                                     <button type="submit" class="btn btn-primary btn-md">Actualizar</button>

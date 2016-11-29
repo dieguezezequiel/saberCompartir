@@ -42,6 +42,9 @@ public class ClassRoomService {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    NotificationService notificationService;
+
     public ClassRoom getClassRoomById(Long id) {
         return classRoomRepository.findById(id);
     }
@@ -86,6 +89,8 @@ public class ClassRoomService {
         classroom.setDate(new Date());
 
         classRoomRepository.save(classroom);
+
+        notificationService.enviarMensajes(request,classroom.getId(), "La clase que solicitaste fue creada");
     }
 
     public Page<ClassRoom> getByStateAndOrdered(Long stateId, Pageable pageable) {

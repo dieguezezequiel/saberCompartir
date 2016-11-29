@@ -154,10 +154,15 @@ angular.module('scService', [])
       var url = "api/usuarios?" + pagination + "&order=" + orderBy;
       return $http.get(url);
     };
-    
+
     scService.getUsuario = function(user){
         var url = "api/usuarios/"+user;
         return $http.get(url);
+    };
+
+    scService.actualizar = function(user){
+      var url = "api/usuarios/actualizar";
+      return $http.post(url, user);
     };
 
     return scService;

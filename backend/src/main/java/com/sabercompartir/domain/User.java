@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -22,19 +23,20 @@ public class User{
     private String lastName;
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "birth_date", nullable = false)
+    private Date birthDate;
+
 /*    @ManyToMany(mappedBy = "guestUsersHistory")
     private Set<ClassRoom> classrooms;*/
 
     public User(){}
     
-    public User(String username, String firstName, String lastName, String email, Integer age) {
+    public User(String username, String firstName, String lastName, String email, Date birthDate) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
+        this.birthDate = birthDate;
     }
     
     public Long getId() {
@@ -77,12 +79,12 @@ public class User{
         this.email = email;
     }
     
-    public Integer getAge() {
-        return age;
+    public Date getBirthDate() {
+        return birthDate;
     }
     
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
     
 /*    public Set<ClassRoom> getClassrooms() {

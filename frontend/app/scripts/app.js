@@ -92,11 +92,6 @@ angular
           templateUrl: 'views/usuario.panel.html',
           controller: 'UsuarioPanelCtrl'
         })
-          .state('perfil', {
-            url: '/panel/perfil',
-            templateUrl: 'views/usuario.perfil.html',
-            controller: 'UsuarioPerfilCtrl'
-          })
         .state('busquedaAll', {
           url: '/busquedaAll',
           templateUrl: 'views/busquedaAll.html',
@@ -108,6 +103,8 @@ angular
     }])
   .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService', 'notificationService',
     function ($rootScope, $scope, $state, AuthenticationService, $scService, notificationService) {
+
+      $scope.usuarioLoggeado = $rootScope.globals.currentUser;
       $scope.searcher = '';
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
@@ -149,11 +146,11 @@ angular
       $scope.authenticated = function () {
         return $rootScope.globals.currentUser != undefined;
       };
-      
+
       if($scope.authenticated()){
         $scope.usuarioLogeado = $rootScope.globals.currentUser.username;
       }
-      
+
       $scope.logout = function () {
         AuthenticationService.ClearCredentials();
         notificationService.notify({

@@ -8,9 +8,9 @@
  * Controller of the frontendApp
  */
 angular.module('Authentication')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$route','$location', '$state', 'UsuarioResource', '$http', 'AuthenticationService', 'notificationService',
-    function ($rootScope, $scope,$route, $location, $state, UsuarioResource, $http, AuthenticationService, notificationService) {
-      
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$route','$location', '$window', '$state', 'UsuarioResource', '$http', 'AuthenticationService', 'notificationService',
+    function ($rootScope, $scope,$route, $location, $window, $state, UsuarioResource, $http, AuthenticationService, notificationService) {
+
       $scope.usuario = {};
 
       $scope.login = function () {
@@ -28,7 +28,11 @@ angular.module('Authentication')
               icon: true,
               delay: 2000
             });
-            $state.go("inicio");
+            $state.go("inicio",{}, {reload: true});
+            $window.location.reload();
+
+
+
           }
           else {
             notificationService.notify({

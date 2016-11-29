@@ -1,5 +1,7 @@
 package com.sabercompartir.domain;
 
+import java.util.Date;
+
 /**
  * Created by cesar on 24/11/16.
  */
@@ -12,11 +14,12 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Integer age;
+    private Date birthDate;
     
     public UserDTO(){}
     
-    public UserDTO(Long id, String username, String password, Long userId, String firstName, String lastName, String email, Integer age) {
+    public UserDTO(Long id, String username, String password, Long userId, String firstName,
+                   String lastName, String email, Date birthDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -24,7 +27,7 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
+        this.birthDate = birthDate;
     }
     
     public Long getId() {
@@ -83,11 +86,11 @@ public class UserDTO {
         this.email = email;
     }
     
-    public Integer getAge() {
-        return age;
+    public Date getBirthDate() {
+        return birthDate;
     }
     
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }

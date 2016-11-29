@@ -15,5 +15,9 @@ public interface IUserService {
     User getUser(Long id);
     
     User findByEmail(String email);
+
+    User getUserByUsername(String name);
+
+    void updateUser(User user);
     
 }
