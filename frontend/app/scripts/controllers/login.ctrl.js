@@ -28,11 +28,7 @@ angular.module('Authentication')
               icon: true,
               delay: 2000
             });
-            $state.go("inicio",{}, {reload: true});
-            $window.location.reload();
-
-
-
+            $state.go("inicio", {}, {reload: true});
           }
           else {
             notificationService.notify({

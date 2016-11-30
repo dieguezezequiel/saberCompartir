@@ -9,13 +9,14 @@
     <div class="row">
       <div ng-repeat="solicitud in solicitudes.content" class="col-md-4">
         <div class="panel panel-default">
-          <div class="panel-body">
-            <div ng-hide="hide" class="mas cursor" ng-click="sumarse(solicitud)">
+          <div class="panel-body" ng-init="IfICanJoinSolicitud(solicitud)">
+            <div ng-show="solicitud.sumarse" class="mas cursor" ng-click="sumarse(solicitud)">
               <span class="glyphicon glyphicon-plus"></span>
-              <spans> Me Sumo</spans>
+              <spans> Me Sumo </spans>
             </div>
             <div class="col-xs-12 titulo-violeta">{{solicitud.subject}}</div>
             <p class="col-xs-12">Personas interesadas: {{solicitud.totalUsers}}<p>
+            <p class="col-xs-12">Estado: {{solicitud.state}}<p>
             <a class="mas cursor" href="#/solicitud/{{solicitud.id}}">
               <span class="glyphicon glyphicon-user"></span>
               <spans>Quiero dar esta clase</spans>

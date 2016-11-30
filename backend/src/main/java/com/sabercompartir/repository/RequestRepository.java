@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by matias on 18/11/16.
@@ -22,9 +23,14 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     Page<Request> findByStateAndUser(EstadoSolicitud state, User user, Pageable pageable);
 
-    @Query("SELECT r FROM Request r WHERE r.subject LIKE CONCAT('%',:searchValue,'%')")
-    Page<Request> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable page);
+    @Query("SELECT r FROM Request r WHERE r.subject LIKE CONCAT('%',:searchValue,'%') and r.state <> :estado")
+    Page<Request> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable page,@Param("estado") EstadoSolicitud eliminada);
 
     Page<Request> findAllByState(Pageable pageable, EstadoSolicitud state);
+
+    Request findByIdAndJoinedUsers_Id(Long solicitudId, long userId);
+
+    Page<Request> findAllByStateNot(Pageable pageable, EstadoSolicitud eliminada);
+
 }
 

@@ -139,8 +139,19 @@ angular
             });
           break;
           default:
-                $state.go('busquedaAll')
+            $state.go('busquedaAll',{},{reload: true});
         }
+      };
+
+      $scope.messagesBuilder= function (obj) {
+        var jsonNotify = {
+          text: obj.text,
+          type: obj.type
+        };
+        if(obj.title){
+          jsonNotify.title = obj.data.title;
+        }
+        notificationService.notify(jsonNotify);
       };
 
       $scope.authenticated = function () {
@@ -154,7 +165,7 @@ angular
       $scope.logout = function () {
         AuthenticationService.ClearCredentials();
         notificationService.notify({
-          title: 'Loguot exitoso!',
+          title: 'Has cerrado sesion!',
           title_escape: false,
           text: 'Hasta la próxima',
           text_escape: false,

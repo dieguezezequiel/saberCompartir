@@ -39,6 +39,10 @@ public class RequestService {
         return requestRepository.findById(id);
     }
 
+    public Request getRequestById(long id) {
+        return requestRepository.findById(id);
+    }
+
     public void update(Long id) {
         Request request = requestRepository.findById(id);
         request.setState(EstadoSolicitud.A_REALIZARSE);
@@ -55,7 +59,7 @@ public class RequestService {
     }
 
     public Page<Request> getAllBySearch(String searchValue, Pageable pageable) {
-        return requestRepository.findAllBySearchValue(searchValue,pageable);
+        return requestRepository.findAllBySearchValue(searchValue,pageable,EstadoSolicitud.ELIMINADA);
     }
 
     public Long save(Request request, Principal userAuthenticated) {
@@ -77,5 +81,13 @@ public class RequestService {
 
     public void save(Request request) {
         requestRepository.save(request);
+    }
+
+    public boolean requestJoinedUsersContainsUserWithID(Long solicitudId, long userId) {
+        return requestRepository.findByIdAndJoinedUsers_Id(solicitudId, userId) != null;
+    }
+
+    public Page<Request> getAllStateValid(Pageable pageable) {
+        return requestRepository.findAllByStateNot(pageable, EstadoSolicitud.ELIMINADA);
     }
 }

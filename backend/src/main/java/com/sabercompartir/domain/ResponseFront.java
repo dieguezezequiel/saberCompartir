@@ -14,9 +14,9 @@ public class ResponseFront {
         this.type = type;
     }
 
-    public ResponseFront(String title, String text) {
-        this.title = title;
+    public ResponseFront(String text, String type) {
         this.text = text;
+        this.type = type;
     }
 
     public String getTitle() {
@@ -44,14 +44,23 @@ public class ResponseFront {
     }
 
     public static ResponseFront success(String message){
-        return new ResponseFront("Genial!",message,"success");
+        return new ResponseFront(message,"success");
+    }
+    public static ResponseFront success(String title, String message){
+        return new ResponseFront(title,message,"success");
     }
 
     public static ResponseFront error(String message){
-        return new ResponseFront("Error",message,"error");
+        return new ResponseFront(message,"error");
+    }
+    public static ResponseFront error(String title, String message){
+        return new ResponseFront(title,message,"error");
     }
 
+    public static ResponseFront notice(String message){
+        return new ResponseFront(message,"notice");
+    }
     public static ResponseFront notice(String title, String message){
-        return new ResponseFront(title,message);
+        return new ResponseFront(title,message,"notice");
     }
 }
