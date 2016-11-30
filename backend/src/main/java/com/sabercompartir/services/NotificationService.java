@@ -29,7 +29,6 @@ public class NotificationService {
                     notification.setStatus(false);
                     notification.setUserId(user.getId());
                     notification.setMessageType(1);
-
                     notificationRepository.save(notification);
                 });
 

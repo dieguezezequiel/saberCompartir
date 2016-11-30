@@ -29,7 +29,6 @@ angular.module('Authentication')
               delay: 2000
             });
             $state.go("inicio",{}, {reload: true});
-            $window.location.reload();
 
 
 

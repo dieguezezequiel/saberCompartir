@@ -61,7 +61,7 @@
 
             <ul class="nav navbar-nav navbar-nav-sc">
               <li ng-show="authenticated()"><a ui-sref="panel">
-                  <span class="glyphicon glyphicon-user"></span><b><span> {{usuarioLogeado}} </span></b></a>
+                  <span class="glyphicon glyphicon-user"></span><b><span> {{$root.usuarioLogeado}} </span></b></a>
               </li>
               <li ui-sref-active="active"><a ui-sref="inicio">Inicio</a></li>
               <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
