@@ -8,15 +8,27 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService',
-    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService', '$rootScope',
+    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService, $rootScope) {
       $scope.idClase = $stateParams.id;
       $scope.claseFinalizada = false;
       $scope.calificacion = 0;
       $scope.userWasJoined = false;
+      $scope.messages = [];
+      $scope.myMessage = "";
+
+      $scope.usuario = {username: $rootScope.globals.currentUser.username, id: $rootScope.globals.currentUser.publicId};
 
       $scope.enviarMensaje = function(){
-        //PUT SOME SOCKET.IO MAGIC HERE
+        var message = {user: {}};
+
+        message.user.name = $scope.usuario.username;
+        message.data = $scope.myMessage;
+
+        $scope.messages.push(message);
+        $scope.webrtc.sendToAll('peer-text', { user: $scope.usuario.username, message: $scope.myMessage });
+        $scope.myMessage = "";
+
       };
 
       $scope.enviarMensajeAUsuario = function(){
@@ -81,6 +93,19 @@ angular.module('frontendApp')
             console.log(err);
             console.log(name);
           });
+        });
+
+        $scope.webrtc.connection.on('message', function(data) {
+          if(data.type==='peer-text') {
+            console.log(data);
+            var message = {user: {}};
+
+            message.user.name = data.payload.user;
+            message.data = data.payload.message;
+
+            $scope.messages.push(message);
+            $scope.$apply();
+          }
         });
 
         $scope.webrtc.on('createdPeer', function (peer) {
