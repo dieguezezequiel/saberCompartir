@@ -31,8 +31,8 @@
             <!--CHAT CONTAINER-->
             <div class="row chat-container full-height-percent animation-chat" ng-class="showChat ? 'animation-show' : 'animation-hide'">
               <div class="col-lg-12 messages-container">
-                <ul class="messages">
-                  <div ng-repeat="message in messages">
+                <ul id="chat" class="messages">
+                  <div ng-repeat="message in messages" ng-class="$usuario.username == message.user.name ? 'text-right' : 'text-left'">
                     {{ message.user.name }}:
                     {{ message.data }}
                   </div>
