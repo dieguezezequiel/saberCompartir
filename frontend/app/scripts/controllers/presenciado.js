@@ -28,6 +28,8 @@ angular.module('frontendApp')
         $scope.messages.push(message);
         $scope.webrtc.sendToAll('peer-text', { user: $scope.usuario.username, message: $scope.myMessage });
         $scope.myMessage = "";
+        var objDiv = document.getElementById("chat");
+        objDiv.scrollTop = objDiv.scrollHeight;
 
       };
 
@@ -83,8 +85,9 @@ angular.module('frontendApp')
         $scope.abrirChat();
 
         $scope.webrtc.connection.on('remove', function(peer){
+          //TODO: Si el peer.id es el del usuario que dicta, entonces terminar clase
+          //TODO: Si no es ese usuario, entonces encontrar el usuario por ID y eliminarlo del array de usuarios conectados
           $scope.claseFinalizada = true;
-          //TODO: Encontrar el usuario por ID y eliminarlo
           $scope.$apply();
         });
 
@@ -104,6 +107,8 @@ angular.module('frontendApp')
             message.data = data.payload.message;
 
             $scope.messages.push(message);
+            var objDiv = document.getElementById("chat");
+            objDiv.scrollTop = objDiv.scrollHeight;
             $scope.$apply();
           }
         });
