@@ -104,7 +104,9 @@ angular
   .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService', 'notificationService',
     function ($rootScope, $scope, $state, AuthenticationService, $scService, notificationService) {
 
-      $scope.usuarioLoggeado = $rootScope.globals.currentUser;
+/*
+      $scope.usuarioLogeado = $rootScope.globals.currentUser;
+*/
       $scope.searcher = '';
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
@@ -186,6 +188,11 @@ angular
 
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // Si no esta logeado redireccionar
+        
+        if($rootScope.globals.currentUser){
+          $rootScope.usuarioLogeado = $rootScope.globals.currentUser.username;
+        }
+        
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
           /*$state.go('login');*/
         }
