@@ -7,37 +7,61 @@ Entrada de datos
 -->
 
 <div class="container">
-  <div class="row top-buffer">
-    <div class="col-xs-12">
-      <h1>Crea tu solicitud</h1>
-
-      <form ng-submit="save()">
-        <div>
-          <label for="nombreInput">Nombre</label>
-          <input type="text" id="nombreInput" name="nombreInputName" ng-model="solicitud.subject"/>
+  <div class="row">
+    <div class="col-md-12 formulario">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">Crea tu solicitud</div>
         </div>
+        <div class="panel-body">
+            <form name="formNuevaSolicitud" class="form-horizontal" novalidate ng-submit="formNuevaSolicitud.$valid && save()">
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <div>
+                    <input placeholder="Nombre" type="text" class="form-control materialInput" id="nombreInput" name="nombreInputName" ng-required="true" ng-model="solicitud.subject"/>
+                    <div class="textoError" ng-show="formNuevaSolicitud.$submitted && formNuevaSolicitud.nombreInputName.$error.required">
+                      <p>Ingrese nombre para la solicitud</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <div>
+                    <input placeholder="Descripcion" type="text" class="form-control materialInput" id="descripcionInput" name="descripcionInputName" ng-required="true" ng-model="solicitud.description"/>
+                    <div class="textoError" ng-show="formNuevaSolicitud.$submitted && formNuevaSolicitud.descripcionInputName.$error.required">
+                      <p>Ingrese una descripcion para la solicitud</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <div>
-          <label for="descripcionInput">Descripcion</label>
-          <input type="text" id="descripcionInput" name="descripcionInputName" ng-model="solicitud.description"/>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <div>
+                    <select name="categoriaSelectName"
+                            class="form-control square-border sinBordesFocus"
+                            ng-required="true"
+                            id="categoriaSelect"
+                            ng-options="option.name for option in categoriaList track by option.id"
+                            ng-model="solicitud.category">
+                      <option value="">Seleccione una categoria</option>
+                    </select>
+                    <div class="textoError" ng-show="formNuevaSolicitud.$submitted && formNuevaSolicitud.categoriaSelectName.$error.required">
+                      <p>Ingrese una categoria</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="form-group">
+              <div class="col-md-12 buttonRegistro">
+                <button type="submit" class="btn btn-primary btn-md">Solicitar <span class="glyphicon spinner-button" ng-show="isMakingRequest"/></button>
+              </div>
+            </div>
+            </form>
+          </div>
         </div>
-
-        <div>
-          <label for="categoriaSelect">Categoría</label>
-          <select name="categoriaSelectName"
-                  id="categoriaSelect"
-                  ng-options="option.name for option in categoriaList track by option.id"
-                  ng-model="solicitud.category"
-            >
-            <option value="">Seleccione una categoria</option>
-          </select>
-        </div>
-
-        <div>
-          <button type="submit" class="btn btn-primary btn-colon-primary btn-xs-block">Solicitar <span class="glyphicon spinner-button" ng-show="isMakingRequest"/></button>
-        </div>
-
-      </form>
+      </div>
     </div>
   </div>
 </div>

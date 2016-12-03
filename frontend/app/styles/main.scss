@@ -607,3 +607,15 @@ background-color: #22313F;
 .panel-primary{
   border-color: #337ab7;
 }
+
+.sinBordesFocus{
+  &:focus{
+    border-color: $color-gris-input;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.resizeNo{
+  resize: none;
+}

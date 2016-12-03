@@ -12,6 +12,8 @@ angular.module('frontendApp')
     function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService, $rootScope) {
       $scope.idClase = $stateParams.id;
       $scope.claseFinalizada = false;
+      $scope.claseEnCurso = false;
+      $scope.claseCancelada = false;
       $scope.calificacion = 0;
       $scope.userWasJoined = false;
       $scope.messages = [];
@@ -87,6 +89,9 @@ angular.module('frontendApp')
         $scope.abrirChat();
 
         $scope.webrtc.connection.on('remove', function(peer){
+          $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados - 1;
+          //TODO: Encontrar el usuario por ID y eliminarlo
+          $scope.usuariosConectados.pop();
           $scope.$apply();
         });
 
@@ -99,9 +104,12 @@ angular.module('frontendApp')
 
         $scope.webrtc.connection.on('classRoomFinished', function(data){
           $scope.claseFinalizada = true;
-
         });
 
+        $scope.webrtc.connection.on('classRoomCreated', function(data){
+          $scope.claseEnCurso = true;
+
+        });
 
         $scope.webrtc.connection.on('message', function(data) {
           if(data.type==='peer-text') {
@@ -131,6 +139,12 @@ angular.module('frontendApp')
           notificationService.error('Error inesperado. Lo sentimos');
 
         });
+
+        if($scope.clase.state.id == 1){
+
+        }else if($scope.clase.state.id == 2){
+
+        }
       };
 
       $scope.calificar = function(calificacion){
@@ -141,7 +155,6 @@ angular.module('frontendApp')
             console.log(response);
             notificationService.error('Error inesperado. Lo sentimos');
           });
-
       };
 
       $scope.init = function(){
@@ -156,7 +169,8 @@ angular.module('frontendApp')
                break;
                case 2: $scope.joinClassRoom();
                break;
-               case 3: $scope.joinClassRoom();
+               case 3: $scope.claseEnCurso = true;
+                       $scope.joinClassRoom();
                break;
                case 4: $scope.claseFinalizada = true;
                break;
