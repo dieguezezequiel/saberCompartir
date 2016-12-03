@@ -9,4 +9,5 @@ public class UrlMappings {
     public static final String HOME = "/home";
     public static final String REQUESTS = "/requests";
     public static final String CATEGORY = "/categories";
+    public static final String NOTIFICATIONS = "/notificaciones";
 }

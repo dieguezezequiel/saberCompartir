@@ -104,6 +104,9 @@ angular
   .controller('IndexCtrl', ['$rootScope', '$scope', '$state', 'AuthenticationService','$scService', 'notificationService',
     function ($rootScope, $scope, $state, AuthenticationService, $scService, notificationService) {
 
+/*
+      $scope.usuarioLogeado = $rootScope.globals.currentUser;
+*/
       $scope.searcher = '';
       $scope.options = [
         {value: 'busquedaAll', descripcion: 'Buscar por...'},
@@ -156,13 +159,24 @@ angular
       $scope.authenticated = function () {
         return $rootScope.globals.currentUser != undefined;
       };
+
+
       $scope.logout = function () {
         AuthenticationService.ClearCredentials();
-        $state.go('login');
+        notificationService.notify({
+          title: 'Has cerrado sesion!',
+          title_escape: false,
+          text: 'Hasta la próxima',
+          text_escape: false,
+          type: "success",
+          icon: true,
+          delay: 2000
+        });
+        $state.go('inicio');
       };
     }])
-  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
-    function ($rootScope, $state, $location, $cookieStore, $http) {
+  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http', '$scService',
+    function ($rootScope, $state, $location, $cookieStore, $http, $scService) {
       // keep user logged in after page refresh
       $rootScope.globals = $cookieStore.get('globals') || {};
       if ($rootScope.globals.currentUser) {
@@ -171,6 +185,18 @@ angular
 
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // Si no esta logeado redireccionar
+
+        if($rootScope.globals.currentUser){
+          $rootScope.usuarioLogeado = $rootScope.globals.currentUser.username;
+        }
+
+
+        if($rootScope.globals.currentUser){
+          $scService.contarNotificaciones($rootScope.globals.currentUser.id).then(function (response) {
+            $rootScope.notificaciones = response.data;
+          })
+        }
+
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
           /*$state.go('login');*/
         }

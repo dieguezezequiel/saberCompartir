@@ -577,7 +577,7 @@ background-color: #22313F;
   color: $amarillo;
 }
 .searchInput{
-  width: 455px !important;
+  width: 250px !important;
   margin-left: 90px !important;
   &:focus{
     border-color: $color-gris-input;
@@ -598,4 +598,12 @@ background-color: #22313F;
 
 .pagination{
   font-weight: bold !important;
+}
+
+.sideMenu{
+  background-color: white;
+}
+
+.panel-primary{
+  border-color: #337ab7;
 }

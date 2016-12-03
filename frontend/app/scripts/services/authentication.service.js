@@ -22,6 +22,7 @@ angular.module('Authentication')
 
           $rootScope.globals = {
             currentUser: {
+              userId: usuario.id,
               username: usuario.username,
               id: usuario.id,
               authdata: authdata

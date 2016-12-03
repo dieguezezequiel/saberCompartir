@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -49,7 +50,7 @@ public class UserController  extends HttpServlet {
     public ResponseFront save(@RequestBody UserDTO user){
         UserCredentials found = userCredentialsService.findByUsername(user.getUsername());
        if(found == null){
-            userService.save(new User(user.getUsername(), user.getFirstName(), user.getLastName(),user.getEmail(), user.getAge()));
+            userService.save(new User(user.getUsername(), user.getFirstName(), user.getLastName(),user.getEmail(), user.getBirthDate()));
             User userFound = userService.findByEmail(user.getEmail());
             userCredentialsService.save(new UserCredentials(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), userFound.getId()));
             return ResponseFront.success("Bienvenido a saber compartir");
@@ -83,5 +84,16 @@ public class UserController  extends HttpServlet {
 
 
         return null;
+    }
+
+    @RequestMapping(value = "/actualizar", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void actualizar(@RequestBody User user) {
+        User userOld = userService.getUser(user.getId());
+        userOld.setBirthDate(user.getBirthDate());
+        userOld.setFirstName(user.getFirstName());
+        userOld.setLastName(user.getLastName());
+        userOld.setEmail(user.getEmail());
+        userService.updateUser(userOld);
     }
 }

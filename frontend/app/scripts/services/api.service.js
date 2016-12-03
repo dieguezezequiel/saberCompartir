@@ -170,5 +170,22 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getUsuario = function(user){
+        var url = "api/usuarios/"+user;
+        return $http.get(url);
+    };
+
+    scService.actualizar = function(user){
+      var url = "api/usuarios/actualizar";
+      return $http.post(url, user);
+    };
+
+    /*NOTIFICACIONES*/
+
+    scService.contarNotificaciones = function(user){
+      var url = "api/notificaciones/"+user+"/find";
+      return $http.get(url);
+    };
+
     return scService;
   }]);

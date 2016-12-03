@@ -8,9 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('Authentication')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$state', 'UsuarioResource', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $location, $state, UsuarioResource, $http, AuthenticationService) {
-
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$route','$location', '$window', '$state', 'UsuarioResource', '$http', 'AuthenticationService', 'notificationService',
+    function ($rootScope, $scope,$route, $location, $window, $state, UsuarioResource, $http, AuthenticationService, notificationService) {
 
       $scope.usuario = {};
 
@@ -20,19 +19,27 @@ angular.module('Authentication')
           if (response.email != undefined) {
             $scope.usuario["id"] = response.id;
             AuthenticationService.SetCredentials($scope.usuario);
-            new PNotify({
-              title: "Has iniciado sesion!",
-              text: "Bienvenido!",
-              type: 'success'
+            notificationService.notify({
+              title: 'Has iniciado sesion!',
+              title_escape: false,
+              text: 'Bienvenido a SaberCompartir',
+              text_escape: false,
+              type: "success",
+              icon: true,
+              delay: 2000
             });
             $state.go("inicio", {}, {reload: true});
           }
           else {
-            new PNotify({
-              title: "Oh no!",
-              text: "Usuario o Contraseña invalidos",
-              type: 'error'
-            })
+            notificationService.notify({
+              title: 'Login incorrecto',
+              title_escape: false,
+              text: 'Compruebe su usuario y/o contraseña',
+              text_escape: false,
+              type: "error",
+              icon: true,
+              delay: 2000
+            });
           }
 
         });

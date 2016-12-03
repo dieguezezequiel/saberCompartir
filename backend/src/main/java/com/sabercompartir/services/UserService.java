@@ -42,4 +42,7 @@ public class UserService implements IUserService {
     public User getUserByUsername(String name) {
         return userRepository.findByUsername(name);
     }
+
+    public void updateUser(User user){
+        userRepository.save(user);}
 }

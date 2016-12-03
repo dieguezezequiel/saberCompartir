@@ -15,150 +15,383 @@ Acciones
 
 -->
 
-<div class="container">
-  <div class="row top-buffer">
-    <div class="col-xs-3">
-      <div class="row">
-        <div class="col-xs-12 text-center">
-          <img src="foto" alt="">
-          <h5>{{usuario.username}}</h5>
-          <h6>{{usuario.firstName}} {{usuario.lastName}}</h6>
-        </div>
-        <div class="col-xs-12">
-          <ul>
-            <li>Perfil</li>
-          </ul>
+
+<div class="container top-buffer-pad">
+<div class="row no-margin top-buffer-pad sideMenu">
+  <div class="col-md-3 sidebar">
+    <div class="text-center no-margin">
+      <span class="glyphicon glyphicon-user xl-icon"></span>
+      <h2>{{$root.usuarioLogeado}}</h2>
+    </div>
+
+
+    <ul class="nav nav-sidebar text-center" >
+
+      <li  ng-click="showSolicitud('inicio')" class="active"><a href="">Inicio Panel</a></li>
+      <li  ng-click="showSolicitud('cProgramadas')" class="active"><a href="">Clases Programadas</a></li>
+      <li  ng-click="showSolicitud('cFinalizadas')" class="active"><a href="">Clases finalizadas</a></li>
+      <li  ng-click="showSolicitud('cPresenciadas')" class="active"><a href="">Clases Presenciadas</a></li>
+      <li  ng-click="showSolicitud('cFavoritas')" class="active"><a href="">Clases Favoritas</a></li>
+      <li  ng-click="showSolicitud('sPendientes')" class="active"><a href="">Solicitudes Pendientes</a></li>
+      <li  ng-click="showSolicitud('sRealizar')" class="active"><a href="">Solicitudes a Realizar</a></li>
+    </ul>
+
+  </div>
+
+  <div class="col-md-9 main ">
+
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('cProgramadas')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center">
+        <div>
+          <span class="glyphicon glyphicon-time xl-icon"></span>
+          <p>{{cantidadClasesProgramadas}} Clases programadas</p>
         </div>
       </div>
     </div>
 
-    <div class="col-xs-9 parent-panel-box">
-      <div class="row no-margin top-buffer-pad">
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesProgramadas = true" class="col-md-4 top-buffer-less">
-            <div class="panel-box text-center">
-              <div>
-                <span class="glyphicon glyphicon-time xl-icon"></span>
-                <p>{{cantidadClasesProgramadas}} Clases programadas</p>
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('cFinalizadas')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center">
+        <div>
+          <span class="glyphicon glyphicon-facetime-video xl-icon"></span>
+          <p>{{cantidadClasesFinalizadas}} Clases finalizadas</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('cPresenciadas')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center">
+        <div>
+          <span class="glyphicon glyphicon-eye-open xl-icon"></span>
+          <p>{{cantidadClasesPresenciadas}} Clases presenciadas</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('cFavoritas')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center xl-icon">
+        <div>
+          <span class="glyphicon glyphicon-star"></span>
+          <p>{{cantidadClasesFavoritas}} Clases favoritas</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('sPendientes')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center xl-icon">
+        <div>
+          <span class="glyphicon glyphicon-share"></span>
+          <p>{{cantidadSolicitudesPendientes}} Solicitudes Pendientes</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva =='inicio'" ng-click="showSolicitud('sRealizar')" class="col-md-4 top-buffer-less">
+      <div class="panel-box text-center xl-icon">
+        <div>
+          <span class="glyphicon glyphicon-check"></span>
+          <p>{{cantidadSolicitudesARealizar}} Solicitudes a realizar</p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'cProgramadas'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Clases programadas</div>
+        <div class="panel-item"  ng-repeat="clase in clasesProgramadas" ng-click="goToUrl('/clases/'+clase.id)">
+          <div class="title">{{clase.name}}</div>
+          <div>{{clase.description}}</div>
+          <div>{{clase.date | date}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'cFinalizadas'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Clases finalizadas</div>
+        <div class="panel-item"  ng-repeat="clase in clasesFinalizadas" ng-click="goToUrl('/clases/'+clase.id)">
+          <div class="title">{{clase.name}}</div>
+          <div>{{clase.description}}</div>
+          <div>{{clase.date}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'cPresenciadas'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Clases presenciadas</div>
+        <div class="panel-item" ng-click="goToUrl('/clases/'+clase.id)">
+          <div class="title">Angular Js</div>
+          <div>Framework de javascript</div>
+          <div>10 de Diciembre a las 18:00 hs</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'cFavoritas'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Clases Favoritas</div>
+        <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
+          <div class="title">{{clase.name}}</div>
+          <div>{{clase.description}}</div>
+          <div>{{clase.date}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'sPendientes'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Solicitudes</div>
+        <div class="panel-item" ng-repeat="solicitud in solicitudesPendientes"  ng-click="goToUrl('/solicitud/1')">
+          <div class="title">{{solicitud.subject}}</div>
+          <div>{{solicitud.description}}</div>
+          <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'sRealizar'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Solicitudes</div>
+        <div class="panel-item" ng-repeat="solicitud in solicitudesARealizar" ng-click="goToUrl('/solicitud/'+solicitud.id )">
+          <div class="title">{{solicitud.subject}}</div>
+          <div>{{solicitud.description}}</div>
+          <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+
+<!--<div class="container">
+<div class="row top-buffer">
+  <div class="col-xs-3 parent-panel-box">
+    <div class="row no-margin top-buffer-pad">
+
+      <div class="sidebar">
+      <h3>{{userPerfil.username}}</h3>
+      <ul class="nav nav-sidebar">
+        <li ui-sref-active="active"><a ui-sref="panel">Panel</a>
+        </li>
+        <li ui-sref-active="active"><a ui-sref="perfil">Perfil</a>
+        </li>
+        <li class="sideMenu" role="button" ng-click="changeOption()">Perfil</li>
+        <li class="sideMenu" role="button" ng-click="changeOption()">Clases</li>
+      </ul>
+    </div>
+    </div>
+  </div>
+
+  <div ng-show="esPanel" class="col-xs-9 parent-panel-box">
+    <div class="row no-margin top-buffer-pad">
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesProgramadas = true" class="col-md-4 top-buffer-less">
+          <div class="panel-box text-center">
+            <div>
+              <span class="glyphicon glyphicon-time xl-icon"></span>
+              <p>{{cantidadClasesProgramadas}} Clases programadas</p>
+            </div>
+          </div>
+        </div>
+
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFinalizadas = true" class="col-md-4 top-buffer-less">
+        <div class="panel-box text-center">
+          <div>
+            <span class="glyphicon glyphicon-facetime-video xl-icon"></span>
+            <p>{{cantidadClasesFinalizadas}} Clases finalizadas</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesPresenciadas = true" class="col-md-4 top-buffer-less">
+        <div class="panel-box text-center">
+          <div>
+            <span class="glyphicon glyphicon-eye-open xl-icon"></span>
+            <p>{{cantidadClasesPresenciadas}} Clases presenciadas</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFavoritas = true" class="col-md-4 top-buffer-less">
+        <div class="panel-box text-center xl-icon">
+          <div>
+            <span class="glyphicon glyphicon-star"></span>
+            <p>{{cantidadClasesFavoritas}} Clases favoritas</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuSolicitudesPendientes = true" class="col-md-4 top-buffer-less">
+        <div class="panel-box text-center xl-icon">
+          <div>
+            <span class="glyphicon glyphicon-share"></span>
+            <p>{{cantidadSolicitudesPendientes}} Solicitudes Pendientes</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenu" ng-click="showMenu = false; showMenuSolicitudesARealizar = true" class="col-md-4 top-buffer-less">
+        <div class="panel-box text-center xl-icon">
+          <div>
+            <span class="glyphicon glyphicon-check"></span>
+            <p>{{cantidadSolicitudesARealizar}} Solicitudes a realizar</p>
+          </div>
+        </div>
+      </div>
+
+      &lt;!&ndash;PANELES&ndash;&gt;
+      <div ng-show="showMenuClasesProgramadas" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Clases programadas</div>
+          <div class="panel-item"  ng-repeat="clase in clasesProgramadas" ng-click="goToUrl('/clases/'+clase.id)">
+            <div class="title">{{clase.name}}</div>
+            <div>{{clase.description}}</div>
+            <div>{{clase.date | date}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenuClasesFinalizadas" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Clases finalizadas</div>
+          <div class="panel-item"  ng-repeat="clase in clasesFinalizadas" ng-click="goToUrl('/clases/'+clase.id)">
+            <div class="title">{{clase.name}}</div>
+            <div>{{clase.description}}</div>
+            <div>{{clase.date}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenuClasesPresenciadas" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Clases presenciadas</div>
+          <div class="panel-item" ng-click="goToUrl('/clases/'+clase.id)">
+            <div class="title">Angular Js</div>
+            <div>Framework de javascript</div>
+            <div>10 de Diciembre a las 18:00 hs</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenuClasesFavoritas" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Clases Favoritas</div>
+          <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
+            <div class="title">{{clase.name}}</div>
+            <div>{{clase.description}}</div>
+            <div>{{clase.date}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenuSolicitudesPendientes" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Solicitudes</div>
+          <div class="panel-item" ng-repeat="solicitud in solicitudesPendientes"  ng-click="goToUrl('/solicitud/1')">
+            <div class="title">{{solicitud.subject}}</div>
+            <div>{{solicitud.description}}</div>
+            <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showMenuSolicitudesARealizar" class="col-xs-12">
+        <div class="panel-box-item">
+          <div class="title">Solicitudes</div>
+          <div class="panel-item" ng-repeat="solicitud in solicitudesARealizar" ng-click="goToUrl('/solicitud/'+solicitud.id )">
+            <div class="title">{{solicitud.subject}}</div>
+            <div>{{solicitud.description}}</div>
+            <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div ng-show="esPerfil" class="col-xs-9 parent-panel-box">
+    <div class="row no-margin top-buffer-pad">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">Perfil</div>
+        </div>
+        <div class="panel-body">
+          <div custom-form f-name="FormRegistro" submit-action="actualizar(perfil)" class="form-horizontal">
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  not-show-label="true"
+                  model="perfil.firstName"
+                  placeholder="Nombre"
+                  help-msg="Ingrese su nombre"
+                  input-name="nombreUsuario"
+                  maxlength="30"
+                  validators="['solo-letras']"
+                  required="true">
+                </sc-input-label>
               </div>
             </div>
-          </div>
-
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFinalizadas = true" class="col-md-4 top-buffer-less">
-          <div class="panel-box text-center">
-            <div>
-              <span class="glyphicon glyphicon-facetime-video xl-icon"></span>
-              <p>{{cantidadClasesFinalizadas}} Clases finalizadas</p>
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  not-show-label="true"
+                  model="perfil.lastName"
+                  placeholder="Apellido"
+                  help-msg="Ingrese su apellido"
+                  input-name="apellidoUsuario"
+                  maxlength="30"
+                  validators="['solo-letras']"
+                  required="true">
+                </sc-input-label>
+              </div>
             </div>
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  type="email"
+                  not-show-label="true"
+                  model="perfil.email"
+                  placeholder="Email"
+                  help-msg="Ingrese su email"
+                  input-name="emailUsuario"
+                  maxlength="50"
+                  minlength="4"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  type="Date"
+                  not-show-label="true"
+                  model="perfil.birthDate"
+                  placeholder="fecha de nacimiento"
+                  help-msg="Ingrese fecha de nacimiento, debe ser mayor de 18 años"
+                  input-name="edadUsuario"
+                  required="true"
+                  disabled>
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12 buttonRegistro">
+                <button type="submit" class="btn btn-primary btn-md">Actualizar</button>
+              </div>
+            </div>
+            </form>
           </div>
         </div>
-
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesPresenciadas = true" class="col-md-4 top-buffer-less">
-          <div class="panel-box text-center">
-            <div>
-              <span class="glyphicon glyphicon-eye-open xl-icon"></span>
-              <p>{{cantidadClasesPresenciadas}} Clases presenciadas</p>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuClasesFavoritas = true" class="col-md-4 top-buffer-less">
-          <div class="panel-box text-center xl-icon">
-            <div>
-              <span class="glyphicon glyphicon-star"></span>
-              <p>{{cantidadClasesFavoritas}} Clases favoritas</p>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuSolicitudesPendientes = true" class="col-md-4 top-buffer-less">
-          <div class="panel-box text-center xl-icon">
-            <div>
-              <span class="glyphicon glyphicon-share"></span>
-              <p>{{cantidadSolicitudesPendientes}} Solicitudes Pendientes</p>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenu" ng-click="showMenu = false; showMenuSolicitudesARealizar = true" class="col-md-4 top-buffer-less">
-          <div class="panel-box text-center xl-icon">
-            <div>
-              <span class="glyphicon glyphicon-check"></span>
-              <p>{{cantidadSolicitudesARealizar}} Solicitudes a realizar</p>
-            </div>
-          </div>
-        </div>
-
-        <!--PANELES-->
-        <div ng-show="showMenuClasesProgramadas" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Clases programadas</div>
-            <div class="panel-item"  ng-repeat="clase in clasesProgramadas" ng-click="goToUrl('/clases/'+clase.id)">
-              <div class="title">{{clase.name}}</div>
-              <div>{{clase.description}}</div>
-              <div>{{clase.date | date}}</div>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenuClasesFinalizadas" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Clases finalizadas</div>
-            <div class="panel-item"  ng-repeat="clase in clasesFinalizadas" ng-click="goToUrl('/clases/'+clase.id)">
-              <div class="title">{{clase.name}}</div>
-              <div>{{clase.description}}</div>
-              <div>{{clase.date | date}}</div>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenuClasesPresenciadas" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Clases presenciadas</div>
-            <div class="panel-item" ng-click="goToUrl('/clases/'+clase.id)">
-              <div class="title">Angular Js</div>
-              <div>Framework de javascript</div>
-              <div>10 de Diciembre a las 18:00 hs</div>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenuClasesFavoritas" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Clases Favoritas</div>
-            <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
-              <div class="title">{{clase.name}}</div>
-              <div>{{clase.description}}</div>
-              <div>{{clase.date | date}}</div>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenuSolicitudesPendientes" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Solicitudes</div>
-            <div class="panel-item" ng-repeat="solicitud in solicitudesPendientes"  ng-click="goToUrl('/solicitud/1')">
-              <div class="title">{{solicitud.subject}}</div>
-              <div>{{solicitud.description}}</div>
-              <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
-            </div>
-          </div>
-        </div>
-
-        <div ng-show="showMenuSolicitudesARealizar" class="col-xs-12">
-          <div class="panel-box-item">
-            <div class="title">Solicitudes</div>
-            <div class="panel-item" ng-repeat="solicitud in solicitudesARealizar" ng-click="goToUrl('/solicitud/'+solicitud.id )">
-              <div class="title">{{solicitud.subject}}</div>
-              <div>{{solicitud.description}}</div>
-              <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
+
 </div>
+</div>-->
 
 
 
