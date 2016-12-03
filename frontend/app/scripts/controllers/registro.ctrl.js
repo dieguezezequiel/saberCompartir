@@ -11,8 +11,7 @@ angular.module('frontendApp')
     .controller('RegistroCtrl', ['$scope', '$state', 'UsuarioResource', 'notificationService', function ($scope, $state, UsuarioResource, notificationService) {
 
         $scope.usuario = {};
-
-    //TODO FIXEAR ESTO CUANDO LLEGUE A CASA
+    
         $scope.guardar = function () {
             var resource = UsuarioResource.create($scope.usuario);
             resource.$promise.then(function (response) {
