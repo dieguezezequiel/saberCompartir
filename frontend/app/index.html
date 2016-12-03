@@ -42,11 +42,11 @@
             <a class="navbar-brand navbar-brand-sc" ui-sref="inicio"><img src="images/logo_brain1.png" alt=""/></a>
           </div>
 
-          <div class="col-xs-8 buscador-container">
+          <div class="col-xs-6 buscador-container">
             <div class="navbar-form" role="search">
               <div class="row">
                 <form ng-submit="buscar(filtro)">
-                  <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border searchInput col-xs-8" placeholder="Buscar" name="q">
+                  <input ng-model="searcher" type="text" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" class="form-control square-border searchInput col-xs-6" placeholder="Buscar" name="q">
                   <select ng-init="filtro = options[0]"
                           ng-model="filtro" class="sinBordesDerIzq col-xs-2 form-control square-border"
                           ng-options="item as item.descripcion for item in options track by item.value">
@@ -67,7 +67,18 @@
               <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="registro">Registro</a></li>
               <li ng-show="!authenticated()" ui-sref-active="active"><a ui-sref="login">Iniciar Sesion</a></li>
               <li ng-show="authenticated()" ui-sref-active="active"><a ui-sref="panel">Panel</a></li>
-              <li role="button" ng-click="logout()" ng-show="authenticated()" ui-sref-active="active"><a class="link">Salir</a></li>
+              <li role="button"  ng-show="authenticated()" ui-sref-active="active">
+                <a class="link">
+                  <span class="glyphicon glyphicon-bell">
+
+                  </span><span ng-show="$root.notificaciones" class="badge">{{$root.notificaciones}}</span>
+                </a>
+              </li>
+              <li role="button" ng-click="logout()" ng-show="authenticated()" ui-sref-active="active">
+                <a class="link">
+                  <span class="glyphicon glyphicon-log-out"></span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

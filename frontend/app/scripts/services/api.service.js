@@ -171,5 +171,12 @@ angular.module('scService', [])
       return $http.post(url, user);
     };
 
+    /*NOTIFICACIONES*/
+
+    scService.contarNotificaciones = function(user){
+      var url = "api/notificaciones/"+user+"/find";
+      return $http.get(url);
+    };
+
     return scService;
   }]);

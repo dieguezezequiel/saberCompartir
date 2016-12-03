@@ -160,9 +160,6 @@ angular
         return $rootScope.globals.currentUser != undefined;
       };
 
-      if($scope.authenticated()){
-        $scope.usuarioLogeado = $rootScope.globals.currentUser.username;
-      }
 
       $scope.logout = function () {
         AuthenticationService.ClearCredentials();
@@ -178,8 +175,8 @@ angular
         $state.go('inicio');
       };
     }])
-  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http',
-    function ($rootScope, $state, $location, $cookieStore, $http) {
+  .run(['$rootScope', '$state', '$location', '$cookieStore', '$http', '$scService',
+    function ($rootScope, $state, $location, $cookieStore, $http, $scService) {
       // keep user logged in after page refresh
       $rootScope.globals = $cookieStore.get('globals') || {};
       if ($rootScope.globals.currentUser) {
@@ -188,11 +185,18 @@ angular
 
       $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // Si no esta logeado redireccionar
-        
+
         if($rootScope.globals.currentUser){
           $rootScope.usuarioLogeado = $rootScope.globals.currentUser.username;
         }
-        
+
+
+        if($rootScope.globals.currentUser){
+          $scService.contarNotificaciones($rootScope.globals.currentUser.id).then(function (response) {
+            $rootScope.notificaciones = response.data;
+          })
+        }
+
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
           /*$state.go('login');*/
         }

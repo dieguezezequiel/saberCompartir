@@ -33,4 +33,8 @@ public class NotificationService {
                 });
 
     }
+
+    public Integer contarMensajesSinLeer(Long id){
+        return notificationRepository.countAllBYUserUnread(id);
+    }
 }
