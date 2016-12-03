@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by matias on 18/11/16.
  */
 'use strict';
@@ -16,8 +16,14 @@ angular.module('frontendApp')
       $scope.idSolicitud = $stateParams.id;
       $scope.solicitudIsValid = false;
       $scope.isMakingRequest = false;
+      $scope.fecha = {
+        fechaClass: ''
+      }
+      $scope.solicitud = {};
+
 
       $scope.tomarSolicitud = function(){
+        $scope.solicitud.dateRequest = $scope.fecha.fechaClass;
         $scService.tomarSolicitudAndCrearClase($scope.idSolicitud, $scope.solicitud).then(function(response){
           $scope.claseTomadaConExito = true;
           notificationService.success('Clase programada!');
@@ -28,11 +34,15 @@ angular.module('frontendApp')
         });
       };
 
+
+
       $scope.init = function(){
         $scope.isMakingRequest = true;
         $scService.getSolicitudById($scope.idSolicitud).then(function(response){
           $scope.solicitud = response.data;
           if($scope.solicitud != ""){
+
+
             $scope.solicitudIsValid = true;
             //TODO ALGO
           }else{

@@ -1,4 +1,55 @@
 <div class="container">
+  <div class="row">
+    <div class="col-md-12 formulario">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">Crear Clase</div>
+        </div>
+        <div class="panel-body">
+
+          <h3>Clase: {{solicitud.subject}}</h3>
+
+          <ul>
+            <li>Descripcion: <b>{{solicitud.description}}</b></li>
+            <li>Usuarios solicitantes: <b>{{solicitud.joinedUsers.length}}</b></li>
+          </ul>
+
+          <h3>Programar la clase para el siguiente dia</h3>
+          <div custom-form f-name="FormRegistro" submit-action="tomarSolicitud()" class="form-horizontal">
+            <div class="form-group">
+              <div class="col-xs-12">
+                <sc-input-label
+                  type="date"
+                  not-show-label="true"
+                  model="fecha.fechaClass"
+                  placeholder="Fecha a realizar"
+                  help-msg="Ingrese fecha de la clase, debe ser con un dia de anticipacion"
+                  input-name="fechaClass"
+                  required="true">
+                </sc-input-label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12 buttonRegistro">
+                <button type="submit" class="btn btn-primary btn-md">Crear Clase</button>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!--
+<div class="container">
   <div class="row top-buffer">
     <div class="col-xs-12">
       <div ng-show="solicitudIsValid">
@@ -36,3 +87,4 @@
 
 
 
+-->
