@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('BusquedaAllCtrl', ['$scope', '$q', '$scService','$rootScope','notificationService', function ($scope, $q, $scService,$rootScope,notificationService) {
+  .controller('BusquedaAllCtrl', ['$scope', '$q', '$scService','$rootScope','notificationService','$state', function ($scope, $q, $scService,$rootScope,notificationService,$state) {
 
     $scope.paginado = "page=0&size=3";
     $scope.usuarioLoggeado = $rootScope.globals.currentUser;
@@ -42,8 +42,8 @@ angular.module('frontendApp')
     $scope.sumarseClase = function(clase){
       $scService.sumarseAClase(clase.id,$scope.usuarioLoggeado.id).then(function (response) {
         $scope.messagesBuilder(response.data);
-        if(response.data.type == "success"){
-          //solicitud.totalUsers = solicitud.totalUsers + 1;
+        if(response.data.type == "success" && (clase.state.name == 'EN_CURSO' || clase.state.name == 'ESTABLECIDA')){
+          $state.go("presenciado",{id: clase.id},{reload:true})
         }
         clase.sumarse = false;
       }, function (error) {
