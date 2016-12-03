@@ -66,7 +66,8 @@ angular.module('frontendApp')
           $scService.getClasesPresenciadasPorUsuario($scope.usuario.username, $scope.paginacion),
           $scService.getClasesFavoritasPorUsuario($scope.usuario.username, $scope.paginacion),
           $scService.getSolicitudesPorEstadoYUsuario('PENDIENTE', $scope.usuario.username, $scope.paginacion),
-          $scService.getSolicitudesPorEstadoYUsuario('A_REALIZARSE', $scope.usuario.username, $scope.paginacion)
+          $scService.getSolicitudesPorEstadoYUsuario('A_REALIZARSE', $scope.usuario.username, $scope.paginacion),
+
 
         ];
 
@@ -128,6 +129,14 @@ angular.module('frontendApp')
         $scope.perfil.email = $scope.userPerfil.email;
         $scope.perfil.birthDate = new Date($scope.userPerfil.birthDate);
       });
+
+      $scService.getNotificaciones($rootScope.globals.currentUser.userId).then(function(response){
+        $scope.notificaciones = response.data;
+      });
+
+     /* $scope.leerNotificaciones = function(){
+        $scService.leerNotificaciones($rootScope.globals.currentUser.userId)
+      }*/
 
       $scope.actualizar = function () {
         $scService.actualizar($scope.perfil).then(function (response) {

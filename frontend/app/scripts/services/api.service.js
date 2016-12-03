@@ -187,5 +187,15 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.leerNotificaciones = function (user) {
+      var url = "api/notificaciones/"+user+"/read";
+      return $http.post(url);
+    };
+
+    scService.getNotificaciones = function (user) {
+      var url = "api/notificaciones/"+user+"/all";
+      return $http.get(url);
+    };
+
     return scService;
   }]);

@@ -37,4 +37,8 @@ public class NotificationService {
     public Integer contarMensajesSinLeer(Long id){
         return notificationRepository.countAllBYUserUnread(id);
     }
+
+    public void leerMensajes(Long id) {notificationRepository.leerMensajes(id);}
+
+    public List<Notification> getAll(Long id) {return notificationRepository.findAllByUserId(id);}
 }
