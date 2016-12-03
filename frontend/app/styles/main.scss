@@ -569,6 +569,11 @@ background-color: #22313F;
 
 .buscador-container{
   padding: 4px 0px 4px 4px;
+
+  @media screen and (max-width: 990px) {
+    display: none;
+  }
+
 }
 
 .btn-search-sc{
