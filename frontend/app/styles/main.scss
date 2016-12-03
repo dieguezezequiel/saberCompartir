@@ -48,6 +48,11 @@ body {
   z-index: 9999;
   border-radius: 0px;
 }
+
+.nav.navbar-nav.navbar-nav-sc{
+  background-color:white;
+}
+
 .navbar-brand{
   padding: 8px !important;
 }
@@ -206,12 +211,29 @@ body {
   height: 80vh;
 }
 
-.messages-container > ul{
+.message {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.userGuest {
+  background-color:lightseagreen;
+}
+
+.userJoined{
+  background-color:lightgreen;
+
+}
+
+.messages{
   height: 100%;
   background-color: #DADFE1;
-  padding:0;
+  padding:10px;
   margin:0;
   overflow-y: scroll;
+  max-width: 100%;
 }
 
 .animation-chat{

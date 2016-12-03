@@ -61,7 +61,7 @@ angular.module('frontendApp')
         $scope.webrtc.sendToAll('peer-text', { user: $scope.usuario.username, message: $scope.myMessage });
         $scope.myMessage = "";
         var objDiv = document.getElementById("chat");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        objDiv.scrollTop = objDiv.scrollHeight + 100;
       };
 
       $scope.enviarMensajeAUsuario = function(){
