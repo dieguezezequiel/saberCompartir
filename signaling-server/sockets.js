@@ -35,7 +35,20 @@ module.exports = function (server, config) {
             removeFeed('screen');
         });
 
+        client.on('finishClassRoom', function (classroom) {
+            finishClassRoom(classroom);
+        });
+
         client.on('join', join);
+
+        function finishClassRoom(classroom){
+            if (client.room) {
+                io.sockets.in(client.room).emit('classRoomFinished', {
+                    classroom: classroom
+                });
+
+            }
+        }
 
         function removeFeed(type) {
             if (client.room) {
