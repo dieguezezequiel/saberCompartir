@@ -148,6 +148,10 @@ angular.module('frontendApp')
           });
         });
       }
+
+      $scope.formatearDate = function(date){
+        return moment(date).format()
+      };
       //fin perfil
 
 

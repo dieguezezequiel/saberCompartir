@@ -45,7 +45,7 @@ public class RequestService {
 
     public void update(Long id) {
         Request request = requestRepository.findById(id);
-        request.setState(EstadoSolicitud.A_REALIZARSE);
+        request.setState(EstadoSolicitud.ELIMINADA);
         requestRepository.save(request);
     }
 

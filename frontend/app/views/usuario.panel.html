@@ -133,7 +133,7 @@ Acciones
         <div class="panel-item"  ng-repeat="clase in clasesFavoritas" ng-click="goToUrl('/clases/'+clase.id)">
           <div class="title">{{clase.name}}</div>
           <div>{{clase.description}}</div>
-          <div>{{clase.date}}</div>
+          <div ng-bind="formatearDate(clase.date)"></div>
         </div>
       </div>
     </div>
