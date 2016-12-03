@@ -39,6 +39,11 @@ angular.module('scService', [])
       return $http.get(url);
     };
 
+    scService.getclasesValidas = function(pagination){
+      var url = "api/classrooms/validas?" + pagination;
+      return $http.get(url);
+    };
+
     scService.getRankingSolicitudes = function() {
       var url = "api/classrooms/Ranking";
       return $http.get(url);
@@ -54,7 +59,6 @@ angular.module('scService', [])
 
       return $http.get(url);
     };
-
 
     scService.getClassroomsByState = function(stateId){
       var url = "api/classrooms?state="+stateId;
@@ -99,6 +103,11 @@ angular.module('scService', [])
     scService.calificarClase = function(id, calificacion){
       var url = "api/classrooms/" + id + "/qualify";
       return $http.post(url, calificacion);
+    };
+
+    scService.sumarseAClase = function(claseId,usuarioLoggeadoId){
+      var url = "api/classrooms?claseId=" + claseId + "&userId=" + usuarioLoggeadoId;
+      return $http.get(url);
     };
 
     /*SOLICITUDES*/

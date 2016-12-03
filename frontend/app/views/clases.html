@@ -9,14 +9,15 @@
     <div class="row">
       <div ng-repeat="clase in clases.content" class="col-md-4">
         <div class="panel panel-default">
-          <div class="panel-body">
-            <div ng-hide="hide" class="mas cursor" ng-click="sumarse(clase)">
+          <div class="panel-body" ng-init="IfICanJoinClase(clase)">
+            <div ng-show="clase.sumarse" class="mas cursor" ng-click="sumarseClase(clase)">
               <span class="glyphicon glyphicon-plus"></span>
-              <spans>Unirme</spans>
+              <span ng-bind="clase.state.name == 'PROGRAMADA' ? 'Me Sumo' : 'Unirme'"></span>
             </div>
             <div class="col-xs-12 titulo-violeta">{{clase.name}}</div>
+            <div class="col-xs-12">Estado: {{clase.state.name}}</div>
             <p class="col-xs-12">{{clase.description}}<p>
-            <p class="col-xs-12">{{clase.user.firstName}} {{clase.user.lastName}}<p>
+            <p class="col-xs-12">Dictada por: <b>{{clase.user.firstName}} {{clase.user.lastName}}</b><p>
           </div>
         </div>
       </div>
