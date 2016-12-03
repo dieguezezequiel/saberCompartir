@@ -41,5 +41,6 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
 
     ClassRoom findByIdAndJoinedUsers_Id(Long classId, long userId);
 
-    Page<ClassRoom> findAllByStateNotOrStateNot(Pageable pageable, ClassRoomState stateFInalizada, ClassRoomState stateCancelada);
+    @Query("SELECT c FROM ClassRoom c WHERE c.state <> :finalizada and c.state <> :cancelada")
+    Page<ClassRoom> findAllByStateNotOrStateNot(Pageable pageable,@Param("finalizada") ClassRoomState stateFInalizada, @Param("cancelada") ClassRoomState stateCancelada);
 }
