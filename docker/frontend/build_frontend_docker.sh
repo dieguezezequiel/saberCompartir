@@ -1,8 +1,8 @@
 #!/bin/sh
 cd ../../frontend
 echo "Construyendo el proyecto SaberCompartir frontend"
-sudo grunt clean
-sudo grunt build
+grunt clean
+grunt build
 if [ $? -ne 0 ];
     then exit 1
 fi

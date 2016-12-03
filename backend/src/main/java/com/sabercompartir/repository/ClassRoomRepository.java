@@ -3,6 +3,7 @@ package com.sabercompartir.repository;
 import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.domain.User;
+import com.sabercompartir.enums.EstadoSolicitud;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,12 +28,18 @@ public interface ClassRoomRepository extends JpaRepository<ClassRoom, Long> {
 
     Page<ClassRoom> findAllByGuestUsers(User guestUser, Pageable pageable);
 
-    @Query("SELECT c FROM ClassRoom c WHERE c.name LIKE CONCAT('%',:searchValue,'%')")
-    Page<ClassRoom> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable pageable);
+    @Query("SELECT c FROM ClassRoom c WHERE c.name LIKE CONCAT('%',:searchValue,'%') and c.state <> :finalizada and c.state <> :cancelada")
+    Page<ClassRoom> findAllBySearchValue(@Param("searchValue") String searchValue, Pageable pageable,@Param("finalizada") ClassRoomState stateFInalizada, @Param("cancelada") ClassRoomState stateCancelada);
 
     ClassRoom getById(Long id);
 
     Page<ClassRoom> getByUser(User user, Pageable pageable);
 
     Page<ClassRoom> findAllByGuestUsersHistory(User guestUserHistory, Pageable pageable);
+
+    ClassRoom findByIdAndGuestUsers_Id(Long classId, long userId);
+
+    ClassRoom findByIdAndJoinedUsers_Id(Long classId, long userId);
+
+    Page<ClassRoom> findAllByStateNotOrStateNot(Pageable pageable, ClassRoomState stateFInalizada, ClassRoomState stateCancelada);
 }

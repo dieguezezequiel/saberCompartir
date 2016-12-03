@@ -8,15 +8,31 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService',
-    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService) {
+  .controller('PresenciadoCtrl', ['$scope','$scService', '$q', 'Constants', '$stateParams', '$location', 'notificationService', '$rootScope',
+    function ($scope, $scService, $q, Constants, $stateParams, $location, notificationService, $rootScope) {
       $scope.idClase = $stateParams.id;
       $scope.claseFinalizada = false;
       $scope.calificacion = 0;
       $scope.userWasJoined = false;
+      $scope.messages = [];
+      $scope.myMessage = "";
+      $scope.usuariosConectados = [];
+      $scope.cantidadUsuariosConectados = 0;
+
+      $scope.usuario = {username: $rootScope.globals.currentUser.username, id: $rootScope.globals.currentUser.publicId};
 
       $scope.enviarMensaje = function(){
-        //PUT SOME SOCKET.IO MAGIC HERE
+        var message = {user: {}};
+
+        message.user.name = $scope.usuario.username;
+        message.data = $scope.myMessage;
+
+        $scope.messages.push(message);
+        $scope.webrtc.sendToAll('peer-text', { user: $scope.usuario.username, message: $scope.myMessage });
+        $scope.myMessage = "";
+        var objDiv = document.getElementById("chat");
+        objDiv.scrollTop = objDiv.scrollHeight;
+
       };
 
       $scope.enviarMensajeAUsuario = function(){
@@ -64,15 +80,13 @@ angular.module('frontendApp')
         $scope.webrtc = new SimpleWebRTC({
           media: { video: false, audio: false},
           url: Constants.URL_SIGNALING_SERVER,
-          nick: 'Ricardo Fort', //TODO: ESTO NO ANDA, VER POR QUÉ
+          nick: $scope.usuario.username, //TODO: ESTO NO ANDA, VER POR QUÉ
           remoteVideosEl: "remoteVideo"
         });
 
         $scope.abrirChat();
 
         $scope.webrtc.connection.on('remove', function(peer){
-          $scope.claseFinalizada = true;
-          //TODO: Encontrar el usuario por ID y eliminarlo
           $scope.$apply();
         });
 
@@ -83,8 +97,31 @@ angular.module('frontendApp')
           });
         });
 
+        $scope.webrtc.connection.on('classRoomFinished', function(data){
+          $scope.claseFinalizada = true;
+
+        });
+
+
+        $scope.webrtc.connection.on('message', function(data) {
+          if(data.type==='peer-text') {
+            console.log(data);
+            var message = {user: {}};
+
+            message.user.name = data.payload.user;
+            message.data = data.payload.message;
+
+            $scope.messages.push(message);
+            var objDiv = document.getElementById("chat");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            $scope.$apply();
+          }
+        });
+
         $scope.webrtc.on('createdPeer', function (peer) {
-          console.log(peer);
+          var usuario = {id: peer.id, nombre: peer.nick};
+          $scope.usuariosConectados.push(usuario);
+          $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados + 1;
         });
 
         $scService.joinClassRoom($scope.clase.id).then(function(){
@@ -98,10 +135,11 @@ angular.module('frontendApp')
 
       $scope.calificar = function(calificacion){
           $scService.calificarClase($scope.clase.id, calificacion).then(function(response){
-
+              $location.path('/panel');
             },
           function(response){
-
+            console.log(response);
+            notificationService.error('Error inesperado. Lo sentimos');
           });
 
       };
@@ -114,8 +152,6 @@ angular.module('frontendApp')
             //TODO: Si la clase está programada, el usuario puede entrar pero no ve nada, o ve..... SAAARAAAN SAAAARANNNN PUBLICIDAD
            if($scope.clase){
              switch ($scope.clase.state.id){
-               case 0:
-               break;
                case 1: $scope.joinClassRoom();
                break;
                case 2: $scope.joinClassRoom();
@@ -124,7 +160,7 @@ angular.module('frontendApp')
                break;
                case 4: $scope.claseFinalizada = true;
                break;
-               case 5: //Mostrar mensaje de clase cancelada
+               case 5: $scope.claseCancelada = true;
              }
            }else{
              $location.path('/');

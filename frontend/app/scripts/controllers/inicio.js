@@ -12,10 +12,13 @@ angular.module('frontendApp')
     function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService) {
 
     $scope.solicitudes = '';
+    $scope.clasesProgramadas = '';
+    $scope.clasesEnCurso = '';
+    $scope.usuariosRanking = '';
     $scope.usuarioLoggeado = $rootScope.globals.currentUser;
 
     $scope.hide = false;
-    $scope.paginado = "page=0&size=3";
+    $scope.paginado = "page=0&size=6";
 
    /*   if(!AuthenticationService.isAuthenticated()){
         $location.path('/login');
@@ -26,7 +29,7 @@ angular.module('frontendApp')
       $scope.estadosDeClase = response.data;
 
       var promises = [
-        $scService.getSolicitudesTopNStatePendiente("page=0&size=6",'totalUsers','PENDIENTE'),
+        $scService.getSolicitudesTopNStatePendiente($scope.paginado,'totalUsers','PENDIENTE'),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'PROGRAMADA').id, "date,desc", $scope.paginado),
         $scService.getclasesPorEstadoOrdenadas($scope.findObject($scope.estadosDeClase, 'EN_CURSO').id, "date,desc",  $scope.paginado),
         $scService.getUsuariosRankingOrdenados("Score", $scope.paginado)
@@ -51,6 +54,32 @@ angular.module('frontendApp')
     $scope.findObject = function(list, name){
       return _.find(list, function(obj){
         return obj.name == name;
+      });
+    };
+
+    $scope.IfICanJoinClase = function(clase){
+      if($scope.usuarioLoggeado){
+        var idUsersInClase = _.pluck(clase.guestUsers, 'id');
+        clase.sumarse = !(_.contains(idUsersInClase, $scope.usuarioLoggeado.id));
+      }
+    };
+
+    $scope.IfICanJoinClaseProgramada = function(clase){
+      if($scope.usuarioLoggeado){
+        var idUsersInClase = _.pluck(clase.joinedUsers, 'id');
+        clase.sumarse = !(_.contains(idUsersInClase, $scope.usuarioLoggeado.id));
+      }
+    };
+
+    $scope.sumarseClase = function(clase){
+      $scService.sumarseAClase(clase.id,$scope.usuarioLoggeado.id).then(function (response) {
+        $scope.messagesBuilder(response.data);
+        if(response.data.type == "success"){
+          //solicitud.totalUsers = solicitud.totalUsers + 1;
+        }
+        clase.sumarse = false;
+      }, function (error) {
+        notificationService.error("Hubo un error, no puede unirse a " + clase.name + " por el momento");
       });
     };
 

@@ -3,7 +3,9 @@ package com.sabercompartir.controllers;
 import com.sabercompartir.domain.ClassRoom;
 import com.sabercompartir.domain.ClassRoomState;
 import com.sabercompartir.domain.Request;
+import com.sabercompartir.domain.ResponseFront;
 import com.sabercompartir.services.ClassRoomService;
+import com.sabercompartir.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +26,19 @@ public class ClassRoomController {
     @Autowired
     private ClassRoomService classRoomService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Page<ClassRoom> getAll(Pageable pageable){
         Page<ClassRoom> classes = this.classRoomService.getAll(pageable);
 
         return classes;
+    }
+
+    @RequestMapping(value = "/validas", method = RequestMethod.GET)
+    public Page<ClassRoom> getAllStateValid(Pageable pageable){
+        return this.classRoomService.getAllStateValid(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -120,5 +130,36 @@ public class ClassRoomController {
     @RequestMapping(value = "{id}/qualify", method = RequestMethod.POST)
     public Long unjoin(@PathVariable Long id, Principal userAuthenticated, @RequestBody Integer calification){
         return this.classRoomService.qualify(id, userAuthenticated, calification);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, params={"claseId","userId"})
+    @ResponseBody
+    public ResponseFront joinTheClase(@RequestParam("claseId") Integer clase,@RequestParam("userId") Integer userId){
+        ClassRoom classRoom = this.classRoomService.getClassRoomById(clase.longValue());
+        if(classRoom != null && classRoom.getState().getName().equals("EN_CURSO")){
+            if(this.classRoomService.classRoomGuestUsersContainsUserWithID(classRoom.getId(), userId.longValue())) {
+                String mess = "Ya se encuentra sumado a la clase de " + classRoom.getName();
+                return ResponseFront.notice(mess);
+            }else{
+                classRoom.getGuestUsers().add(this.userService.getUser(userId.longValue()));
+                this.classRoomService.saveOrUpdate(classRoom);
+                String mess = "Te acabas de unir a la clase de " + classRoom.getName();
+                return ResponseFront.success(mess);
+            }
+        }
+        if(classRoom != null && classRoom.getState().getName().equals("PROGRAMADA")){
+            if(this.classRoomService.classRoomJoinedUsersContainsUserWithID(classRoom.getId(), userId.longValue())) {
+                String mess = "Ya se encuentra sumado a la clase de " + classRoom.getName();
+                return ResponseFront.notice(mess);
+            }else{
+                classRoom.getJoinedUsers().add(this.userService.getUser(userId.longValue()));
+                this.classRoomService.saveOrUpdate(classRoom);
+                String mess = "Te acabas de sumar a la clase de " + classRoom.getName();
+                return ResponseFront.success(mess);
+            }
+        }
+        else{
+            return ResponseFront.error("No existe la clase a la que se desea unir");
+        }
     }
 }

@@ -19,9 +19,7 @@ angular.module('frontendApp')
       ];
 
       $q.all(promises).then(function(response) {
-
           $scope.solicitudes = response[0].data;
-
       });
     }
 

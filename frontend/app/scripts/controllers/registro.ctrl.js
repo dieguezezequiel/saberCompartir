@@ -12,17 +12,16 @@ angular.module('frontendApp')
 
         $scope.usuario = {};
 
+    //TODO FIXEAR ESTO CUANDO LLEGUE A CASA
         $scope.guardar = function () {
             var resource = UsuarioResource.create($scope.usuario);
             resource.$promise.then(function (response) {
-                if(response.type == "error"){
-                  notificationService.error(response.text);
-                }else{
-                  notificationService.success(response.text);
-                }
-                $state.go('login');
+                $scope.messagesBuilder(response);
+              if(response.type == "success"){
+                $state.go('login',{},{reload: true});
+              }
             }, function (error) {
-                notificationService.error(error.text);
+                notificationService.error("Hubo un error a la hora de registrar sus datos, disculpe las molestias");
             });
         }
 

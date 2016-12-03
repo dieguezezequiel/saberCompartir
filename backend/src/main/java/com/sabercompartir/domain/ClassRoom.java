@@ -37,6 +37,9 @@ public class ClassRoom {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "classrooms_users_history", joinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> guestUsersHistory;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "classrooms_joined_users", joinColumns = @JoinColumn(name = "classroom_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> joinedUsers;
 
     public ClassRoom() {
     }
@@ -119,6 +122,14 @@ public class ClassRoom {
 
     public void setGuestUsers(Set<User> guestUsers) {
         this.guestUsers = guestUsers;
+    }
+
+    public Set<User> getJoinedUsers() {
+        return joinedUsers;
+    }
+
+    public void setJoinedUsers(Set<User> joinedUsers) {
+        this.joinedUsers = joinedUsers;
     }
 
     public void update(ClassRoom updatedClassRoom) {

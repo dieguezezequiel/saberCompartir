@@ -8,11 +8,11 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants', '_', '$stateParams', 'notificationService', '$location',
-    function ($scope, $scService, $q, Constants, _, $stateParams, notificationService, $location) {
+  .controller('DictadoCtrl', ['$scope','$scService', '$q', 'Constants', '_', '$stateParams', 'notificationService', '$location', '$rootScope',
+    function ($scope, $scService, $q, Constants, _, $stateParams, notificationService, $location, $rootScope) {
 
       //TODO: MEJORAR ESTO, QUE NO SE LLAME AL TOQUE, SINO CUANDO LA CLASE ES VÁLIDA
-      var webrtc = new SimpleWebRTC({
+      $scope.webrtc = new SimpleWebRTC({
         localVideoEl: 'localVideo',
         autoRequestMedia: true,
         url: Constants.URL_SIGNALING_SERVER
@@ -31,6 +31,10 @@ angular.module('frontendApp')
       $scope.volumenMax = 10;
       $scope.microfonoMuteado = false;
       $scope.duracionClase = 0;
+      $scope.messages = [];
+      $scope.myMessage = "";
+
+      $scope.usuario = {username: $rootScope.globals.currentUser.username, id: $rootScope.globals.currentUser.publicId};
 
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
@@ -48,7 +52,16 @@ angular.module('frontendApp')
 
 
       $scope.enviarMensaje = function(){
-        //PUT SOME SOCKET.IO MAGIC HERE
+        var message = {user: {}};
+
+        message.user.name = $scope.usuario.username;
+        message.data = $scope.myMessage;
+
+        $scope.messages.push(message);
+        $scope.webrtc.sendToAll('peer-text', { user: $scope.usuario.username, message: $scope.myMessage });
+        $scope.myMessage = "";
+        var objDiv = document.getElementById("chat");
+        objDiv.scrollTop = objDiv.scrollHeight;
       };
 
       $scope.enviarMensajeAUsuario = function(){
@@ -56,7 +69,7 @@ angular.module('frontendApp')
       };
 
       $scope.comenzarClase = function(){
-        webrtc.createRoom($scope.clase.id.toString(), function(err, name){
+        $scope.webrtc.createRoom($scope.clase.id.toString(), function(err, name){
           if(!err){
             console.log(name);
             $scope.estadoClaseMensaje = Constants.EstadosClase['EN_CURSO'];
@@ -72,46 +85,66 @@ angular.module('frontendApp')
       };
 
       $scope.terminarClase = function(){
-        webrtc.stopScreenShare();
-        webrtc.stopLocalVideo();
-        webrtc.leaveRoom();
-        webrtc.disconnect();
+        $scope.webrtc.connection.emit('finishClassRoom', $scope.clase.id);
+        $scope.webrtc.stopScreenShare();
+        $scope.webrtc.stopLocalVideo();
+        $scope.webrtc.leaveRoom();
+        $scope.webrtc.disconnect();
         $scope.estadoClaseMensaje = Constants.EstadosClase['FINALIZADA'];
         $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'FINALIZADA');
         $scService.updateClase($scope.clase);
         $scope.stopTimer();
+        $location.path("/panel");
       };
 
       $scope.mutearMicrofono = function(){
         if($scope.microfonoMuteado){
           $scope.desmutearMicrofono();
         }else{
-          webrtc.mute();
+          $scope.webrtc.mute();
           $scope.microfonoMuteado = true;
         }
       };
 
       $scope.desmutearMicrofono = function(){
-        webrtc.unmute();
+        $scope.webrtc.unmute();
         $scope.microfonoMuteado = false;
       };
 
       $scope.estadoClaseChange = function(){
       };
 
+      $scope.openConnections = function(){
 
-      webrtc.on('readyToCall', function (data) {
+      };
+
+      $scope.webrtc.on('readyToCall', function (data) {
         console.log(data);
         $scope.estadoClaseMensaje = Constants.EstadosClase['EN_ESPERA'];
         $scope.readyToCall = true;
         $scope.$apply();
       });
 
-      webrtc.on('localMediaError', function(data){
+      $scope.webrtc.on('localMediaError', function(data){
         $scope.estadoClaseMensaje = Constants.EstadosClase['LOCAL_MEDIA_ERROR'];
       });
 
-      webrtc.on('createdPeer', function (peer) {
+      $scope.webrtc.connection.on('message', function(data) {
+        if(data.type==='peer-text') {
+          console.log(data);
+          var message = {user: {}};
+
+          message.user.name = data.payload.user;
+          message.data = data.payload.message;
+
+          $scope.messages.push(message);
+          var objDiv = document.getElementById("chat");
+          objDiv.scrollTop = objDiv.scrollHeight;
+          $scope.$apply();
+        }
+      });
+
+      $scope.webrtc.on('createdPeer', function (peer) {
         var usuario = {id: peer.id, nombre: peer.nick};
         $scope.usuariosConectados.push(usuario);
         $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados + 1;
@@ -119,14 +152,14 @@ angular.module('frontendApp')
       });
 
 
-      webrtc.connection.on('remove', function(peer){
+      $scope.webrtc.connection.on('remove', function(peer){
         $scope.cantidadUsuariosConectados = $scope.cantidadUsuariosConectados - 1;
         //TODO: Encontrar el usuario por ID y eliminarlo
         $scope.usuariosConectados.pop();
         $scope.$apply();
       });
 
-      webrtc.on('leftRoom', function (room) {
+      $scope.webrtc.on('leftRoom', function (room) {
         console.log("Terminaste la clase ", room);
         $scope.cantidadUsuariosConectados = 0;
       });
@@ -186,6 +219,7 @@ angular.module('frontendApp')
                   $scope.abrirChat();
                   $scope.claseIsValid = true;
                   $scope.isMakingRequest = false;
+                  $scope.openConnections();
                 }else{
                   //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
                   notificationService.error('No tienes ninguna clase establecida o programada');

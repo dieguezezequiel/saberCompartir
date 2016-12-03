@@ -1,6 +1,7 @@
 package com.sabercompartir.services;
 
 import com.sabercompartir.domain.*;
+import com.sabercompartir.enums.EstadoSolicitud;
 import com.sabercompartir.repository.ClassRoomRepository;
 import com.sabercompartir.repository.ClassRoomStateRepository;
 import com.sabercompartir.repository.UserRepository;
@@ -83,6 +84,7 @@ public class ClassRoomService {
         classroom.setState(state);
         classroom.setUser(user);
         classroom.setCategory(category);
+        classroom.setScore(0);
 
         //TODO: QUITAR HARDCODEO
         classroom.setDescription("esto viene del front");
@@ -116,7 +118,9 @@ public class ClassRoomService {
     }
 
     public Page<ClassRoom> getAllBySearch(String searchValue, Pageable pageable) {
-        return classRoomRepository.findAllBySearchValue(searchValue, pageable);
+        ClassRoomState stateFInalizada = classRoomStateService.getStateById(FINALIZADA);
+        ClassRoomState stateCancelada = classRoomStateService.getStateById(CANCELADA);
+        return classRoomRepository.findAllBySearchValue(searchValue, pageable, stateFInalizada, stateCancelada);
     }
 
     public Long stream(Long id) {
@@ -173,5 +177,20 @@ public class ClassRoomService {
         classRoomRepository.save(classroom);
 
         return classroom.getId();
+    }
+
+    public boolean classRoomGuestUsersContainsUserWithID(Long classId, long userId) {
+        return classRoomRepository.findByIdAndGuestUsers_Id(classId, userId) != null;
+    }
+
+    public boolean classRoomJoinedUsersContainsUserWithID(Long classId, long userId) {
+        return classRoomRepository.findByIdAndJoinedUsers_Id(classId, userId) != null;
+    }
+
+    public Page<ClassRoom> getAllStateValid(Pageable pageable) {
+        ClassRoomState stateFInalizada = classRoomStateService.getStateById(FINALIZADA);
+        ClassRoomState stateCancelada = classRoomStateService.getStateById(CANCELADA);
+
+        return classRoomRepository.findAllByStateNotOrStateNot(pageable, stateFInalizada, stateCancelada);
     }
 }
