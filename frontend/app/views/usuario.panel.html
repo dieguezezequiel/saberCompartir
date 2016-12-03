@@ -28,6 +28,8 @@ Acciones
     <ul class="nav nav-sidebar text-center" >
 
       <li  ng-click="showSolicitud('inicio')" class="active"><a href="">Inicio Panel</a></li>
+      <li  ng-click="showSolicitud('notificaciones')" class="active"><a href="">Notificaciones
+        <span ng-show="$root.notificaciones" class="badge">{{$root.notificaciones}}</span></a></li>
       <li  ng-click="showSolicitud('cProgramadas')" class="active"><a href="">Clases Programadas</a></li>
       <li  ng-click="showSolicitud('cFinalizadas')" class="active"><a href="">Clases finalizadas</a></li>
       <li  ng-click="showSolicitud('cPresenciadas')" class="active"><a href="">Clases Presenciadas</a></li>
@@ -157,6 +159,18 @@ Acciones
           <div>{{solicitud.description}}</div>
           <div>{{solicitud.joinedUsers.length}} personas se sumaron</div>
         </div>
+      </div>
+    </div>
+
+    <div ng-show="opcionActiva == 'notificaciones'" class="col-xs-12">
+      <div class="panel-box-item">
+        <div class="title">Notificaciones</div>
+        <div class="panel-item" ng-repeat="notificacion in notificaciones">
+          <div class="title">{{notificacion.message}}</div>
+        </div>
+        <div role="button"  ng-click="leerNotificaciones()" class="active"><a href=""><span class="glyphicon glyphicon glyphicon-ok">
+
+                  </span>Marcar todo como leido</a></div>
       </div>
     </div>
 
