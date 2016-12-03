@@ -19,55 +19,89 @@ Acciones
 
 -->
 
+<!--<div class="container">-->
+  <!--<div class="row top-buffer">-->
+
+    <!--<div class="col-xs-12">-->
+      <!--<div ng-show="claseIsValid">-->
+        <!--<div>-->
+          <!--{{clase.name}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.description}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.state.name}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.score}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.category.name}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.date | date}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.user}}-->
+        <!--</div>-->
+
+        <!--<div>-->
+          <!--{{clase.guestUsers}}-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="col-xs-12" ng-show="claseIsValid">-->
+      <!--<div>-->
+        <!--<button class="btn-sc btn-success-sc" ng-click="dictarClase()">Dar clase ahora!</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="col-xs-12" ng-show="!claseIsValid && !isMakingRequest">-->
+      <!--<div class="resource-not-found">-->
+        <!--<img src="images/logo_brain1.png" alt=""/>-->
+        <!--<div>Esta clase no est&aacute disponible.</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
 <div class="container">
-  <div class="row top-buffer">
-
-    <div class="col-xs-12">
-      <div ng-show="claseIsValid">
-        <div>
-          {{clase.name}}
+  <div class="row">
+    <div ng-show="claseIsValid" class="col-md-12 formulario">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-title">Detalle de la clase</div>
         </div>
+        <div class="panel-body form-horizontal">
+          <h3>Nombre: {{clase.name}}</h3>
+          <ul>
+            <li>Descripcion: <b>{{clase.description}}</b></li>
+            <li>Categoría: <b>{{clase.category.name}}</b></li>
+            <li>Estado: <b>{{clase.state.name}}</b></li>
+            <li>Programada para el dia: <b>{{clase.date | date}}</b></li>
+            <li>Encargado de dar la clase: <b>{{clase.user.username}}</b></li>
+          </ul>
+          <div class="form-group" >
+            <div class="col-md-12 buttonRegistro" ng-show="claseIsValid && clase.state.name == 'PROGRAMADA'">
+              <button class="btn-sc btn-success-sc" ng-click="dictarClase()">Dar clase ahora!</button>
+            </div>
+          </div>
 
-        <div>
-          {{clase.description}}
+          <div class="col-xs-12" ng-show="!claseIsValid && !isMakingRequest">
+            <div class="resource-not-found">
+              <img src="images/logo_brain1.png" alt=""/>
+              <div>Esta clase no est&aacute disponible.</div>
+            </div>
+          </div>
         </div>
-
-        <div>
-          {{clase.state.name}}
-        </div>
-
-        <div>
-          {{clase.score}}
-        </div>
-
-        <div>
-          {{clase.category.name}}
-        </div>
-
-        <div>
-          {{clase.date | date}}
-        </div>
-
-        <div>
-          {{clase.user}}
-        </div>
-
-        <div>
-          {{clase.guestUsers}}
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-12" ng-show="claseIsValid">
-      <div>
-        <button class="btn-sc btn-success-sc" ng-click="dictarClase()">Dar clase ahora!</button>
-      </div>
-    </div>
-
-    <div class="col-xs-12" ng-show="!claseIsValid && !isMakingRequest">
-      <div class="resource-not-found">
-        <img src="images/logo_brain1.png" alt=""/>
-        <div>Esta clase no est&aacute disponible.</div>
       </div>
     </div>
   </div>

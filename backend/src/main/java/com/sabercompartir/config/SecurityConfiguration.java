@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/api/usuarios**",
                             "/api/classrooms**",
                             "/api/classrooms/states**",
+                            "/api/classrooms/validas**",
                             "/api/requests**",
                             "/api/requests/validas**",
                             "/api/home"
