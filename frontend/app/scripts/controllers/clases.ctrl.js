@@ -8,7 +8,7 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('ClasesCtrl', ['$scope', '$q', '$scService','$rootScope', function ($scope, $q, $scService,$rootScope) {
+  .controller('ClasesCtrl', ['$scope', '$q', '$scService','$rootScope','$state', function ($scope, $q, $scService,$rootScope,$state) {
 
     $scope.paginado = "page=0&size=6";
     $scope.usuarioLoggeado = $rootScope.globals.currentUser;
@@ -40,6 +40,9 @@ angular.module('frontendApp')
     $scope.sumarseClase = function(clase){
       $scService.sumarseAClase(clase.id,$scope.usuarioLoggeado.id).then(function (response) {
         $scope.messagesBuilder(response.data);
+        if(response.data.type == "success" && (clase.state.name == 'EN_CURSO' || clase.state.name == 'ESTABLECIDA')){
+          $state.go("presenciado",{id: clase.id},{reload:true})
+        }
         clase.sumarse = false;
       }, function (error) {
         notificationService.error("Hubo un error, no puede unirse a " + clase.name + " por el momento");
