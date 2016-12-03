@@ -85,16 +85,19 @@ angular.module('frontendApp')
       };
 
       $scope.terminarClase = function(){
-        $scope.webrtc.connection.emit('finishClassRoom', $scope.clase.id);
-        $scope.webrtc.stopScreenShare();
-        $scope.webrtc.stopLocalVideo();
-        $scope.webrtc.leaveRoom();
-        $scope.webrtc.disconnect();
-        $scope.estadoClaseMensaje = Constants.EstadosClase['FINALIZADA'];
-        $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'FINALIZADA');
-        $scService.updateClase($scope.clase);
-        $scope.stopTimer();
-        $location.path("/panel");
+        if($scope.claseIsValid){
+          $scope.webrtc.connection.emit('finishClassRoom', $scope.clase.id);
+          $scope.webrtc.stopScreenShare();
+          $scope.webrtc.stopLocalVideo();
+          $scope.webrtc.leaveRoom();
+          $scope.webrtc.disconnect();
+          $scope.estadoClaseMensaje = Constants.EstadosClase['FINALIZADA'];
+          $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'FINALIZADA');
+          $scService.updateClase($scope.clase);
+          $scope.stopTimer();
+          $location.path("/panel");
+        }
+
       };
 
       $scope.mutearMicrofono = function(){
