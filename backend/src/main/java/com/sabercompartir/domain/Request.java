@@ -3,6 +3,7 @@ package com.sabercompartir.domain;
 import com.sabercompartir.enums.EstadoSolicitud;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,8 @@ public class Request {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "requests_users", joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> joinedUsers;
+    @Column(name = "date_request")
+    private Date dateRequest;
 
     public Request() {
     }
@@ -117,5 +120,13 @@ public class Request {
 
     public void setState(EstadoSolicitud state) {
         this.state = state;
+    }
+
+    public Date getDateRequest() {
+        return dateRequest;
+    }
+
+    public void setDateRequest(Date dateRequest) {
+        this.dateRequest = dateRequest;
     }
 }

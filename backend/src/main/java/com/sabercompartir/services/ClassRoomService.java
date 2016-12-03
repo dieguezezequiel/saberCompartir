@@ -85,10 +85,8 @@ public class ClassRoomService {
         classroom.setUser(user);
         classroom.setCategory(category);
         classroom.setScore(0);
-
-        //TODO: QUITAR HARDCODEO
-        classroom.setDescription("esto viene del front");
-        classroom.setDate(new Date());
+        classroom.setDescription(request.getDescription());
+        classroom.setDate(request.getDateRequest());
 
         classRoomRepository.save(classroom);
 
