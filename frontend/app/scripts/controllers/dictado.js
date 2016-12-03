@@ -85,6 +85,7 @@ angular.module('frontendApp')
       };
 
       $scope.terminarClase = function(){
+        $scope.webrtc.connection.emit('finishClassRoom', $scope.clase.id);
         $scope.webrtc.stopScreenShare();
         $scope.webrtc.stopLocalVideo();
         $scope.webrtc.leaveRoom();
@@ -93,6 +94,7 @@ angular.module('frontendApp')
         $scope.clase.state = $scope.findObject($scope.estadosDeClase, 'FINALIZADA');
         $scService.updateClase($scope.clase);
         $scope.stopTimer();
+        $location.path("/panel");
       };
 
       $scope.mutearMicrofono = function(){
@@ -217,7 +219,7 @@ angular.module('frontendApp')
                   $scope.abrirChat();
                   $scope.claseIsValid = true;
                   $scope.isMakingRequest = false;
-                  $scope.openConnections;
+                  $scope.openConnections();
                 }else{
                   //TODO MOSTRAR MENSAJE MAS LINDO DE QUE LA PERSONA NO TIENE NINGUNA CLASE ESTABLECIDA
                   notificationService.error('No tienes ninguna clase establecida o programada');

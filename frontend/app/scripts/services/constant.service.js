@@ -15,5 +15,6 @@ angular.module('ConstantsService', [])
       LOCAL_MEDIA_ERROR: 'Parece que has olvidado permitir el acceso de tu cámara web y micrófono, ¿no?' ,
       CONECTANDO: 'Estamos conectándote al mundo, espere un momento.'
     },
-    URL_SIGNALING_SERVER: 'http://52.67.139.75:8888'
+    //TODO: Que este valor venga del environment
+    URL_SIGNALING_SERVER: 'https://52.67.139.75:8888'
 });
