@@ -546,7 +546,7 @@ background-color: #22313F;
 }
 
 .buscador-container{
-  padding: 4px;
+  padding: 4px 0px 4px 4px;
 }
 
 .btn-search-sc{
@@ -577,7 +577,7 @@ background-color: #22313F;
   color: $amarillo;
 }
 .searchInput{
-  width: 250px !important;
+  width: 254px !important;
   margin-left: 90px !important;
   &:focus{
     border-color: $color-gris-input;

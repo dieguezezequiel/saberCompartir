@@ -8,8 +8,8 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', '$rootScope', 'AuthenticationService', 'notificationService',
-    function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService) {
+  .controller('InicioCtrl', ['$location','$scope', '$q', '$scService', '$rootScope', 'AuthenticationService', 'notificationService', '$state',
+    function ($location, $scope, $q, $scService, $rootScope, AuthenticationService, notificationService, $state) {
 
     $scope.solicitudes = '';
     $scope.clasesProgramadas = '';
@@ -74,8 +74,8 @@ angular.module('frontendApp')
     $scope.sumarseClase = function(clase){
       $scService.sumarseAClase(clase.id,$scope.usuarioLoggeado.id).then(function (response) {
         $scope.messagesBuilder(response.data);
-        if(response.data.type == "success"){
-          //solicitud.totalUsers = solicitud.totalUsers + 1;
+        if(response.data.type == "success" && (clase.state.name == 'EN_CURSO' || clase.state.name == 'ESTABLECIDA')){
+          $state.go("presenciado",{id: clase.id},{reload:true})
         }
         clase.sumarse = false;
       }, function (error) {
