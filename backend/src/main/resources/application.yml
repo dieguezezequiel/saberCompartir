@@ -15,10 +15,10 @@ spring:
     profiles: development
 datasource:
     sabercompartir:
-        url: 'jdbc:mysql://52.67.139.75:3306/saberCompartir'
+        url: 'jdbc:mysql://13.59.151.252:3306/saberCompartir'
         driver-class-name: 'com.mysql.jdbc.Driver'
         username: 'root'
-        password: 'ArC4d3'
+        password: 'new-password'
         test-on-borrow: true
         validation-query: 'SELECT 1 FROM DUAL'
         log-validation-errors: true
@@ -30,10 +30,10 @@ spring:
     profiles: testing
 datasource:
     sabercompartir:
-        url: 'jdbc:mysql://52.67.139.75:3306/saberCompartir'
+        url: 'jdbc:mysql:/13.59.151.252:3306/saberCompartir'
         driver-class-name: 'com.mysql.jdbc.Driver'
         username: 'root'
-        password: 'ArC4d3'
+        password: 'new-password'
         test-on-borrow: true
         validation-query: 'SELECT 1 FROM DUAL'
         log-validation-errors: true
