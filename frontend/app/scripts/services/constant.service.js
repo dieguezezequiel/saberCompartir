@@ -16,5 +16,5 @@ angular.module('ConstantsService', [])
       CONECTANDO: 'Estamos conectándote al mundo, espere un momento.'
     },
     //TODO: Que este valor venga del environment
-    URL_SIGNALING_SERVER: 'http://localhost:8888'
+    URL_SIGNALING_SERVER: 'https://13.59.151.252:8888'
 });
