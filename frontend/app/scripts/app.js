@@ -31,8 +31,10 @@ angular
     'ConstantsService',
     'Authentication'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
-    function ($stateProvider, $urlRouterProvider, $httpProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
+    function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+
+      $locationProvider.hashPrefix('');
       $urlRouterProvider
         .otherwise('/');
 
